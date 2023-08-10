@@ -1,8 +1,8 @@
 "use client";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {Products} from "../models/Products";
-import HandleProducts from "../api/HandleProducts";
+import {Products} from "../../models/Products";
+import HandleProducts from "../../api/HandleProducts";
 
 
 

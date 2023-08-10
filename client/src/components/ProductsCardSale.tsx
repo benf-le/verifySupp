@@ -12,6 +12,7 @@ export default function ProductsCardSale() {
 
     const [productSale, setProductSale] = useState<Products[]>([]) //Products co dang array
 
+
     useEffect(() => {
         getSaleProducts()
     }, [])

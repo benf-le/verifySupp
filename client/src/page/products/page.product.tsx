@@ -1,9 +1,9 @@
 import Header from "../../components/Header";
-import MenuCollection from "../../components/MenuCollection";
+import MenuCollection from "../../components/Product/MenuCollection";
 import Footer from "../../components/Footer";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import ProductsCard from "../../components/ProductsCard";
+import ProductsCard from "../../components/Product/ProductsCard";
 
 
 export default function PageProduct(){

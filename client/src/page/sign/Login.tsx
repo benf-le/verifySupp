@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 
 const Login = () =>  {
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     const [user, setUser] = React.useState({
@@ -115,7 +115,7 @@ const Login = () =>  {
                                 <button onClick={onLogin} className="btn btn-primary">Login</button>
                             </div>
 
-                            {/* eslint-disable-next-line react/no-unescaped-entities */}
+
                             <p className="mt-10 text-center ">Don't have an account?</p>
                             <Link to="/sign-up">
                                 <div className="form-control ">
