@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+.pet-stock-color{
+  background-color: rgb(0, 40, 85);
+}
+.pet-stock-text-color{
+  color: rgb(0, 40, 85);
+}
+.pet-stock-border-color{
+  border-color: rgb(0, 40, 85);
+}
+.btn{
+  text-transform: capitalize;
+}
+
+.btn-none-hover{
+
+}
+
+.p-btn-addToCartSale{
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+.p-btn-addToCart{
+  padding-left: 1.9rem;
+  padding-right: 1.9rem;
+}

@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Collection {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  @@map("collection") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
+}
+
+model Products {
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  descriptionShort String
+  imageUrl         String
+  name             String
+  price            Int
+  forSale          Boolean
+  size             String
+  quantity         Int
+  description      String
+  ingredient       String
+  reviews          String
+
+  @@map("products") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
+}
