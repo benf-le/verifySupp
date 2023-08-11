@@ -1,7 +1,7 @@
 import {Body, Controller, Get, Param, Post} from "@nestjs/common";
 import { ProductDTO } from './dto';
 import { ProductsService } from './products.service';
-import {AuthDTO} from "../auth/dto";
+
 
 @Controller('products')
 

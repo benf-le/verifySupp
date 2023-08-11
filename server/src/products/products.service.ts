@@ -1,4 +1,4 @@
-import {ForbiddenException, Injectable, Param} from "@nestjs/common";
+import { Injectable} from "@nestjs/common";
 import {PrismaService} from "../prisma/prisma.service";
 import {ProductDTO} from "./dto";
 
@@ -56,6 +56,11 @@ export class ProductsService {
                     imageUrl: productsDTO.imageUrl,
                     price: productsDTO.price,
                     forSale: productsDTO.forSale,
+                    type: productsDTO.type,
+                    description: productsDTO.description,
+                    countInStock: productsDTO.countInStock,
+                    ingredient:productsDTO.ingredient,
+                    reviews:productsDTO.reviews
 
                 }
             });

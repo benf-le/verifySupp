@@ -1,24 +1,21 @@
 // Define a "type" of "authentication request"
-import {isBoolean, IsEmail, IsNotEmpty, IsString} from 'class-validator'
+import { IsString} from 'class-validator'
 
 export class ProductDTO {
-    @IsString()
+    @IsString() name: string
 
-    name: string
+    @IsString() descriptionShort: string
 
-    @IsString() // dung de validate
+    @IsString() imageUrl: string
 
-    descriptionShort: string
-
-    @IsString() // dung de validate
-
-    imageUrl: string
-
-    @IsString() // dung de validate
-
-    price: string
+    @IsString() price: string
 
 
+    @IsString() forSale: string
 
-    forSale: string
+    @IsString() type: string
+    @IsString() countInStock: string
+    @IsString() description: string
+    @IsString() ingredient: string
+    @IsString() reviews: string
 }

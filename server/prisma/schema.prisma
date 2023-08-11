@@ -21,17 +21,17 @@ model Products {
   name             String
   price            String
   forSale          String
-  // type             String
-  // countInStock     String
-  // description      String
-  // ingredient       String
-  // reviews          String
+  type             String
+  countInStock     String
+  description      String
+  ingredient       String
+  reviews          String
 
   //
   OrderItem        OrderItem[]
   //
-  // createdAt DateTime @default(now())
-  // updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
 
   @@map("products") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
