@@ -9,4 +9,6 @@ export class AuthDTO {
     @IsString() // dung de validate
     @IsNotEmpty() // dung de validate
     password: string
+
+    isAmin: boolean
 }

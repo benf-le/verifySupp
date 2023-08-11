@@ -1,6 +1,6 @@
 import {ForbiddenException, Injectable, Param} from "@nestjs/common";
 import {PrismaService} from "../prisma/prisma.service";
-import {ProductsDTO} from "./dto";
+import {ProductDTO} from "./dto";
 
 
 @Injectable({})
@@ -9,7 +9,7 @@ export class ProductsService {
 
     }
 
-    async getProducts(productsDTO: ProductsDTO) {
+    async getProducts(productsDTO: ProductDTO) {
         try {
             const products = await this.prismaService.products.findMany({})
             return products
@@ -22,7 +22,7 @@ export class ProductsService {
     async getProductsById(id: string) {
         try {
             const productsById = await this.prismaService.products.findUnique({
-                where:{
+                where: {
                     id
                 }
             })
@@ -33,17 +33,36 @@ export class ProductsService {
         }
     }
 
-    async getProductsSale(productsDTO: ProductsDTO) {
+    async getProductsSale(productsDTO: ProductDTO) {
         try {
             const products = await this.prismaService.products.findMany({
                 where: {
-                    forSale: true
+                    forSale: "true"
                 }
             })
             return products
         } catch (error) {
 
             return error
+        }
+    }
+
+    async creatProducts(productsDTO: ProductDTO) {
+        try {
+            const productss = await this.prismaService.products.create({
+                data: {
+                    name: productsDTO.name,
+                    descriptionShort: productsDTO.descriptionShort,
+                    imageUrl: productsDTO.imageUrl,
+                    price: productsDTO.price,
+                    forSale: productsDTO.forSale,
+
+                }
+            });
+
+            return productss;
+        } catch (error) {
+            throw new Error(`Could not create product: ${error.message}`);
         }
     }
 }

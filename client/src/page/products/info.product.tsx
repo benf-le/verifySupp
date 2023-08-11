@@ -108,7 +108,7 @@ export default function ProductInforPage() {
                                     Select Size:
                                     <div
                                         className="btn btn-ghost border-2 pet-stock-border-color ml-5 px-8 ">
-                                        {productDetail.size}
+                                        {productDetail.type}
                                        </div></p>
                                 <hr/>
 

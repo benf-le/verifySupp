@@ -33,10 +33,11 @@ export class AuthService {
                 select: {
                     id: true,
                     email: true,
+                    isAdmin:true,
                     createdAt: true
                 }
             })
-            return await this.signJwtString(user.id, user.email)
+            return await this.signJwtString(user.id, user.email, user.isAdmin)
         } catch (error) {
             if (error.code =='P2002'){
                 throw new ForbiddenException('Email already registered!')
@@ -67,15 +68,16 @@ export class AuthService {
         }
 
         delete  user.password //ĐÃ TEST. không phải là lỗi, ide báo sai. Xoá hashPassword đi để tránh lộ hashPassword khi trả data về client
-        return await this.signJwtString(user.id, user.email)
+        return await this.signJwtString(user.id, user.email, user.isAdmin)
     }
 
 
     //now convert to a object, not  string
-    async signJwtString(userId: string, email: string):Promise<{accessToken: string}> {
+    async signJwtString(userId: string, email: string, isAdmin: boolean):Promise<{accessToken: string}> {
         const payload ={
             userId: userId,
-            email: email
+            email: email,
+            isAdmin: isAdmin
         }
 
         const jwtString = await this.jwtService.signAsync(payload,
