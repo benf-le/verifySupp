@@ -37,7 +37,7 @@ export class ProductsService {
         try {
             const products = await this.prismaService.products.findMany({
                 where: {
-                    forSale: "true"
+                    forSale: true
                 }
             })
             return products

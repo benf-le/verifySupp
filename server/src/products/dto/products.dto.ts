@@ -11,7 +11,7 @@ export class ProductDTO {
     @IsString() price: string
 
 
-    @IsString() forSale: string
+     forSale: boolean
 
     @IsString() type: string
     @IsString() countInStock: string

@@ -20,7 +20,7 @@ model Products {
   imageUrl         String
   name             String
   price            String
-  forSale          String
+  forSale          Boolean  @default(false)
   type             String
   countInStock     String
   description      String
