@@ -70,4 +70,47 @@ export class ProductsService {
             throw new Error(`Could not create product: ${error.message}`);
         }
     }
+
+
+
+    async updateProducts(productsDTO: ProductDTO,id: string){
+        try {
+            const updateProductss = await this.prismaService.products.update({
+                data: {
+                    name: productsDTO.name,
+                    descriptionShort: productsDTO.descriptionShort,
+                    imageUrl: productsDTO.imageUrl,
+                    price: productsDTO.price,
+                    forSale: productsDTO.forSale,
+                    type: productsDTO.type,
+                    description: productsDTO.description,
+                    countInStock: productsDTO.countInStock,
+                    ingredient:productsDTO.ingredient,
+                    reviews:productsDTO.reviews
+
+                },
+                where: {id}
+            });
+
+            return updateProductss;
+        } catch (error) {
+            throw new Error(`Could not create product: ${error.message}`);
+        }
+    }
+
+
+    async deleteProducts(id: string){
+        try {
+            const deleteProductss = await this.prismaService.products.delete({
+                where: {id}
+            });
+
+            if( deleteProductss) {
+                return 'Deleted Products'
+            }
+            else {return 'Error Delete Products'};
+        } catch (error) {
+            throw new Error(`Could not create product: ${error.message}`);
+        }
+    }
 }
