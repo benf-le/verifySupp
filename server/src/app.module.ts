@@ -7,8 +7,9 @@ import {PrismaModule} from './prisma/prisma.module';
 import {ConfigModule} from "@nestjs/config";
 import { ProductsModule } from './products/products.module';
 import {CollectionsModule} from "./collections/collections.module";
-import {APP_INTERCEPTOR} from "@nestjs/core";
+import {APP_GUARD, APP_INTERCEPTOR} from "@nestjs/core";
 import {UserInterceptors} from "./auth/interceptors/user.interceptors";
+import {AuthorizationGuard} from "./auth/guard/authorization.guard";
 
 @Module({
     imports: [
@@ -25,7 +26,11 @@ import {UserInterceptors} from "./auth/interceptors/user.interceptors";
     providers:[{
         provide: APP_INTERCEPTOR,
         useClass: UserInterceptors,
-    }]
+    },
+        {
+            provide: APP_GUARD,
+            useClass: AuthorizationGuard
+        }]
 
 })
 export class AppModule {

@@ -1,6 +1,7 @@
-import { Injectable} from "@nestjs/common";
+import {Injectable, NotFoundException} from "@nestjs/common";
 import {PrismaService} from "../prisma/prisma.service";
 import {ProductDTO} from "./dto";
+import {UserInfo} from "../auth/decorator";
 
 
 @Injectable({})
@@ -47,7 +48,7 @@ export class ProductsService {
         }
     }
 
-    async creatProducts(productsDTO: ProductDTO) {
+    async creatProducts(productsDTO: ProductDTO, userId: string) {
         try {
             const productss = await this.prismaService.products.create({
                 data: {
@@ -97,6 +98,29 @@ export class ProductsService {
             throw new Error(`Could not create product: ${error.message}`);
         }
     }
+
+    // async getAdminByProductId(id: string) {
+    //     const admin = await this.prismaService.products.findUnique({
+    //         where:{
+    //             id
+    //         },
+    //         select:{
+    //             user:{
+    //                 select:{
+    //                     email: true,
+    //                     id: true,
+    //
+    //
+    //                 }
+    //             }
+    //         }
+    //     })
+    //
+    //
+    //     if(!admin){
+    //         throw new NotFoundException()
+    //     }
+    // }
 
 
     async deleteProducts(id: string){

@@ -1,26 +1,57 @@
-import {AuthGuard} from '@nestjs/passport';
-import any = jasmine.any;
 import {CanActivate, ExecutionContext, Injectable} from "@nestjs/common";
-import {Observable} from "rxjs";
+import * as jwt from "jsonwebtoken"
 import {Reflector} from "@nestjs/core";
+import * as process from "process";
+import {PrismaService} from "../../prisma/prisma.service";
+
+interface JWTPayload {
+    email: string;
+    id: string;
+    createdAt: number;
+    updatedAt: number;
+}
 
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
-    constructor(private reflector: Reflector) {
+    constructor(private reflector: Reflector, private prismaService: PrismaService) {
     }
 
-    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-        const request = context.switchToHttp().getRequest()
+    async canActivate(context: ExecutionContext) {
 
         const requiredRoles = this.reflector.getAllAndOverride('roles', [context.getClass(), context.getHandler()])
         console.log('The required roles are', requiredRoles)
 
-        const userRoles = request.user.role
+        if (requiredRoles?.length) {
+            //Grab the JWT from the request header and verify it
+            const request = context.switchToHttp().getRequest()
+            const token = request.headers?.authorization?.split('Bearer ')[1]
+            try {
+                const payload = await jwt.verify(token, process.env.JSON_TOKEN_KEY) as JWTPayload
 
-        if(requiredRoles !== userRoles) return false
+                const user = await this.prismaService.user.findUnique({
+                    where: {
+                        id: payload.id
+                    }
+                })
+
+                if (!user) return false
 
 
-        console.log('INSIDE AUTHORIZATION GUARD')
+                if (requiredRoles.includes(user.user_type)) return true
+                return false
+            } catch (e) {
+                return false
+            }
+
+
+        }
+        //
+        // const userRoles = request.user.role
+        //
+        // if(requiredRoles !== userRoles) return false
+        //
+        //
+        // console.log('INSIDE AUTHORIZATION GUARD')
         return true
     }
 

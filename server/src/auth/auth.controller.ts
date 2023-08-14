@@ -14,11 +14,12 @@ export class AuthController {
     }
     // some request form client
 
+
     @Post("register/:userType")  // register a new user
-     async register(@Body() registerDTO:RegisterDTO, @Param('userType', new ParseEnumPipe(UserType)) userType:UserType) {
+     async registerAdmin(@Body() registerDTO:RegisterDTO, @Param('userType', new ParseEnumPipe(UserType)) userType:UserType) {
 
         if (userType!==UserType.USER){
-            if (!registerDTO.productKey){
+            if (registerDTO.productKey){
                 throw new UnauthorizedException()
             }
             const validProductKey = `${registerDTO.email}-${userType}-${process.env.PRODUCT_KEY_SECRET}`
