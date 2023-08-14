@@ -41,5 +41,6 @@ export const routes = [
         path: '*',
         page: NotFoundPage,
         isShowHeader: false
-    }
+    },
+
 ]

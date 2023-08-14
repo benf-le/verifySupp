@@ -1,21 +1,22 @@
 import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
-//import { AuthGuard } from '@nestjs/passport';
-import {Request} from 'express'
+
 import { MyJwtGuard } from '../auth/guard';
-import {GetUser} from "../auth/decorator";
+// import {GetUser} from "../auth/decorator";
+import {AuthorizationGuard} from "../auth/guard/authorization.guard";
+import {Roles} from "../auth/decorator/roles.decorator";
 
 @Controller('users')
-@UseGuards(MyJwtGuard)
+@UseGuards(MyJwtGuard, AuthorizationGuard)
 export class UserController {
     constructor(){}
 
 
     'path: users/me'
-    @Get('me')
-    me(@GetUser() user: User){
-        return user
-    }
+    // @Get('me')
+    // me(@GetUser() user: User){
+    //     return user
+    // }
 
 
 

@@ -2,6 +2,8 @@
 import { IsString} from 'class-validator'
 
 export class ProductDTO {
+
+
     @IsString() name: string
 
     @IsString() descriptionShort: string

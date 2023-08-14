@@ -5,7 +5,7 @@ import {ProductDTO} from "./dto";
 
 @Injectable({})
 export class ProductsService {
-    constructor(private prismaService: PrismaService) { //constructor: khởi tạo PrismaService khi một đối tượng của lớp được tạo.
+    constructor(private readonly prismaService: PrismaService) { //constructor: khởi tạo PrismaService khi một đối tượng của lớp được tạo.
 
     }
 

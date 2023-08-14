@@ -7,6 +7,8 @@ import {PrismaModule} from './prisma/prisma.module';
 import {ConfigModule} from "@nestjs/config";
 import { ProductsModule } from './products/products.module';
 import {CollectionsModule} from "./collections/collections.module";
+import {APP_INTERCEPTOR} from "@nestjs/core";
+import {UserInterceptors} from "./auth/interceptors/user.interceptors";
 
 @Module({
     imports: [
@@ -20,6 +22,10 @@ import {CollectionsModule} from "./collections/collections.module";
         ProductsModule,
         CollectionsModule
     ],
+    providers:[{
+        provide: APP_INTERCEPTOR,
+        useClass: UserInterceptors,
+    }]
 
 })
 export class AppModule {
