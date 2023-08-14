@@ -29,13 +29,18 @@ const SignUp = () => {
                 return
 
             } else {
-                const response = await axios.post(`http://localhost:7000/register`, user)
+
+
+
+
+                const response = await axios.post(`http://localhost:7000/register/USER`, user)
 
 
                 if (response.status === 201) {
                     // Đăng ký thành công
                     // Sau khi đăng ký thành công, điều hướng đến một trang khác
-                    navigate('/');
+                    alert("Success!")
+                    navigate('/login');
 
                     // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn
                 } else {

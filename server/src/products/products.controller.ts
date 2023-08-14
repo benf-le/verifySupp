@@ -38,9 +38,9 @@ export class ProductsController{
     // @UseGuards(AuthorizationGuard)
     @Post("/create-product")
     createProduct(@Body() productDTO:ProductDTO, @Users() user: UserInfo){
-        return 'clcmm'
+        // return 'clcmm'
 
-        // return this.productsService.creatProducts(productDTO, user.id)
+        return this.productsService.creatProducts(productDTO, user.id)
     }
 
 

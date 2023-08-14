@@ -1,9 +1,6 @@
-import {ConflictException, ForbiddenException, HttpException, Injectable} from '@nestjs/common';
+import {ConflictException, HttpException, Injectable} from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
 // import {AuthDTO} from "./dto";
-import * as argon from "argon2";
-import {JwtService} from "@nestjs/jwt";
-import {ConfigService} from "@nestjs/config";
 import {UserType} from "@prisma/client";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken"
@@ -56,7 +53,9 @@ export class AuthService {
             }
         })
 
+
         return this.generateJWT(user.email, user.id)
+
 
     }
 
@@ -78,7 +77,11 @@ export class AuthService {
             throw new HttpException("Invalid password", 400)
 
         }
+
         return this.generateJWT(user.email, user.id)
+
+
+
 
 
     }

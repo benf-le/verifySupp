@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
+import {useCookies} from "react-cookie";
 
 
 const Login = () =>  {
@@ -12,6 +13,8 @@ const Login = () =>  {
         password: ''
     })
     const [error, setError] = React.useState('')
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+
 
     //   const [buttonDisabled, setButtonDisabled]= React.useState(false)
     //
@@ -22,9 +25,16 @@ const Login = () =>  {
         try {
             const response = await axios.post(`http://localhost:7000/login`, user)
 
+
+
             if (response.status === 201) {
                 // Đăng ký thành công
+
+                // setCookie
                 // Sau khi login thành công, điều hướng đến một trang khác
+
+
+
                 navigate('/');
 
                 // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn
