@@ -61,7 +61,9 @@ export class ProductsService {
                     description: productsDTO.description,
                     countInStock: productsDTO.countInStock,
                     ingredient:productsDTO.ingredient,
-                    reviews:productsDTO.reviews
+                    reviews:productsDTO.reviews,
+
+
 
                 }
             });
@@ -98,29 +100,6 @@ export class ProductsService {
             throw new Error(`Could not create product: ${error.message}`);
         }
     }
-
-    // async getAdminByProductId(id: string) {
-    //     const admin = await this.prismaService.products.findUnique({
-    //         where:{
-    //             id
-    //         },
-    //         select:{
-    //             user:{
-    //                 select:{
-    //                     email: true,
-    //                     id: true,
-    //
-    //
-    //                 }
-    //             }
-    //         }
-    //     })
-    //
-    //
-    //     if(!admin){
-    //         throw new NotFoundException()
-    //     }
-    // }
 
 
     async deleteProducts(id: string){

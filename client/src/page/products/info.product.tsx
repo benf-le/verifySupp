@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {IoMdAdd, IoMdRemove} from "react-icons/io";
 import OptionNearYou from "../../components/Product/OptionNearYou";
+import Detail from "../../components/Product/Detail";
 
 export default function ProductInforPage() {
 
@@ -151,6 +152,21 @@ export default function ProductInforPage() {
                         </div3>
                     </main>
 
+                    <div className="mt-16 flex flex-row bg-zinc-200 border rounded pb-16 mb-20">
+                        <div className="basis-1/3">
+                            <p className="pet-stock-text-color py-10 text-2xl font-semibold text-center">Description</p>
+                            <p className="text-center px-16">{productDetail.description}</p>
+                        </div>
+
+                        <div className="basis-1/3">
+                            <p className="pet-stock-text-color py-10 text-2xl font-semibold text-center">Ingredients</p>
+                            <p className="text-center px-16">{productDetail.ingredient}</p>
+                        </div>
+                        <div className="basis-1/3">
+                            <p className="pet-stock-text-color py-10 text-2xl font-semibold text-center">Reviews</p>
+                            <p className="text-center px-16">{productDetail.reviews}</p>
+                        </div>
+                    </div>
                 </div>
             )}
 

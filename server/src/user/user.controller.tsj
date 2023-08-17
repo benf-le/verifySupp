@@ -1,0 +1,44 @@
+import {Body, Controller, Delete, Get, Param, Patch, Put, Req, UseGuards} from '@nestjs/common';
+
+import {UserService} from "./user.service";
+import {UserDTO} from "./dto/user.dto";
+
+@Controller('users')
+@UseGuards()
+export class UserController {
+    constructor(private readonly userService:UserService) {
+
+    }
+
+
+    // 'path: users/me'
+    @Get('/')
+    async getUsers(userDTO: UserDTO) {
+        return await this.userService.getUsers(userDTO);
+    }
+
+    @Get('/:id')
+    async getUserById(@Param('id')id: string){
+        return await this.userService.getUserById(id)
+    }
+
+
+
+
+    @Put("/update-user/:id")
+    updateUser(@Body() userDTO: UserDTO, @Param('id')id: string){
+        // const adminId = this.productsService.getAdminByProductId()
+        return this.userService.updateUser(userDTO, id)
+    }
+
+
+
+
+    @Delete("/delete-user/:id")
+    deleteProduct( @Param('id')id: string){
+        return this.userService.deleteProducts( id)
+    }
+
+
+
+}

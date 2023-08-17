@@ -4,15 +4,48 @@ import HandleProducts from "../api/HandleProducts";
 import {Collections} from "../models/Collections";
 import {AiOutlineSearch, AiOutlineUser} from "react-icons/ai";
 import {BsCart3} from "react-icons/bs";
-import Cart from "./Cart";
+
 import ButtonInputSearch from "./ButtonInputSearch";
+import {useCookies} from "react-cookie";
+import axios from "axios";
 
 export default function Header() {
     const [collections, setCollections] = useState<Collections[]>([]) //Products co dang array
     const [open, setOpen] = useState(false)
 
+    const [user, setUser] = useState(null)
+
+    const [cookies, setCookie, removeCookie] = useCookies(['user', 'AuthToken'])
+
+    const authToken = cookies.AuthToken
+    console.log(authToken)
+
+    const getUser = async () => {
+        try {
+            const response = await axios.get('http://localhost:7000/user', {
+                params: {authToken}
+            })
+            setUser(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
+    // if (AuthToken) {
+    //     const user = JSON.parse(atob(AuthToken));
+    //     setUser(user);
+    // }
+
+    // const handleLogout = () => {
+    //     setUser(null);
+    //     removeCookie('AuthToken');
+    // };
+
 
     useEffect(() => {
+
         getCollections()
     }, [])
 
@@ -58,9 +91,11 @@ export default function Header() {
                                 Login
                             </button>
                         </Link>
-                        <button className="btn btn-ghost text-white" onClick={()=>setOpen(!open)}>
+                        <Link to ="/cart">
+                        <button className="btn btn-ghost text-white">
                             <BsCart3/>
                         </button>
+                        </Link>
                     </div>
                 </div>
             </header>
@@ -134,11 +169,11 @@ export default function Header() {
                                                className="btn m-1 text-white pet-stock-color border-none hover:text-sky-900 text-lg">
                                             {collec.name}
                                         </label>
-                                        <ul tabIndex={0}
-                                            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li><a>Item 1</a></li>
-                                            <li><a>Item 2</a></li>
-                                        </ul>
+                                        {/*<ul tabIndex={0}*/}
+                                        {/*    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">*/}
+                                        {/*    <li><a>Item 1</a></li>*/}
+                                        {/*    <li><a>Item 2</a></li>*/}
+                                        {/*</ul>*/}
                                     </div>
                                 </Link>
                             )}
@@ -154,7 +189,7 @@ export default function Header() {
                     </div>
                 </div>
             </menu>
-            {open&&<Cart/>}
+
         </div>
     );
 }

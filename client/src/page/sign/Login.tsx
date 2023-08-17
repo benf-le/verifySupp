@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
+import {useMutation} from "@tanstack/react-query";
+import * as UserService from '../../services/UserService'
+import {useMutationHooks} from "../../hooks/useMutationHook";
+import jwt_decode from "jwt-decode";
 
 
-const Login = () =>  {
+
+const Login = () => {
     const navigate = useNavigate()
 
 
@@ -12,14 +17,51 @@ const Login = () =>  {
         email: '',
         password: ''
     })
+    //
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
     const [error, setError] = React.useState('')
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    //
+    //
+    // const mutation = useMutationHooks(
+    //     data => UserService.loginUser(data)
+    // )
+    //
+    // const { data,  isSuccess } = mutation
+    //
+    // useEffect(() => {
+    //     if (data) {
+    //         const access_token = data.access_token;
+    //         localStorage.setItem('access_token', JSON.stringify(access_token));
+    //
+    //         if (access_token) {
+    //             const decoded = jwt_decode(access_token)
+    //            if (decoded?.id){
+    //                handleGetDetailsUser(decoded?.id, access_token)
+    //
+    //            }
+    //         }
+    //
+    //     }
+    //
+    //
+    // }, [data]);
+
+    // const handleGetDetailsUser = async (id, token) => {
+    //     const res = await UserService.getDetailsUser(id, token)
+    //     console.log(res)
+    // }
+    // const onLogin = async () => {
+    //     mutation.mutate({email,password})
+    //
+    // }
 
 
     //   const [buttonDisabled, setButtonDisabled]= React.useState(false)
     //
-    //
-    //
+
+
     const onLogin = async (e) =>  {
         e.preventDefault() //chặn reload trang
         try {
@@ -31,7 +73,8 @@ const Login = () =>  {
                 // Đăng ký thành công
 
                 // setCookie
-                // Sau khi login thành công, điều hướng đến một trang khác
+                setCookie('UserId',response.data.UserId)
+                setCookie('AuthToken',response.data.access_token)
 
 
 
@@ -65,24 +108,19 @@ const Login = () =>  {
     // },[user])
 
 
-
-
-
-
-
     return (
         <div>
             <div className=" pet-stock-color hero min-h-screen bg-base-200">
-                <div className="hero-content flex-col lg:flex-row-reverse">
+                <div className="hero-content flex-col lg:flex">
                     <div className="text-center text-white lg:text-left">
                         <h1 className="text-5xl font-bold">Login now!</h1>
-                        <p className="py-6">
-                            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-                            excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-                            et a id nisi.
-                        </p>
+                        {/*<p className="py-6">*/}
+                        {/*    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda*/}
+                        {/*    excepturi exercitationem quasi. In deleniti eaque aut repudiandae*/}
+                        {/*    et a id nisi.*/}
+                        {/*</p>*/}
                     </div>
-                    <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
+                    <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl w-screen">
                         <div className="card-body">
                             <form>
                                 <div className="form-control">
@@ -94,9 +132,11 @@ const Login = () =>  {
                                         id="email"
                                         type="email"
                                         placeholder="Email"
-                                        value={user.email}
+                                        // value={user.email}
+                                        // value={email}
                                         required={true}
                                         className="input input-bordered"
+                                        // onChange={(e) => setEmail(e.target.value)}
                                         onChange={(e) => setUser({...user, email: e.target.value})}
                                     />
                                 </div>
@@ -108,8 +148,10 @@ const Login = () =>  {
                                         id="password"
                                         type="password"
                                         value={user.password}
+                                        // value={password}
                                         placeholder="Password"
                                         className="input input-bordered"
+                                        // onChange={(e) => setPassword(e.target.value)}
                                         onChange={(e) => setUser({...user, password: e.target.value})}
                                     />
                                     <label className="label">

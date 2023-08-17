@@ -3,8 +3,10 @@ import Login from "../page/sign/Login";
 import SignUp from "../page/sign/SignUp";
 import ProductInforPage from "../page/products/info.product";
 import PageProduct from "../page/products/page.product";
-import Cart from "../components/Cart";
+
 import NotFoundPage from "../page/NotFoundPage";
+import CartPage from "../page/Cart";
+import AdminPage from "../page/admin/AdminPage";
 
 export const routes = [
     {
@@ -34,7 +36,12 @@ export const routes = [
     },
     {
         path: '/cart',
-        page: Cart,
+        page: CartPage,
+        isShowHeader: true
+    },
+    {
+        path: '/admin',
+        page: AdminPage,
         isShowHeader: true
     },
     {

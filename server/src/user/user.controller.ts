@@ -1,23 +1,17 @@
-import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
-import { User } from '@prisma/client';
-
-import { MyJwtGuard } from '../auth/guard';
-// import {GetUser} from "../auth/decorator";
-import {AuthorizationGuard} from "../auth/guard/authorization.guard";
-import {Roles} from "../auth/decorator/roles.decorator";
+import {Controller, Get, Param} from "@nestjs/common";
+import {UserService} from "./user.service";
+import {UserDTO} from "./dto/user.dto";
+import {UserType} from "@prisma/client";
 
 @Controller('users')
-@UseGuards(MyJwtGuard, AuthorizationGuard)
-export class UserController {
-    constructor(){}
 
+export class UserController{
+    constructor(private userService: UserService) {
+    }
 
-    'path: users/me'
-    // @Get('me')
-    // me(@GetUser() user: User){
-    //     return user
-    // }
-
-
-
+    @Get('/')
+    async getUser(userDTO: UserDTO){
+        // const userTypee = type === 'user' ? UserType.USER : UserType.ADMIN
+        return await this.userService.getUser( userDTO)
+    }
 }

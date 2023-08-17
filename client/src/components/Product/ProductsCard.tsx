@@ -33,7 +33,7 @@ export default function ProductsCard() {
                 {product.length > 0 && product.map(item =>
 
                     <Link to={`/products/${item.id}`}>
-                        <div className="card ml-5 w-52 bg-base-100 shadow-xl">
+                        <div className="card ml-5 w-52 bg-base-100 shadow-xl mb-10">
                             <figure className="py-3">
                                 <img src={item.imageUrl} alt="Shoes"/>
                             </figure>
@@ -41,13 +41,13 @@ export default function ProductsCard() {
                                 <h2 className="card-title text-base">
                                     {item.name}
                                 </h2>
-                                <p className="text-sm">{item.description}</p>
+                                <p className="text-sm">{item.descriptionShort}</p>
                                 <p className="py-2 text-3xl font-semibold">${item.price}</p>
-                                <div className="card-actions ">
-                                    <button className="p-btn-addToCart pet-stock-color btn text-white">
-                                        Add to Card
-                                    </button>
-                                </div>
+                                {/*<div className="card-actions ">*/}
+                                {/*    <button className="p-btn-addToCart pet-stock-color btn text-white">*/}
+                                {/*        Add to Card*/}
+                                {/*    </button>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </Link>

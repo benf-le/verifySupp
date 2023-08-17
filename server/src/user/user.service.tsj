@@ -1,0 +1,68 @@
+import {Injectable} from '@nestjs/common';
+import {PrismaService} from "../prisma/prisma.service";
+import {UserDTO} from "./dto/user.dto";
+
+@Injectable({})
+export class UserService {
+    constructor(private  prismaService: PrismaService) {
+    } //constructor: khởi tạo PrismaService khi một đối tượng của lớp được tạo.
+
+
+    async getUsers(userDTO: UserDTO) {
+        try {
+            const user= await this.prismaService.user.findMany( );
+            return user
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async getUserById(id: string) {
+        try {
+            const userById = await this.prismaService.user.findUnique({
+                where: {
+                    id
+                }
+            })
+            return userById
+
+        } catch (error) {
+
+            return error
+        }
+    }
+
+    async updateUser(userDTO: UserDTO, id: string) {
+        try {
+            const updateUser = await this.prismaService.products.update({
+                data: {
+
+                },
+                where: {id}
+            });
+
+            return updateUser;
+        } catch (error) {
+            throw new Error(`Could not create product: ${error.message}`);
+        }
+    }
+
+
+    async deleteProducts(id: string) {
+        try {
+            const deleteUser = await this.prismaService.products.delete({
+                where: {id}
+            });
+
+            if (deleteUser) {
+                return 'Deleted Products'
+            } else {
+                return 'Error Delete Products'
+            }
+            ;
+        } catch (error) {
+            throw new Error(`Could not create product: ${error.message}`);
+        }
+    }
+
+}

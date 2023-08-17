@@ -1,5 +1,6 @@
 // Define a "type" of "authentication request"
-import { IsString} from 'class-validator'
+import {IsEnum, IsNotEmpty, IsString} from 'class-validator'
+import {UserType} from "@prisma/client";
 
 export class ProductDTO {
 
@@ -20,4 +21,6 @@ export class ProductDTO {
     @IsString() description: string
     @IsString() ingredient: string
     @IsString() reviews: string
+
+
 }

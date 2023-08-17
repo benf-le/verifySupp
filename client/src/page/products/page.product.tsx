@@ -35,9 +35,9 @@ export default function PageProduct(){
     return (
         <div>
 
-            <div className="px-20">
-                <div className="pet-stock-text-color py-10 text-5xl font-semibold">
-                    DOG SUPPLIES
+             <div className="px-20">
+                <div className="pet-stock-text-color py-10 text-5xl font-semibold uppercase ">
+                    {id}
                 </div>
 
 

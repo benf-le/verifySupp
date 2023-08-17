@@ -1,6 +1,6 @@
 import {ConflictException, HttpException, Injectable} from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
-// import {AuthDTO} from "./dto";
+
 import {UserType} from "@prisma/client";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken"
@@ -54,9 +54,9 @@ export class AuthService {
         })
 
 
-        return this.generateJWT(user.email, user.id)
+        const access_token = this.generateJWT(user.email, user.id)
 
-
+        return access_token
     }
 
 
@@ -78,7 +78,9 @@ export class AuthService {
 
         }
 
-        return this.generateJWT(user.email, user.id)
+        const access_token = this.generateJWT(user.email, user.id)
+
+        return {'access_token': access_token, 'UserId': user.id}
 
 
 

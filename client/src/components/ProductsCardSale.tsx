@@ -32,11 +32,11 @@ export default function ProductsCardSale() {
 
     return (
         <div>
-            <div className="py-10 pl-48 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-center ">
+            <div className="py-10 pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-center ">
                 {productSale.length > 0 && productSale.map(item =>
 
                     <Link to={`/products/${item.id}`}>
-                        <div className="card ml-5 w-64 bg-base-100 shadow-xl ">
+                        <div className="card ml-5 w-64 bg-base-100 shadow-xl mb-10">
                             <figure className="py-3">
                                 <img src={item.imageUrl} alt="Shoes"/>
                             </figure>
@@ -44,13 +44,13 @@ export default function ProductsCardSale() {
                                 <h2 className="card-title text-base">
                                     {item.name}
                                 </h2>
-                                <p className="text-sm">{item.description}</p>
+                                <p className="text-sm">{item.descriptionShort}</p>
                                 <p className="py-2 text-3xl font-semibold">${item.price}</p>
-                                <div className="card-actions ">
-                                    <button className="p-btn-addToCartSale pet-stock-color btn text-white">
-                                        Add to Card
-                                    </button>
-                                </div>
+                                {/*<div className="card-actions ">*/}
+                                {/*    <button className="p-btn-addToCartSale pet-stock-color btn text-white">*/}
+                                {/*        Add to Card*/}
+                                {/*    </button>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </Link>
