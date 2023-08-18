@@ -18,7 +18,7 @@ function HeaderAdmin() {
             const decode_token_user = jwt_decode(authToken)
 
             // console.log(decode_token_user)
-            const ten = decode_token_user.email
+            const ten = decode_token_user.firstName
             const user__type = decode_token_user.userType
             // console.log(user__type)
             setUser(ten)

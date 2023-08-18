@@ -55,7 +55,7 @@ const Login = () => {
                 setType(user__type)
 
                 if( typee==='USER') navigate('/')
-                if( typee==='ADMIN') navigate('/user/admin')
+                if( typee==='ADMIN') navigate('/user/admin/products')
                 // navigate('/');
 
                 // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn

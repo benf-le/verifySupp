@@ -29,3 +29,11 @@
   padding-left: 1.9rem;
   padding-right: 1.9rem;
 }
+
+
+table td {
+
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

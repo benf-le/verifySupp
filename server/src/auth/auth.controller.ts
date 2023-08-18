@@ -37,8 +37,8 @@ export class AuthController {
     login(@Body() loginDTO:LoginDTO){
         return this.authService.login(loginDTO)
     }
-    // @Post("/key")
-    // generateProductKey(@Body() {userType,email}:GenerateProductKeyDTO){
-    //     return this.authService.generateProductKey(email, userType)
-    // }
+    @Post("/key")
+    generateProductKey(@Body() {userType,email}:GenerateProductKeyDTO){
+        return this.authService.generateProductKey(email, userType)
+    }
 }

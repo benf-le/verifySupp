@@ -13,8 +13,8 @@ export default function ProductInforPage() {
     const [productDetail, setProductDetail] = useState(null)
     const [deliverOne, setDeliverOne] = useState(false)
     const [autoShip, setAutoShip] = useState(false)
-    const [qty, setQty] = useState(1)
-    const [cart, setCart] = useState(null)
+    let [qty, setQty] = useState(1)
+    // const [cart, setCart] = useState(null)
 
     const id = useParams().id;
 
@@ -47,43 +47,31 @@ export default function ProductInforPage() {
     }, [deliverOne, autoShip]);
 
 
-    // const addToCartHandler = () => {
-    //     const newItem = {productDetail, quantity};
-    //
-    //     const cartItem = cart.find((item) => {
-    //         return item.id === id;
-    //
-    //     });
-    //
-    //     // if cart item is already in the cart
-    //     if (cartItem) {
-    //         const newQuantity = cartItem.quantity + quantity;
-    //         if (newQuantity > 0) {
-    //             const newCart = [...cart].map((item => {
-    //                 if (item.id === id) {
-    //                     return {...item, quantity: newQuantity};
-    //                 } else {
-    //                     return item;
-    //                 }
-    //             }));
-    //             setCart(newCart);
-    //         }
-    //     } else {
-    //         setCart([...cart, newItem]);
-    //     }
-    // };
-    //
+    const addToCartHandler = () => {
+        const cart = JSON.parse(sessionStorage.getItem("shoppingCart")) || [];
+        const product = {
+            name: productDetail.name,
+            imageUrl: productDetail.imageUrl,
+            price: productDetail.price,
+            type: productDetail.type,
+            qty: qty,
+        };
 
-    const addToCartHandler = () =>{
-        let totalPrice = qty * productDetail.price
-        const tempProduct ={
-            ...productDetail,
-            quantity: qty,
-            totalPrice
+
+
+        if (cart.find(item => item.name === product.name)) {
+            cart[cart.findIndex(item => item.name === product.name)].qty += product.qty;
+        } else {
+            cart.push(product);
         }
-        console.log(tempProduct)
-        setCart(tempProduct)
-    }
+
+        sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
+    };
+
+
+
+
+
 
 
 
@@ -110,7 +98,7 @@ export default function ProductInforPage() {
                                     <div
                                         className="btn btn-ghost border-2 pet-stock-border-color ml-5 px-8 ">
                                         {productDetail.type}
-                                       </div></p>
+                                    </div></p>
                                 <hr/>
 
                                 <div className="grid grid-cols-2 h-16 mt-4 grid-cols-3 gap-x-4">

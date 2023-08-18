@@ -15,6 +15,23 @@ function AdminPage() {
 
     };
 
+    useEffect(() => {
+        const getProductsDetail = async () => {
+            const api = `/products`
+
+            fetch(`http://localhost:7000` + api)
+                .then(response => {
+                    response.json()
+                        .then(data => setProductsAdmin(data))
+                        .catch(error => console.log(error))
+                })
+
+
+        }
+        getProductsDetail()
+    }, [])
+
+
     return (
         <div>
             <HeaderAdmin/>
@@ -31,6 +48,15 @@ function AdminPage() {
                 {/*</left>*/}
 
                 <right className={`basis-full px-10`}>
+                    <div className=" flex flex-row-reverse ">
+                        <div className="btn btn-error normal-case text-sm m-1">
+                         Delete  </div>
+                        <div className="btn btn-warning normal-case text-sm m-1">
+                          Edit </div>
+                        <div className="btn btn-active btn-accent normal-case text-sm m-1">
+                         Add  </div>
+                    </div>
+
 
                     <div className="overflow-x-auto">
                         <table className="table">
@@ -39,36 +65,40 @@ function AdminPage() {
                             <tr>
                                 <th></th>
                                 <th>Name</th>
-                                <th>Job</th>
-                                <th>Favorite Color</th>
+                                <th>Image Url</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>For Sale</th>
+                                <th>Count In Stock</th>
+                                <th>Description</th>
+                                <th>Ingredient</th>
+                                <th>Reviews</th>
+
                             </tr>
                             </thead>
                             <tbody>
                             {/* row 1 */}
-                            <tr>
-                                <th>1</th>
-                                <td>Cy Ganderton</td>
-                                <td>Quality Control Specialist</td>
-                                <td>Blue</td>
-                            </tr>
-                            {/* row 2 */}
-                            <tr>
-                                <th>2</th>
-                                <td>Hart Hagerty</td>
-                                <td>Desktop Support Technician</td>
-                                <td>Purple</td>
-                            </tr>
-                            {/* row 3 */}
-                            <tr>
-                                <th>3</th>
-                                <td>Brice Swyre</td>
-                                <td>Tax Accountant</td>
-                                <td>Red</td>
-                            </tr>
+                            {productsAdmin.length > 0 && productsAdmin.map(item =>
+                                <tr>
+                                    <th></th>
+                                    <td>{item.name}</td>
+                                    <td>{item.imageUrl}</td>
+                                    <td>{item.type}</td>
+                                    <td>{item.price}</td>
+                                    <td>{item.forSale.toString()}</td>
+                                    <td>{item.countInStock}</td>
+                                    <td>{item.description}</td>
+                                    <td>{item.ingredient}</td>
+                                    <td>{item.reviews}</td>
+
+
+                                </tr>
+                            )}
+
+
                             </tbody>
                         </table>
                     </div>
-
 
 
                 </right>
