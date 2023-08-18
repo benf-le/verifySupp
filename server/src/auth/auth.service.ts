@@ -54,7 +54,7 @@ export class AuthService {
         })
 
 
-        const access_token = this.generateJWT(user.email, user.id)
+        const access_token = this.generateJWT(user.email, user.id,user.user_type)
 
         return access_token
     }
@@ -78,7 +78,8 @@ export class AuthService {
 
         }
 
-        const access_token = this.generateJWT(user.email, user.id)
+        console.log(user.user_type)
+        const access_token = this.generateJWT(user.email, user.id, user.user_type)
 
         return {'access_token': access_token, 'UserId': user.id}
 
@@ -88,10 +89,11 @@ export class AuthService {
 
     }
 
-    private generateJWT(email: string, id: string) {
+    private generateJWT(email: string, id: string,userType: UserType) {
         return jwt.sign({
                 email,
-                id
+                id,
+            userType
             },
             process.env.JSON_TOKEN_KEY, {
                 expiresIn: 360000

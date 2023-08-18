@@ -21,41 +21,9 @@ const Login = () => {
     // const [email, setEmail] = useState('')
     // const [password, setPassword] = useState('')
     const [error, setError] = React.useState('')
-    const [cookies, setCookie, removeCookie] = useCookies(['user'])
-    //
-    //
-    // const mutation = useMutationHooks(
-    //     data => UserService.loginUser(data)
-    // )
-    //
-    // const { data,  isSuccess } = mutation
-    //
-    // useEffect(() => {
-    //     if (data) {
-    //         const access_token = data.access_token;
-    //         localStorage.setItem('access_token', JSON.stringify(access_token));
-    //
-    //         if (access_token) {
-    //             const decoded = jwt_decode(access_token)
-    //            if (decoded?.id){
-    //                handleGetDetailsUser(decoded?.id, access_token)
-    //
-    //            }
-    //         }
-    //
-    //     }
-    //
-    //
-    // }, [data]);
+    const [cookies, setCookie, removeCookie] = useCookies([ 'AuthToken'])
+    const [typee, setType] = useState('')
 
-    // const handleGetDetailsUser = async (id, token) => {
-    //     const res = await UserService.getDetailsUser(id, token)
-    //     console.log(res)
-    // }
-    // const onLogin = async () => {
-    //     mutation.mutate({email,password})
-    //
-    // }
 
 
     //   const [buttonDisabled, setButtonDisabled]= React.useState(false)
@@ -69,16 +37,26 @@ const Login = () => {
 
 
 
-            if (response.status === 201) {
+            const success = response.status === 201
+            if (success) {
                 // Đăng ký thành công
 
                 // setCookie
-                setCookie('UserId',response.data.UserId)
+                // setCookie('UserId',response.data.UserId)
                 setCookie('AuthToken',response.data.access_token)
 
 
+                const decode_token_user = jwt_decode(response.data.access_token)
 
-                navigate('/');
+
+                const user__type = decode_token_user.userType
+
+                // setUser(ten)
+                setType(user__type)
+
+                if( typee==='USER') navigate('/')
+                if( typee==='ADMIN') navigate('/user/admin')
+                // navigate('/');
 
                 // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn
             } else {
@@ -96,6 +74,7 @@ const Login = () => {
             }
         }
     }
+
 
 
     //

@@ -40,9 +40,9 @@ export const routes = [
         isShowHeader: true
     },
     {
-        path: '/admin',
+        path: '/user/admin/products',
         page: AdminPage,
-        isShowHeader: true
+        isShowHeader: false
     },
     {
         path: '*',
