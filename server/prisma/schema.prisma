@@ -11,9 +11,9 @@ model User {
   id Int @id @default(autoincrement())
   name String
   email String @unique
-  phone String
+  phoneNumber String?
   password String
-  address String
+  address String?
   role Role @default(USER)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -29,8 +29,8 @@ model Product {
   price Float
   imageUrl String
   stockQuantity Int
-  usageIntruction String
-  ingredients String
+  usageIntruction String?
+  ingredients String?
   isActive Boolean
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
