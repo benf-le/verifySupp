@@ -25,4 +25,6 @@ export class ProductDTO {
 
   @IsBoolean()
   isActive :boolean = true;
+
+
 }

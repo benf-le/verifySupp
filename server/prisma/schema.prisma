@@ -35,7 +35,9 @@ model Product {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
-  category Category []
+  categoryId Int @unique
+  category Category @relation(fields: [categoryId], references: [id])
+
   orderItem OrderItem[]
   cartItems CartItems[]
 }
@@ -44,8 +46,8 @@ model Category {
   id Int @id @default(autoincrement())
   name String
   description String?
-  productId Int @unique
-  product Product @relation(fields: [productId], references: [id])
+
+  product Product[]
 
   parent_category_id Int?
   parent Category? @relation("CategoryToChildren", fields: [parent_category_id], references: [id])
