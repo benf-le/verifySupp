@@ -19,24 +19,24 @@ model User {
   updateAt DateTime @updatedAt
 
   orders Order[]
-  cart Cart []
+  cart Cart?
 }
 
 model Product {
   id Int @id @default(autoincrement())
   name String
-  decription String?
+  description String?
   price Float
   imageUrl String
   stockQuantity Int
-  usageIntruction String?
+  usageInstruction String?
   ingredients String?
-  isActive Boolean
+  isActive Boolean  @default(true)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
 
-  categoryId Int @unique
+  categoryId Int
   category Category @relation(fields: [categoryId], references: [id])
 
   orderItem OrderItem[]
@@ -48,7 +48,7 @@ model Category {
   name String
   description String?
 
-  product Product[]
+  products Product[]
 
   parent_category_id Int?
   parent Category? @relation("CategoryToChildren", fields: [parent_category_id], references: [id])
@@ -61,14 +61,17 @@ model Order {
   orderDate DateTime @default(now())
   totalAmount Float
   shippingFee Float
+  shippingAddress String
   paymentMethod String
   paymentStatus String
   notes String?
   trackingNumber String @unique
+
+
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
-  userId Int @unique
+  userId Int
   user User @relation(fields: [userId], references: [id])
 
   orderItem OrderItem[]
@@ -81,10 +84,10 @@ model OrderItem {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
-  orderId Int @unique
+  orderId Int
   order Order @relation(fields: [orderId], references: [id])
 
-  productId Int @unique
+  productId Int
   product Product @relation(fields: [productId], references: [id])
 
 }
@@ -98,17 +101,17 @@ model Cart {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
-  cartitems CartItems []
+  cartItems CartItems []
 }
 
 model CartItems {
   id Int @id @default(autoincrement())
   quantity Int
 
-  cartId Int @unique
+  cartId Int
   cart Cart @relation(fields: [cartId], references: [id])
 
-  productId Int @unique
+  productId Int
   product Product @relation(fields: [productId], references: [id])
 
   createAt DateTime @default(now())

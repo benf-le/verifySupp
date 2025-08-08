@@ -6,7 +6,7 @@ export class ProductDTO {
 
   @IsString()
   @IsOptional()
-  decription? :string
+  description? :string
 
   @IsNumber()
   price: number;
@@ -18,7 +18,7 @@ export class ProductDTO {
   stockQuantity : number
 
   @IsString()
-  usageIntruction :string
+  usageInstruction :string
 
   @IsString()
   ingredients :string

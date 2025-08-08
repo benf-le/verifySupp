@@ -25,7 +25,7 @@ export class ProductController {
   async createProduct(@Body() productDTO: ProductDTO,@Body() user:any){
     const id = user.id;
 
-    console.log(id);
+    // console.log(id);
     return this.productService.createProduct(productDTO, id);
   }
 
