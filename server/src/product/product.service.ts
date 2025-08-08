@@ -40,6 +40,7 @@ export class ProductService {
           usageIntruction: productDTO.usageIntruction,
           ingredients: productDTO.ingredients,
           isActive: productDTO.isActive,
+          categoryId: productDTO.categoryId,
         },
       });
 

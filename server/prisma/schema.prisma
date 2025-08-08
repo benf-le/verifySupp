@@ -35,6 +35,7 @@ model Product {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
+
   categoryId Int @unique
   category Category @relation(fields: [categoryId], references: [id])
 

@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsInt, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class ProductDTO {
   @IsString()
@@ -26,5 +26,6 @@ export class ProductDTO {
   @IsBoolean()
   isActive :boolean = true;
 
-
+  @IsInt()
+  categoryId : number;
 }
