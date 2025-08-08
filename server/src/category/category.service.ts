@@ -8,23 +8,39 @@ export class CategoryService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async getAllCategories(categoryDTO: CategoryDTO) {
-    return this.prismaService.category.findMany()
+    return this.prismaService.category.findMany();
   }
 
-  async createCategory(categoryDTO: CategoryDTO) {
+  async createCategory(categoryDTO: CategoryDTO, id: number) {
     try {
       const createCategory = await this.prismaService.category.create({
-        data:{
+        data: {
+          id,
           name: categoryDTO.name,
           description: categoryDTO.description,
+        },
+      });
 
-        }
-
-      })
-
-      return createCategory
-    }catch (error) {
+      return createCategory;
+    } catch (error) {
       throw new Error(`Could not create category: ${error.message}`);
+    }
+  }
+
+  async updateCategory(categoryDTO: CategoryDTO, id: number) {
+    try {
+      const updateCategory = await this.prismaService.category.update({
+        data: {
+          name: categoryDTO.name,
+          description: categoryDTO.description,
+        },
+        where: { id },
+      });
+
+      return updateCategory;
+    } catch (error) {
+      throw new Error(`Could not update category: ${error.message}`);
+
     }
   }
 }
