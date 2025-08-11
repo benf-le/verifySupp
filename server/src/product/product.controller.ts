@@ -2,7 +2,7 @@ import { Controller, Get, Delete, Param, Patch, Post, Put, Body, Query } from '@
 import { ProductService } from './product.service';
 import { ProductDTO } from './dto';
 
-@Controller('product')
+@Controller('products')
 
 export class ProductController {
   constructor(private readonly productService: ProductService){
