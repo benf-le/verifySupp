@@ -37,7 +37,7 @@ model Product {
 
 
   categoryId Int
-  category Category @relation(fields: [categoryId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id],onDelete: Cascade)
 
   orderItem OrderItem[]
   cartItems CartItems[]
@@ -51,7 +51,7 @@ model Category {
   products Product[]
 
   parent_category_id Int?
-  parent Category? @relation("CategoryToChildren", fields: [parent_category_id], references: [id])
+  parent Category? @relation("CategoryToChildren", fields: [parent_category_id], references: [id], onDelete: Cascade)
   children Category[] @relation("CategoryToChildren")
 }
 

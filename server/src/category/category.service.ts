@@ -46,6 +46,7 @@ export class CategoryService {
 
   async deleteCategory(id: number) {
    try {
+
      const deleteCategory = await this.prismaService.category.delete({
        where: { id },
      })
