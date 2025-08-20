@@ -2,6 +2,7 @@ import Image from "next/image";
 import {resourceLimits} from "node:worker_threads";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import {Carousel} from "@/components/carousel";
 
 export default async function Home() {
 
@@ -37,6 +38,10 @@ export default async function Home() {
                     width={450}
                     height={450}
                 />
+
+                <section className='py-8'>
+                    <Carousel products ={products}/>
+                </section>
             </div>
 
 
