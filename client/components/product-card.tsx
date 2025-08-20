@@ -36,9 +36,7 @@ export const ProductCard = ({ product }: Props) => {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 flex-grow flex flex-col justify-between">
-                    {product.description && (
-                        <p className="text-gray-600 text-sm mb-2">{product.description}</p>
-                    )}
+
                     <div className="mt-auto">
                         {price && (
                             <p className="text-lg font-semibold text-gray-900 mb-2">
