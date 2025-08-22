@@ -9,6 +9,7 @@ import CartPage from "../page/Cart";
 import AdminPage from "../page/admin/AdminPage";
 import DashboardPage from "../page/pages/admin/DashboardPage.tsx";
 import CollectionsPage from "../page/pages/admin/CollectionsPage.tsx";
+import UsersPage from "../page/pages/admin/UsersPage.tsx";
 
 export const routes = [
     {
@@ -55,6 +56,12 @@ export const routes = [
     {
         path: '/user/admin/collections',
         page: CollectionsPage,
+        isShowHeader: false
+    },
+
+    {
+        path: '/user/admin/users',
+        page: UsersPage,
         isShowHeader: false
     },
 
