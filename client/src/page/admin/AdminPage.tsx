@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import {useCookies} from "react-cookie";
-import HeaderAdmin from "../../components/admin/HeaderAdmin";
 import {Products} from "../../models/Products.ts";
 import AddProductModal from "./AddProductModal.tsx";
 import EditProductModal from "./EditProductModal.tsx";
