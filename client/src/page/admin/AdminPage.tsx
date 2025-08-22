@@ -131,8 +131,6 @@ function AdminPage() {
     return (
         <AdminLayout>
         <div>
-            <HeaderAdmin/>
-
             <main className="flex flex-row min-h-screen bg-gray-50">
                 <div className="basis-full px-6 py-6">
                     {/* Header Section */}
