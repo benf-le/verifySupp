@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Collection {
-  id       String     @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  Products Products[]
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  products    Products[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
