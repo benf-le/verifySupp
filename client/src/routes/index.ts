@@ -7,6 +7,8 @@ import PageProduct from "../page/products/page.product";
 import NotFoundPage from "../page/NotFoundPage";
 import CartPage from "../page/Cart";
 import AdminPage from "../page/admin/AdminPage";
+import DashboardPage from "../page/pages/admin/DashboardPage.tsx";
+import CollectionsPage from "../page/pages/admin/CollectionsPage.tsx";
 
 export const routes = [
     {
@@ -44,10 +46,23 @@ export const routes = [
         page: AdminPage,
         isShowHeader: false
     },
+
+    {
+        path: '/user/admin/dashboard',
+        page: DashboardPage,
+        isShowHeader: false
+    },
+    {
+        path: '/user/admin/collections',
+        page: CollectionsPage,
+        isShowHeader: false
+    },
+
     {
         path: '*',
         page: NotFoundPage,
         isShowHeader: false
     },
+
 
 ]
