@@ -11,8 +11,20 @@ export class CollectionsService {
 
     async getCollections(collectionsDTO: CollectionsDTO) {
         try {
-            const collections = await this.prismaService.collection.findMany({})
-            return collections
+          const collections = await this.prismaService.collection.findMany({
+            include: {
+              _count: {
+                select: { products: true } // ← Đếm số products trong collection
+              }
+            }
+          });
+
+          // Transform data để frontend dễ sử dụng
+          return collections.map(collection => ({
+            id: collection.id,
+            name: collection.name,
+            productsCount: collection._count?.products || 0 // ← Map từ _count.products
+          }));
         } catch (error) {
 
             return error
