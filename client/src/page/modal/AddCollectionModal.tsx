@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 
 import { useModalHandlers } from '../../utils/modalUtils';
 import { apiPost, ApiError } from '../../utils/apiUtils';
-import {Collection} from "../../types/common.ts";
+import {Collection} from "../../models/Collections.ts";
 
 interface AddCollectionModalProps {
     isOpen: boolean;
@@ -41,7 +41,7 @@ function AddCollectionModal({ isOpen, onClose, onCollectionAdded }: AddCollectio
         setError(null);
 
         try {
-            const newCollection = await apiPost<Collection>('/collections', formData, cookies.AuthToken);
+            const newCollection = await apiPost<Collection>('/collections/create', formData, cookies.AuthToken);
 
             setSuccess(true);
             onCollectionAdded(newCollection);

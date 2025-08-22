@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useModalHandlers } from '../../utils/modalUtils';
 import {ApiError, apiPatch} from '../../utils/apiUtils';
-import {Collection} from "../../types/common.ts";
+import {Collection} from "../../models/Collections.ts";
 
 interface EditCollectionModalProps {
     isOpen: boolean;

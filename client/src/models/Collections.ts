@@ -1,5 +1,5 @@
 // src/models/Collection.ts
-export interface Collections {
+export interface Collection {
     id: string;
     name: string;
     description?: string;

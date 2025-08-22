@@ -1,10 +1,11 @@
-import  { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import {Collection} from "../../types/common.ts";
+import {useEffect, useState} from "react";
+import {useCookies} from "react-cookie";
+import { Collection } from "../../models/Collections.ts";
 import {apiDelete, ApiError, apiGet} from "../../utils/apiUtils.ts";
 import AdminLayout from "../../components/admin/AdminLayout.tsx";
-import {truncateText} from "../../utils/formatUtils.ts";
-
+import AddCollectionModal from "../modal/AddCollectionModal.tsx";
+import EditCollectionModal from "../modal/EditCollectionModal.tsx";
+import {formatDate, truncateText} from "../../utils/formatUtils.ts";
 
 
 function CollectionsPage() {
@@ -54,7 +55,7 @@ function CollectionsPage() {
         setLoadingDelete(collectionId);
 
         try {
-            await apiDelete(`/collections/${collectionId}`, cookies.AuthToken);
+            await apiDelete(`/collections/delete/${collectionId}`, cookies.AuthToken);
             setCollections(prev => prev.filter(collection => collection.id !== collectionId));
             alert('Xóa collection thành công!');
         } catch (error) {
