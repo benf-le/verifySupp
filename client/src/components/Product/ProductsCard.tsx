@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import  {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Products} from "../../models/Products";
 import HandleProducts from "../../api/HandleProducts";
@@ -23,6 +23,7 @@ export default function ProductsCard() {
                 setProduct(res)
             }
         } catch (e) {
+            // @ts-ignore
             console.log(`Product not found: ${e.message}`)
         }
     }
@@ -34,11 +35,12 @@ export default function ProductsCard() {
 
                     <Link to={`/products/${item.id}`}>
                         <div className="card ml-5 w-52 bg-base-100 shadow-xl mb-10">
-                            <figure className="py-3">
+                            <figure className="relative w-full h-full bg-white rounded-xl p-6 border-gray-100">
+
                                 <img src={item.imageUrl} alt="Shoes"/>
                             </figure>
                             <div className="card-body">
-                                <h2 className="card-title text-base">
+                                <h2 className="card-title text-base line-clamp-2">
                                     {item.name}
                                 </h2>
                                 <p className="text-sm">{item.descriptionShort}</p>

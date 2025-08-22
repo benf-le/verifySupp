@@ -1,6 +1,5 @@
-import Header from "../../components/Header";
+
 import MenuCollection from "../../components/Product/MenuCollection";
-import Footer from "../../components/Footer";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ProductsCard from "../../components/Product/ProductsCard";
@@ -42,14 +41,14 @@ export default function PageProduct(){
 
 
                 <main className="flex flex-row ">
-                    <div1 className="basis-1/4">
+                    <div className="basis-1/4">
                         <MenuCollection/>
-                    </div1>
-                    <div2 className=" basis-3/4 grid ">
+                    </div>
+                    <div className=" basis-3/4 grid ">
 
                         <ProductsCard/>
 
-                    </div2>
+                    </div>
                 </main>
 
             </div>

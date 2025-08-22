@@ -1,6 +1,6 @@
 
 import BannerHome from "../components/BannerHome";
-import ProductsCardSale from "../components/ProductsCardSale";
+import {ProductsCardSale} from "../components/ProductsCardSale";
 
 const Home = () => {
 

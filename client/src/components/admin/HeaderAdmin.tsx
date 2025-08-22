@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import  {useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import jwt_decode from "jwt-decode";
 
 function HeaderAdmin() {
+    // @ts-ignore
     const [cookies, setCookie, removeCookie] = useCookies(['AuthToken'])
     const [user, setUser] = useState('')
 
@@ -18,7 +19,9 @@ function HeaderAdmin() {
             const decode_token_user = jwt_decode(authToken)
 
             // console.log(decode_token_user)
+            // @ts-ignore
             const ten = decode_token_user.firstName
+            // @ts-ignore
             const user__type = decode_token_user.userType
             // console.log(user__type)
             setUser(ten)
@@ -38,7 +41,10 @@ function HeaderAdmin() {
     function Logout() {
 
         removeCookie('AuthToken', cookies.AuthToken)
-        if (removeCookie) navigate('/')
+        if (!removeCookie) {
+        } else {
+            navigate('/')
+        }
         window.location.reload() //nen sua cho nay de load lai trang chu
     }
 

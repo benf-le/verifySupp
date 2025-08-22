@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import { useCookies } from 'react-cookie'; // Import useCookies
+import React, { useState, useEffect, useRef } from 'react';
+import { useCookies } from 'react-cookie';
 import { Products } from '../../models/Products.ts';
 import {BASE_URL} from "../../constant/appInfo.ts";
 
-interface AddProductModalProps {
+interface EditProductModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onProductAdded: (product: Products) => void;
+    onProductUpdated: (updatedProduct: Products) => void;
+    product: Products | null;
 }
 
 interface ProductForm {
@@ -18,16 +19,17 @@ interface ProductForm {
     countInStock: number;
     description: string;
     ingredient: string;
-    collectionId: string; // Thêm collectionId
+    collectionId: string;
 }
 
 interface Collection {
     id: string;
     name: string;
-    // Thêm các field khác nếu cần
 }
-function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalProps) {
-    const [cookies] = useCookies(['AuthToken']); // Get cookies
+
+function EditProductModal({ isOpen, onClose, onProductUpdated, product }: EditProductModalProps) {
+    const [cookies] = useCookies(['AuthToken']);
+    const modalRef = useRef<HTMLDivElement>(null); // Ref cho modal content
 
     const [formData, setFormData] = useState<ProductForm>({
         name: '',
@@ -41,9 +43,8 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
         collectionId: ''
     });
 
-    const [collections, setCollections] = useState<Collection[]>([]); // State cho collections
+    const [collections, setCollections] = useState<Collection[]>([]);
     const [loadingCollections, setLoadingCollections] = useState(false);
-
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
@@ -54,7 +55,54 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
         { value: 'carton', label: 'Carton (Thùng)' }
     ];
 
-    // Fetch collections khi modal mở
+    // Handle click outside modal
+    const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget && !isLoading) {
+            handleClose();
+        }
+    };
+
+    // Handle Escape key
+    useEffect(() => {
+        const handleEscapeKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && isOpen && !isLoading) {
+                handleClose();
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener('keydown', handleEscapeKey);
+            // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey);
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen, isLoading]);
+
+    // Load product data into form when product changes
+    useEffect(() => {
+        if (product && isOpen) {
+            setFormData({
+                name: product.name || '',
+                imageUrl: product.imageUrl || '',
+                type: product.type || '',
+                price: product.price || 0,
+                forSale: product.forSale ?? true,
+                countInStock: product.countInStock || 0,
+                description: product.description || '',
+                ingredient: product.ingredient || '',
+                collectionId: product.collectionId || ''
+            });
+            // Reset error and success states
+            setError(null);
+            setSuccess(false);
+        }
+    }, [product, isOpen]);
+
+    // Fetch collections when modal opens
     useEffect(() => {
         if (isOpen) {
             fetchCollections();
@@ -77,7 +125,7 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
                 setCollections(collectionsData);
             } else {
                 console.error('Failed to fetch collections');
-                setCollections([]); // Set empty array nếu fail
+                setCollections([]);
             }
         } catch (error) {
             console.error('Error fetching collections:', error);
@@ -102,110 +150,117 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!product?.id) {
+            setError('Không tìm thấy ID sản phẩm');
+            return;
+        }
+
         setIsLoading(true);
         setError(null);
 
         try {
-            // Get access token from cookies
             const accessToken = cookies.AuthToken;
 
             if (!accessToken) {
                 throw new Error('Không tìm thấy access token. Vui lòng đăng nhập lại.');
             }
 
-            console.log('Sending request with token:', accessToken); // Debug log
+            if (!formData.collectionId) {
+                throw new Error('Vui lòng chọn collection cho sản phẩm.');
+            }
 
-            const response = await fetch(BASE_URL+'/products/create-product', {
-                method: 'POST',
+            // Debug logs
+            console.log('Form data to submit:', formData);
+            console.log('Collection ID:', formData.collectionId);
+
+            const updateData = {
+                name: formData.name,
+                imageUrl: formData.imageUrl,
+                type: formData.type,
+                price: formData.price,
+                forSale: formData.forSale,
+                countInStock: formData.countInStock,
+                description: formData.description,
+                ingredient: formData.ingredient,
+                collectionId: formData.collectionId
+            };
+
+            const response = await fetch(BASE_URL+`/products/update-product/${product.id}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`, // Send Bearer token
+                    'Authorization': `Bearer ${accessToken}`,
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(updateData)
             });
 
-            // Handle specific error status codes
             if (response.status === 401) {
                 throw new Error('Token không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại.');
             }
 
             if (response.status === 403) {
-                throw new Error('Tài khoản không có quyền Admin để thêm sản phẩm.');
+                throw new Error('Tài khoản không có quyền Admin để sửa sản phẩm.');
             }
 
             if (!response.ok) {
-                // Try to get error message from response
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.message || `Server error: ${response.status}`);
             }
 
-            const newProduct = await response.json();
-            console.log('Product created successfully:', newProduct); // Debug log
+            const updatedProduct = await response.json();
+            console.log('Product updated successfully:', updatedProduct);
 
             setSuccess(true);
-            onProductAdded(newProduct);
+            onProductUpdated(updatedProduct);
 
-            // Reset form
-            setFormData({
-                name: '',
-                imageUrl: '',
-                type: '',
-                price: 0,
-                forSale: true,
-                countInStock: 0,
-                description: '',
-                ingredient: '',
-                collectionId: ''
-            });
-
-            // Close modal after 1.5 seconds
             setTimeout(() => {
                 setSuccess(false);
                 onClose();
             }, 1500);
 
         } catch (error) {
-            console.error('Error creating product:', error);
-            setError(error instanceof Error ? error.message : 'Có lỗi xảy ra khi tạo sản phẩm');
+            console.error('Error updating product:', error);
+            setError(error instanceof Error ? error.message : 'Có lỗi xảy ra khi cập nhật sản phẩm');
         } finally {
             setIsLoading(false);
         }
     };
 
     const handleClose = () => {
+        if (isLoading) return; // Prevent closing while loading
         setError(null);
         setSuccess(false);
         onClose();
     };
 
-    if (!isOpen) return null;
+    if (!isOpen || !product) return null;
 
-    // @ts-ignore
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            onClick={handleBackdropClick} // Click outside to close
+        >
+            <div
+                ref={modalRef}
+                className="bg-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto m-4 relative"
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+            >
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold">Thêm Sản Phẩm Mới</h2>
+                    <h2 className="text-xl font-bold">Chỉnh Sửa Sản Phẩm</h2>
                     <button
                         onClick={handleClose}
-                        className="btn btn-sm btn-ghost"
+                        className="btn btn-sm btn-ghost hover:bg-gray-100"
                         disabled={isLoading}
+                        title="Đóng (Esc)"
                     >
                         ✕
                     </button>
                 </div>
 
-                {/*/!* Debug info - có thể xóa sau khi test xong *!/*/}
-                {/*{process.env.NODE_ENV === 'development' && (*/}
-                {/*    <div className="mb-4 p-2 bg-gray-100 rounded text-xs">*/}
-                {/*        <strong>Debug:</strong> Token available: {cookies.AuthToken ? '✅' : '❌'}*/}
-                {/*    </div>*/}
-                {/*)}*/}
-
-
                 {success && (
                     <div className="alert alert-success mb-4">
-                        <span>Tạo sản phẩm thành công!</span>
+                        <span>✅ Cập nhật sản phẩm thành công!</span>
                     </div>
                 )}
 
@@ -261,6 +316,29 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
 
                     <div className="form-control">
                         <label className="label">
+                            <span className="label-text">Collection *</span>
+                        </label>
+                        <select
+                            name="collectionId"
+                            value={formData.collectionId}
+                            onChange={handleInputChange}
+                            className="select select-bordered w-full"
+                            required
+                            disabled={isLoading || loadingCollections}
+                        >
+                            <option value="" disabled>
+                                {loadingCollections ? 'Đang tải collections...' : 'Chọn collection'}
+                            </option>
+                            {collections.map((collection) => (
+                                <option key={collection.id} value={collection.id}>
+                                    {collection.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="form-control">
+                        <label className="label">
                             <span className="label-text">Loại sản phẩm *</span>
                         </label>
                         <select
@@ -293,7 +371,6 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
                             onChange={handleInputChange}
                             className="input input-bordered w-full"
                             min="0"
-                            // step="1000"
                             required
                             disabled={isLoading}
                             placeholder="50000"
@@ -329,36 +406,6 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
                             disabled={isLoading}
                             placeholder="100"
                         />
-                    </div>
-
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Collection *</span>
-                        </label>
-                        <select
-                            name="collectionId"
-                            value={formData.collectionId}
-                            onChange={handleInputChange}
-                            className="select select-bordered w-full"
-                            required
-                            disabled={isLoading || loadingCollections}
-                        >
-                            <option value="" disabled>
-                                {loadingCollections ? 'Đang tải collections...' : 'Chọn collection'}
-                            </option>
-                            {collections.map((collection) => (
-                                <option key={collection.id} value={collection.id}>
-                                    {collection.name}
-                                </option>
-                            ))}
-                        </select>
-                        {collections.length === 0 && !loadingCollections && (
-                            <div className="label">
-                <span className="label-text-alt text-warning">
-                  ⚠️ Không có collection nào. Vui lòng tạo collection trước.
-                </span>
-                            </div>
-                        )}
                     </div>
 
                     <div className="form-control">
@@ -403,11 +450,10 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
                         <button
                             type="submit"
                             className={`btn btn-primary ${isLoading ? 'loading' : ''}`}
-                            disabled={isLoading || !cookies.AuthToken} // Sử dụng AuthToken thay vì accessToken
+                            disabled={isLoading || !cookies.AuthToken || !formData.collectionId}
                         >
-                            {isLoading ? 'Đang lưu...' : 'Lưu'}
+                            {isLoading ? 'Đang cập nhật...' : 'Cập nhật'}
                         </button>
-
                     </div>
                 </form>
             </div>
@@ -415,4 +461,4 @@ function AddProductModal({ isOpen, onClose, onProductAdded }: AddProductModalPro
     );
 }
 
-export default AddProductModal;
+export default EditProductModal;

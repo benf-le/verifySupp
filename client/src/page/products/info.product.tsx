@@ -1,12 +1,9 @@
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import MenuCollection from "../../components/Product/MenuCollection";
-import ProductsCard from "../../components/Product/ProductsCard";
-import React, {useEffect, useState} from "react";
+
+import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {IoMdAdd, IoMdRemove} from "react-icons/io";
 import OptionNearYou from "../../components/Product/OptionNearYou";
-import Detail from "../../components/Product/Detail";
+
 
 export default function ProductInforPage() {
 
@@ -86,12 +83,12 @@ export default function ProductInforPage() {
 
 
                     <main className="flex flex-row ">
-                        <div1 className="basis-1/4 border border-slate-200 rounded ">
+                        <div className="basis-1/4 border border-slate-200 rounded ">
                             <figure className="py-3 ">
                                 <img src={productDetail.imageUrl} alt="Shoes"/>
                             </figure>
-                        </div1>
-                        <div2 className=" basis-2/4 grid border border-slate-200 rounded mx-8 px-5 h-44  ">
+                        </div>
+                        <div className=" basis-2/4 grid border border-slate-200 rounded mx-8 px-5 h-44  ">
                             <div className="h-16  ">
                                 <p className="py-4 font-medium ">
                                     Select Size:
@@ -102,7 +99,7 @@ export default function ProductInforPage() {
                                 <hr/>
 
                                 <div className="grid grid-cols-2 h-16 mt-4 grid-cols-3 gap-x-4">
-                                    <div1
+                                    <div
                                         className="border-2 border-slate-200 rounded flex flex-1  items-center h-full ">
                                         {/*minus icon*/}
                                         <div className="flex flex-1 justify-center items-center cursor-pointer">
@@ -120,7 +117,7 @@ export default function ProductInforPage() {
                                                 setQty((prev) => prev + 1)
                                             }}/>
                                         </div>
-                                    </div1>
+                                    </div>
 
 
                                     <button
@@ -134,10 +131,10 @@ export default function ProductInforPage() {
                             </div>
 
 
-                        </div2>
-                        <div3 className="basis-1/4">
+                        </div>
+                        <div className="basis-1/4">
                             <OptionNearYou/>
-                        </div3>
+                        </div>
                     </main>
 
                     <div className="mt-16 flex flex-row bg-zinc-200 border rounded pb-16 mb-20">

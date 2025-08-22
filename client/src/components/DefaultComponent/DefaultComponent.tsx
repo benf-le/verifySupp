@@ -1,7 +1,7 @@
-import React from 'react'
 import Header from "../Header";
 import Footer from "../Footer";
 
+// @ts-ignore
 const DefaultComponent = ({children}) => {
     return (
         <div>

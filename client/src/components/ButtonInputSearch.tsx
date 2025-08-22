@@ -1,6 +1,6 @@
 import {AiOutlineSearch} from "react-icons/ai";
-import React from "react";
 
+// @ts-ignore
 const ButtonInputSearch = (props) => {
     const {placeholder} =props
 

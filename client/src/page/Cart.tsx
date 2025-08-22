@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import { useState} from "react";
 import {Link} from "react-router-dom";
 
 
@@ -11,6 +11,7 @@ const getSessionValue = (key: string) => {
 export default function CartPage() {
 
 
+    // @ts-ignore
     const [cart, setCart] = useState(getSessionValue("shoppingCart")?? []);
 
     const calculateTotal = () => {
@@ -34,6 +35,8 @@ export default function CartPage() {
 
 
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div >
             <div className="px-20 h-screen">
@@ -74,6 +77,7 @@ export default function CartPage() {
                                     </p>
 
                                     <div className="pt-5 pl-7 flex flex-col overflow-x-scroll h-[200px]">
+
                                         {cart?.map((item) =>
                                             <div
                                                 className=" flex flex-row border border-slate-200 rounded w-full mr-8 mb-5">
@@ -81,12 +85,12 @@ export default function CartPage() {
                                                     <img src={item.imageUrl} alt="Products"/>
                                                 </image>
 
-                                                <detail className="basis-10/12 bg-yellow-50">
+                                                <div className="basis-10/12 bg-yellow-50">
                                                     <p> {item.name}</p>
                                                     <p> ${item.price} </p>
                                                     <p>Quantity: {item.qty}</p>
                                                     <p>Total: ${item.price * item.qty}</p>
-                                                </detail>
+                                                </div>
                                             </div>
                                         )}
                                     </div>

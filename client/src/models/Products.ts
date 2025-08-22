@@ -5,10 +5,11 @@ export interface Products {
     name: string
     price: number
     forSale: boolean
-
+    type: string
     size: string
-    quantity: number
+    countInStock: number
     description: string
     ingredient: string
-    reviews: string
+    reviews: string,
+    collectionId: string
 }
