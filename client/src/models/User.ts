@@ -3,7 +3,7 @@ export interface User {
     email: string;
     firstName?: string;
     lastName?: string;
-    userType: 'USER' | 'ADMIN';
+    user_type: 'USER' | 'ADMIN';
     isActive: boolean;
     createdAt?: string;
     updatedAt?: string;
