@@ -6,10 +6,10 @@ import PageProduct from "../page/products/page.product";
 
 import NotFoundPage from "../page/NotFoundPage";
 import CartPage from "../page/Cart";
-import AdminPage from "../page/admin/AdminPage";
-import DashboardPage from "../page/pages/admin/DashboardPage.tsx";
-import CollectionsPage from "../page/pages/admin/CollectionsPage.tsx";
-import UsersPage from "../page/pages/admin/UsersPage.tsx";
+import ProductsPage from "../page/admin/ProductsPage.tsx";
+import DashboardPage from "../page/admin/DashboardPage.tsx";
+import CollectionsPage from "../page/admin/CollectionsPage.tsx";
+import UsersPage from "../page/admin/UsersPage.tsx";
 
 export const routes = [
     {
@@ -44,7 +44,7 @@ export const routes = [
     },
     {
         path: '/user/admin/products',
-        page: AdminPage,
+        page: ProductsPage,
         isShowHeader: false
     },
 

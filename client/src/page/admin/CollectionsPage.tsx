@@ -1,4 +1,4 @@
-import AdminLayout from "../../../components/admin/AdminLayout.tsx";
+import AdminLayout from "../../components/admin/AdminLayout.tsx";
 
 function CollectionsPage() {
     return (

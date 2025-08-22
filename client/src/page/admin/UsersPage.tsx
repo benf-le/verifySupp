@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import {User} from "../../../models/User.ts";
-import {apiDelete, ApiError, apiGet} from "../../../utils/apiUtils.ts";
-import AdminLayout from "../../../components/admin/AdminLayout.tsx";
-import {formatDate, truncateText} from "../../../utils/formatUtils.ts";
-import EditUserModal from "../../admin/EditUserModal.tsx";
+import {User} from "../../models/User.ts";
+import {apiDelete, ApiError, apiGet} from "../../utils/apiUtils.ts";
+import AdminLayout from "../../components/admin/AdminLayout.tsx";
+import {formatDate, truncateText} from "../../utils/formatUtils.ts";
+import EditUserModal from "../modal/EditUserModal.tsx";
 
 function UsersPage() {
     const [cookies] = useCookies(['AuthToken']);
@@ -50,7 +50,7 @@ function UsersPage() {
         setLoadingDelete(userId);
 
         try {
-            await apiDelete(`/users/${userId}`, cookies.AuthToken);
+            await apiDelete(`/users/delete/${userId}`, cookies.AuthToken);
             setUsers(prev => prev.filter(user => user.id !== userId));
             alert('Xóa user thành công!');
         } catch (error) {

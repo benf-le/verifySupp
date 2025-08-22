@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
 import {useCookies} from "react-cookie";
 import {Products} from "../../models/Products.ts";
-import AddProductModal from "./AddProductModal.tsx";
-import EditProductModal from "./EditProductModal.tsx";
+import AddProductModal from "../modal/AddProductModal.tsx";
+import EditProductModal from "../modal/EditProductModal.tsx";
 import {BASE_URL} from "../../constant/appInfo.ts"; // Import EditProductModal
 import AdminLayout from '../../components/admin/AdminLayout.tsx';
 
-function AdminPage() {
+function ProductsPage() {
     const [cookies] = useCookies(['AuthToken']);
     const [productsAdmin, setProductsAdmin] = useState<Products[]>([]);
 
@@ -321,4 +321,4 @@ function AdminPage() {
     );
 }
 
-export default AdminPage;
+export default ProductsPage;

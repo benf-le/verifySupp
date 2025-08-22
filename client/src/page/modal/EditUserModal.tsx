@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import { User, UserForm } from '../../models/User';
-import { useModalHandlers } from '../../utils/modalUtils';
-import { apiPatch, ApiError } from '../../utils/apiUtils';
-import { ModalState } from '../../types/common';
+import { User, UserForm } from '../../models/User.ts';
+import { useModalHandlers } from '../../utils/modalUtils.ts';
+import { apiPatch, ApiError } from '../../utils/apiUtils.ts';
+import { ModalState } from '../../types/common.ts';
 import {MODAL_CLOSE_DELAY} from "../../constant/productConstants.ts";
 
 
@@ -22,7 +22,7 @@ function EditUserModal({ isOpen, onClose, onUserUpdated, user }: EditUserModalPr
         email: '',
         firstName: '',
         lastName: '',
-        userType: '',
+        userType: 'USER',
         isActive: true,
         phoneNumber: ''
     });
@@ -93,7 +93,7 @@ function EditUserModal({ isOpen, onClose, onUserUpdated, user }: EditUserModalPr
 
         try {
             const updatedUser = await apiPatch<User>(
-                `/users/${user.id}`,
+                `/users/update/${user.id}`,
                 formData,
                 cookies.AuthToken
             );
