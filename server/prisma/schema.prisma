@@ -12,6 +12,9 @@ model Collection {
   name     String
   Products Products[]
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("collection") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
 }
 

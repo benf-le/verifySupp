@@ -9,10 +9,14 @@ export class UserService{
 
     async getUser(userDTO: UserDTO){
 
+    try {
+      const user = await this.prismaService.user.findMany();
 
-        const user = await this.prismaService.user.findMany();
+      return user
+    }catch(error){
+      console.log(error);
+    }
 
-        return user
     }
 
   async getUserById(id: string) {
