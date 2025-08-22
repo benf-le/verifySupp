@@ -383,7 +383,7 @@ function UsersPage() {
                 {/*    onClose={handleCloseEditModal}*/}
                 {/*    onUserUpdated={handleUserUpdated}*/}
                 {/*    user={selectedUser}*/}
-                />
+                {/*/>*/}
             </div>
         </AdminLayout>
     );
