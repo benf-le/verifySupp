@@ -80,20 +80,22 @@ export class ProductsService {
     async updateProducts(productsDTO: ProductDTO,id: string){
         try {
             const updateProductss = await this.prismaService.products.update({
-                data: {
-                    name: productsDTO.name,
-                    descriptionShort: productsDTO.descriptionShort,
-                    imageUrl: productsDTO.imageUrl,
-                    price: productsDTO.price,
-                    forSale: productsDTO.forSale,
-                    type: productsDTO.type,
-                    description: productsDTO.description,
-                    countInStock: productsDTO.countInStock,
-                    ingredient:productsDTO.ingredient,
-                    reviews:productsDTO.reviews
-
+              data: {
+                name: productsDTO.name,
+                descriptionShort: productsDTO.descriptionShort,
+                imageUrl: productsDTO.imageUrl,
+                price: productsDTO.price,
+                forSale: productsDTO.forSale,
+                type: productsDTO.type,
+                description: productsDTO.description,
+                countInStock: productsDTO.countInStock,
+                ingredient: productsDTO.ingredient,
+                reviews: productsDTO.reviews,
+                collection: {
+                  connect: { id: productsDTO.collectionId },
                 },
-                where: {id}
+              },
+              where: { id },
             });
 
             return updateProductss;

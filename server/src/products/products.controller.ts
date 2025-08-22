@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Post, Put, UseGuards} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { ProductDTO } from './dto';
 import { ProductsService } from './products.service';
 import { Roles} from "../auth/decorator/roles.decorator";
@@ -46,7 +46,7 @@ export class ProductsController{
 
     @Roles(UserType.ADMIN)
     @UseGuards(AuthorizationGuard)
-    @Put("/update-product/:id")
+    @Patch("/update-product/:id")
     updateProduct(@Body() productDTO:ProductDTO, @Param('id')id: string){
         // const adminId = this.productsService.getAdminByProductId()
         return this.productsService.updateProducts(productDTO, id)

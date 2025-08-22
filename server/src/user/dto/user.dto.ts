@@ -1,4 +1,4 @@
-import {IsEmail, IsEnum, IsNotEmpty, IsString} from "class-validator";
+import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import {UserType} from "@prisma/client";
 
 export class UserDTO {
@@ -16,6 +16,10 @@ export class UserDTO {
     @IsString()
     @IsNotEmpty() // dung de validate
     lastName: string
+
+    @IsBoolean()
+    @IsNotEmpty()
+    isActive: boolean
 
     @IsEnum(UserType)
     user_type: UserType

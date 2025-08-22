@@ -1,4 +1,4 @@
-import {Controller, Get, Param} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
 import {UserService} from "./user.service";
 import {UserDTO} from "./dto/user.dto";
 import {UserType} from "@prisma/client";
@@ -13,5 +13,27 @@ export class UserController{
     async getUser(userDTO: UserDTO){
         // const userTypee = type === 'user' ? UserType.USER : UserType.ADMIN
         return await this.userService.getUser( userDTO)
+    }
+
+    @Get('/:id')
+    async getUserById(@Param('id')id: string){
+      return await this.userService.getUserById(id)
+    }
+
+
+
+
+    @Put("/update/:id")
+    updateUser(@Body() userDTO: UserDTO, @Param('id')id: string){
+      // const adminId = this.productsService.getAdminByProductId()
+      return this.userService.updateUser(userDTO, id)
+    }
+
+
+
+
+    @Delete("/delete/:id")
+    deleteProduct( @Param('id')id: string){
+      return this.userService.deleteProducts( id)
     }
 }
