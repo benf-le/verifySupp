@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import {UserService} from "./user.service";
 import {UserDTO} from "./dto/user.dto";
-import {UserType} from "@prisma/client";
+
 
 @Controller('users')
 
@@ -23,7 +23,7 @@ export class UserController{
 
 
 
-    @Put("/update/:id")
+    @Patch("/update/:id")
     updateUser(@Body() userDTO: UserDTO, @Param('id')id: string){
       // const adminId = this.productsService.getAdminByProductId()
       return this.userService.updateUser(userDTO, id)
