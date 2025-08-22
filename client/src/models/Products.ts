@@ -13,3 +13,10 @@ export interface Products {
     reviews: string,
     collectionId: string
 }
+
+export type ProductType = 'box' | 'package' | 'carton';
+
+export interface ProductTypeOption {
+    value: ProductType;
+    label: string;
+}

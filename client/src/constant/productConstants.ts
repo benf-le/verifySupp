@@ -1,4 +1,5 @@
-import {ProductTypeOption} from "../types/common.ts";
+import {ProductTypeOption} from "../models/Products.ts";
+
 
 export const PRODUCT_TYPE_OPTIONS: ProductTypeOption[] = [
     { value: 'box', label: 'Box (Hộp)' },
