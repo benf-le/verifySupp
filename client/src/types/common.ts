@@ -1,11 +1,3 @@
-export interface Collection {
-    id: string;
-    name: string;
-    description?: string;
-    createdAt?: string;
-    updatedAt?: string;
-}
-
 export interface ProductForm {
     name: string;
     imageUrl: string;
@@ -31,12 +23,6 @@ export interface PaginatedResponse<T> {
     limit: number;
 }
 
-export type ProductType = 'box' | 'package' | 'carton';
-
-export interface ProductTypeOption {
-    value: ProductType;
-    label: string;
-}
 
 export interface ModalState {
     isOpen: boolean;
