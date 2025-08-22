@@ -8,8 +8,9 @@ import NotFoundPage from "../page/NotFoundPage";
 import CartPage from "../page/Cart";
 import ProductsPage from "../page/admin/ProductsPage.tsx";
 import DashboardPage from "../page/admin/DashboardPage.tsx";
-import CollectionsPage from "../page/admin/CollectionsPage.tsx";
+
 import UsersPage from "../page/admin/UsersPage.tsx";
+import CollectionsPage from "../page/admin/CollectionsPage.tsx";
 
 export const routes = [
     {
