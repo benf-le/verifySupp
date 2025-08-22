@@ -1,26 +1,47 @@
 // Define a "type" of "authentication request"
-import {IsEnum, IsNotEmpty, IsString} from 'class-validator'
-import {UserType} from "@prisma/client";
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { UserType } from '@prisma/client';
 
 export class ProductDTO {
+  @IsString()
+  name: string;
 
+  @IsString()
+  @IsOptional()
+  descriptionShort: string;
 
-    @IsString() name: string
+  @IsString()
+  imageUrl: string;
 
-    @IsString() descriptionShort: string
+  @IsNumber()
+  price: number;
 
-    @IsString() imageUrl: string
+  @IsBoolean()
+  forSale: boolean;
 
-    @IsString() price: string
+  @IsString()
+  type: string;
 
+  @IsNumber()
+  countInStock: number;
 
-     forSale: boolean
+  @IsString()
+  description: string;
 
-    @IsString() type: string
-    @IsString() countInStock: string
-    @IsString() description: string
-    @IsString() ingredient: string
-    @IsString() reviews: string
+  @IsString()
+  ingredient: string;
 
+  @IsString()
+  @IsOptional()
+  reviews: string;
 
+  @IsString()
+  collectionId: string;
 }

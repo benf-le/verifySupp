@@ -35,7 +35,7 @@ export class ProductsController{
     //     return this.productsService.creatProducts(productsDTO)
     // }
     @Roles(UserType.ADMIN)
-    // @UseGuards(AuthorizationGuard)
+    @UseGuards(AuthorizationGuard)
     @Post("/create-product")
     createProduct(@Body() productDTO:ProductDTO, @Users() user: UserInfo){
 
@@ -45,7 +45,7 @@ export class ProductsController{
 
 
     @Roles(UserType.ADMIN)
-    // @UseGuards(AuthorizationGuard)
+    @UseGuards(AuthorizationGuard)
     @Put("/update-product/:id")
     updateProduct(@Body() productDTO:ProductDTO, @Param('id')id: string){
         // const adminId = this.productsService.getAdminByProductId()
@@ -54,7 +54,7 @@ export class ProductsController{
 
 
     @Roles(UserType.ADMIN)
-    // @UseGuards(AuthorizationGuard)
+    @UseGuards(AuthorizationGuard)
     @Delete("/delete-product/:id")
     deleteProduct( @Param('id')id: string){
         return this.productsService.deleteProducts( id)

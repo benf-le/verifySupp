@@ -17,16 +17,16 @@ model Collection {
 
 model Products {
   id               String     @id @default(auto()) @map("_id") @db.ObjectId
-  descriptionShort String
+  descriptionShort String?
   imageUrl         String
   name             String
-  price            String
+  price            Int
   forSale          Boolean    @default(false)
   type             String
-  countInStock     String
+  countInStock     Int
   description      String
   ingredient       String
-  reviews          String
+  reviews          String?
   collection       Collection @relation(fields: [collectionId], references: [id])
   collectionId     String     @db.ObjectId
 
@@ -51,8 +51,6 @@ model User {
   Order     Order[]
 
   @@map("users")
-
-
 }
 
 // =================

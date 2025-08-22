@@ -63,8 +63,9 @@ export class ProductsService {
                     ingredient:productsDTO.ingredient,
                     reviews:productsDTO.reviews,
 
-
-
+                    collection: {
+                      connect: { id: productsDTO.collectionId }
+                    }
                 }
             });
 

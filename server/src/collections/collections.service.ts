@@ -33,5 +33,19 @@ export class CollectionsService {
         }
     }
 
+    async createCollection(collectionDTO: CollectionsDTO) {
+      try{
+        const createCollection = await this.prismaService.collection.create({
+          data:{
+            name: collectionDTO.name,
+          }
+        })
+
+        return createCollection
+      }catch(error){
+        return error
+      }
+    }
+
 
 }
