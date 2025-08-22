@@ -5,6 +5,7 @@ import {Products} from "../../models/Products.ts";
 import AddProductModal from "./AddProductModal.tsx";
 import EditProductModal from "./EditProductModal.tsx";
 import {BASE_URL} from "../../constant/appInfo.ts"; // Import EditProductModal
+import AdminLayout from '../../components/admin/AdminLayout.tsx';
 
 function AdminPage() {
     const [cookies] = useCookies(['AuthToken']);
@@ -128,6 +129,7 @@ function AdminPage() {
 
 
     return (
+        <AdminLayout>
         <div>
             <HeaderAdmin/>
 
@@ -318,6 +320,7 @@ function AdminPage() {
                 product={selectedProduct}
             />
         </div>
+            </AdminLayout>
     );
 }
 
