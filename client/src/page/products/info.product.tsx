@@ -27,7 +27,7 @@ export default function ProductInforPage() {
                         .then(data => setProductDetail(data))
                         .catch(error => console.log(error))
                 })
-
+            window.scrollTo(0, 0);
 
         }
         getProductsDetail()
@@ -45,7 +45,7 @@ export default function ProductInforPage() {
 
 
     const addToCartHandler = () => {
-        const cart = JSON.parse(sessionStorage.getItem("shoppingCart")) || [];
+        const cart = JSON.parse(sessionStorage.getItem("shoppingCart") as string) || [];
         const product = {
             name: productDetail.name,
             imageUrl: productDetail.imageUrl,
