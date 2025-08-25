@@ -1,35 +1,40 @@
-import React, {useEffect, useState} from 'react'
-import {Link, useNavigate} from "react-router-dom";
+import  {useEffect, useState} from 'react'
+import {Link} from "react-router-dom";
 import HandleProducts from "../api/HandleProducts";
-import {Collections} from "../models/Collections";
-import {AiOutlineSearch, AiOutlineUser} from "react-icons/ai";
+
+import { AiOutlineUser} from "react-icons/ai";
 import {BsCart3} from "react-icons/bs";
 
 import ButtonInputSearch from "./ButtonInputSearch";
 import {useCookies} from "react-cookie";
 import jwt_decode from "jwt-decode"
+import {Collection} from "../models/Collections.ts";
 
 export default function Header() {
-    const [collections, setCollections] = useState<Collections[]>([]) //Products co dang array
-    const [open, setOpen] = useState(false)
+    const [collections, setCollections] = useState<Collection[]>([]) //Products co dang array
+    // const [open, setOpen] = useState(false)
 
     const [user, setUser] = useState('')
-    const [typee, setType] = useState('')
+    // @ts-ignore
+    const [type, setType] = useState('')
 
+    // @ts-ignore
     const [cookies, setCookie, removeCookie] = useCookies(['AuthToken'])
 
     const authToken = cookies.AuthToken
     console.log(authToken)
 
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const getUser = async () => {
         try {
 
             const decode_token_user = jwt_decode(authToken)
 
             // console.log(decode_token_user)
+            // @ts-ignore
             const ten = decode_token_user.firstName
+            // @ts-ignore
             const user__type = decode_token_user.userType
             // console.log(user__type)
             setUser(ten)
@@ -55,8 +60,8 @@ export default function Header() {
             if (res) {
                 setCollections(res)
             }
-        } catch (e) {
-            console.log(`Product not found: ${e.message}`)
+        } catch (error) {
+            console.log(`Product not found: ${error}`)
         }
     }
 
