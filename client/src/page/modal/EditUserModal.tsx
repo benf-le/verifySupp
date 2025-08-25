@@ -19,12 +19,11 @@ function EditUserModal({ isOpen, onClose, onUserUpdated, user }: EditUserModalPr
     const { modalRef, handleBackdropClick } = useModalHandlers(isOpen, onClose);
 
     const [formData, setFormData] = useState<Omit<UserForm, 'password'>>({
-        email: '',
+
         firstName: '',
         lastName: '',
         userType: 'USER',
         isActive: true,
-        phoneNumber: ''
     });
 
     const [modalState, setModalState] = useState<ModalState>({
@@ -38,12 +37,10 @@ function EditUserModal({ isOpen, onClose, onUserUpdated, user }: EditUserModalPr
     useEffect(() => {
         if (user && isOpen) {
             setFormData({
-                email: user.email || '',
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 userType: user.user_type || 'USER',
                 isActive: user.isActive ?? true,
-                phoneNumber: user.phoneNumber || ''
             });
             setModalState({
                 isOpen: true,
@@ -65,15 +62,15 @@ function EditUserModal({ isOpen, onClose, onUserUpdated, user }: EditUserModalPr
         }));
     };
 
-    const validateForm = (): string | null => {
-        if (!formData.email.trim()) {
-            return 'Vui lòng nhập email';
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            return 'Email không hợp lệ';
-        }
-        return null;
-    };
+    // const validateForm = (): string | null => {
+    //     if (!formData.email.trim()) {
+    //         return 'Vui lòng nhập email';
+    //     }
+    //     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    //         return 'Email không hợp lệ';
+    //     }
+    //     return null;
+    // };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -83,11 +80,11 @@ function EditUserModal({ isOpen, onClose, onUserUpdated, user }: EditUserModalPr
             return;
         }
 
-        const validationError = validateForm();
-        if (validationError) {
-            setModalState(prev => ({ ...prev, error: validationError }));
-            return;
-        }
+        // const validationError = validateForm();
+        // if (validationError) {
+        //     setModalState(prev => ({ ...prev, error: validationError }));
+        //     return;
+        // }
 
         setModalState(prev => ({ ...prev, isLoading: true, error: null }));
 
@@ -170,21 +167,21 @@ function EditUserModal({ isOpen, onClose, onUserUpdated, user }: EditUserModalPr
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Email *</span>
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            className="input input-bordered w-full"
-                            required
-                            disabled={modalState.isLoading}
-                            placeholder="user@example.com"
-                        />
-                    </div>
+                    {/*<div className="form-control">*/}
+                    {/*    <label className="label">*/}
+                    {/*        <span className="label-text">Email *</span>*/}
+                    {/*    </label>*/}
+                    {/*    <input*/}
+                    {/*        type="email"*/}
+                    {/*        name="email"*/}
+                    {/*        value={formData.email}*/}
+                    {/*        onChange={handleInputChange}*/}
+                    {/*        className="input input-bordered w-full"*/}
+                    {/*        required*/}
+                    {/*        disabled={modalState.isLoading}*/}
+                    {/*        placeholder="user@example.com"*/}
+                    {/*    />*/}
+                    {/*</div>*/}
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-control">
