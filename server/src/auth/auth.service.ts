@@ -1,4 +1,4 @@
-import {ConflictException, HttpException, Injectable} from '@nestjs/common';
+import { ConflictException, HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
 
 import {UserType} from "@prisma/client";
@@ -68,6 +68,9 @@ export class AuthService {
         })
         if (!user) {
             throw new HttpException("Invalid email", 400)
+        }
+        if (!user.isActive) {
+          throw new UnauthorizedException('Account is locked.Please contact with admin.');
         }
 
         const hashedPassword = user.password;
