@@ -33,11 +33,11 @@ export function ProductsCardSale() {
 
     return (
         <div>
-            <div className="py-10 pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-center ">
+            <div className=" mx-auto w-[80%] my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 justify-center ">
                 {productSale.length > 0 && productSale.map(item =>
 
                     <Link to={`/products/${item.id}`}>
-                        <div className="card ml-5 w-64 bg-base-100 shadow-xl mb-10">
+                        <div className="card mx-auto w-56 bg-base-400 shadow-xl mb-10">
                             <figure className="relative w-full h-full bg-white rounded-xl p-6 border-gray-100">
                                 <img src={item.imageUrl} alt="Shoes"/>
                             </figure>
