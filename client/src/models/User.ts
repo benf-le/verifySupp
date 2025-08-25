@@ -13,8 +13,7 @@ export interface User {
 }
 
 export interface UserForm {
-    email: string;
-    password?: string;
+
     firstName?: string;
     lastName?: string;
     userType: 'USER' | 'ADMIN';
