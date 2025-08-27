@@ -4,14 +4,14 @@
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
-.pet-stock-color{
-  background-color: rgb(0, 40, 85);
+.verify-supp-color{
+  background-color: rgb(13, 145, 5);
 }
-.pet-stock-text-color{
-  color: rgb(0, 40, 85);
+.verify-supp-text-color{
+  color: rgb(12, 177, 3);
 }
 .pet-stock-border-color{
-  border-color: rgb(0, 40, 85);
+  border-color: rgb(12, 177, 3);
 }
 .btn{
   text-transform: capitalize;

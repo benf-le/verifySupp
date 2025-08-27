@@ -83,10 +83,10 @@ export default function Header() {
 
                 <header className="h-20">
                     <div
-                        className=" pet-stock-color navbar  flex h-20 flex-grow bg-base-100 fixed left-0 right-0 top-0 z-10">
+                        className=" verify-supp-color navbar  flex h-20 flex-grow bg-base-100 fixed left-0 right-0 top-0 z-10">
 
                         <div className="basis-1/4 justify-center">
-                            <Link to="/" className="btn btn-ghost text-xl text-white">PET STOCK</Link>
+                            <Link to="/" className="btn btn-ghost text-xl text-white">VerifySupp</Link>
                         </div>
 
 
@@ -133,7 +133,7 @@ export default function Header() {
                         </div>
                     </div>
                 </header>
-                {/*<menu className="pet-stock-color navbar flex h-20 flex-grow justify-center bg-base-100">*/}
+                {/*<menu className="verify-supp-color navbar flex h-20 flex-grow justify-center bg-base-100">*/}
                 {/*  <div className="join space-x-10">*/}
                 {/*    <button className="btn btn-ghost text-white">Dog</button>*/}
                 {/*    <button className="btn btn-ghost text-white">Cat</button>*/}
@@ -149,7 +149,7 @@ export default function Header() {
                 {/*</menu>*/}
 
                 <menu>
-                    <div className=" pet-stock-color navbar bg-base-100  ">
+                    <div className=" verify-supp-color navbar bg-base-100  ">
                         <div className="">
                             <div className="dropdown">
                                 <label tabIndex={0} className="btn  lg:hidden">
@@ -195,12 +195,12 @@ export default function Header() {
 
 
                         <div className="navbar flex hidden h-8 flex-grow justify-center lg:flex m-0">
-                            <ul className="pet-stock-color menu menu-horizontal space-x-5 px-1">
+                            <ul className="verify-supp-color menu menu-horizontal space-x-5 px-1">
                                 {collections.length > 0 && collections.slice(0, collections.length - 1).map(collec =>
                                     <Link to={`/collections/${collec.name}`}>
                                         <div className="dropdown dropdown-hover">
                                             <label tabIndex={0}
-                                                   className="btn m-1 text-white pet-stock-color border-none hover:text-sky-900 text-lg">
+                                                   className="btn m-1 text-white verify-supp-color border-none hover:text-sky-900 text-lg">
                                                 {collec.name}
                                             </label>
                                             {/*<ul tabIndex={0}*/}

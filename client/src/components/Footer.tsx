@@ -1,9 +1,9 @@
-import React from 'react'
+
 function Footer() {
   return (
     <div>
       <footer className=" ">
-        <footer className="pet-stock-color footer bg-base-200 p-10  text-base-content ">
+        <footer className="verify-supp-color footer bg-base-200 p-10  text-base-content ">
           <div className=" p-10 font-medium text-white">
             <span className=" pb-10 text-xl text-cyan-500">OUR SERVICES</span>
             <a className="link-hover link pb-2">Veterinary Services</a>
