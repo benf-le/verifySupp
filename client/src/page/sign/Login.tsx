@@ -28,6 +28,10 @@ const Login = () => {
 
     //   const [buttonDisabled, setButtonDisabled]= React.useState(false)
     //
+    useEffect(() => {
+        if (typee === 'USER') navigate('/');
+        if (typee === 'ADMIN') navigate('/user/admin/products');
+    }, [typee, navigate]);
 
 
     const onLogin = async (e) =>  {
@@ -54,9 +58,7 @@ const Login = () => {
                 // setUser(ten)
                 setType(user__type)
 
-                if( typee==='USER') navigate('/')
-                if( typee==='ADMIN') navigate('/user/admin/products')
-                // navigate('/');
+
 
                 // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn
             } else {
