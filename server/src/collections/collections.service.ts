@@ -59,5 +59,15 @@ export class CollectionsService {
       }
     }
 
+    async deteleCollection(id: string) {
+      try {
+        return await this.prismaService.collection.delete({
+          where:{id}
+        })
+      }
+      catch(error){
+        throw new Error(`Could not create collection: ${error.message}`);
+      }
+    }
 
 }

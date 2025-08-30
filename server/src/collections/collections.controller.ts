@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post,Delete } from '@nestjs/common';
 
 import {CollectionsService} from "./collections.service";
 import {CollectionsDTO} from "./dto";
@@ -26,6 +26,11 @@ export class CollectionsController {
     @Post('/create')
     async createCollection(@Body() collectionDTO:CollectionsDTO){
       return await this.collectionsService.createCollection(collectionDTO)
+    }
+
+    @Delete('delete/:id')
+    async deleteCollection(@Param('id') id: string){
+      return await this.collectionsService.deteleCollection(id)
     }
 
 
