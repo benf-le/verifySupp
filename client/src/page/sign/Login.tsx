@@ -2,10 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
-import {useMutation} from "@tanstack/react-query";
-import * as UserService from '../../services/UserService'
-import {useMutationHooks} from "../../hooks/useMutationHook";
 import jwt_decode from "jwt-decode";
+import {BASE_URL} from "../../constant/appInfo.ts";
 
 
 
@@ -21,6 +19,7 @@ const Login = () => {
     // const [email, setEmail] = useState('')
     // const [password, setPassword] = useState('')
     const [error, setError] = React.useState('')
+    // @ts-ignore
     const [cookies, setCookie, removeCookie] = useCookies([ 'AuthToken'])
     const [typee, setType] = useState('')
 
@@ -30,14 +29,14 @@ const Login = () => {
     //
     useEffect(() => {
         if (typee === 'USER') navigate('/');
-        if (typee === 'ADMIN') navigate('/user/admin/products');
+        if (typee === 'ADMIN') navigate('/admin');
     }, [typee, navigate]);
 
 
     const onLogin = async (e) =>  {
         e.preventDefault() //chặn reload trang
         try {
-            const response = await axios.post(`http://localhost:7000/login`, user)
+            const response = await axios.post(BASE_URL+`/login`, user)
 
 
 
@@ -53,6 +52,7 @@ const Login = () => {
                 const decode_token_user = jwt_decode(response.data.access_token)
 
 
+                // @ts-ignore
                 const user__type = decode_token_user.userType
 
                 // setUser(ten)
