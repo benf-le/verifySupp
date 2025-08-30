@@ -10,10 +10,26 @@ export class ProductsService {
 
     }
 
-    async getProducts(productsDTO: ProductDTO) {
+    async getProducts(cursor?: string, limit: number = 12) {
         try {
-            const products = await this.prismaService.products.findMany({})
-            return products
+            const take = limit;
+
+            const products = await this.prismaService.products.findMany({
+              take,
+              skip: cursor ? 1 : 0,
+              cursor: cursor ?{id:cursor} : undefined,
+              orderBy:{createdAt:'desc'}
+            })
+          
+          const total = await this.prismaService.products.count()
+          
+           return {
+             data: products,
+             nextCursor: products.length === take ? products[products.length - 1].id : null,
+             total,
+             limit,
+             totalPages: Math.ceil(total / limit),
+           };
         } catch (error) {
 
             return error

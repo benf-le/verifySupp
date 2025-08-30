@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ProductDTO } from './dto';
 import { ProductsService } from './products.service';
 import { Roles} from "../auth/decorator/roles.decorator";
@@ -16,9 +16,13 @@ export class ProductsController{
 
     }
     @Get(`/`)
-    async getProducts(productsDTO:ProductDTO){
-        return await this.productsService.getProducts(productsDTO)
+    async getProducts(
+      @Query('cursor') cursor?: string,
+      @Query('limit') limit: string = '12', // mặc định 8 sản phẩm
+    ) {
+      return await this.productsService.getProducts(cursor, +limit);
     }
+
 
     @Get("/sale")
     async getProductsSale(productsDTO:ProductDTO){
