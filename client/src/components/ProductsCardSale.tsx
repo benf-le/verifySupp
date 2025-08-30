@@ -33,7 +33,7 @@ export function ProductsCardSale() {
 
     return (
         <div>
-            <div className=" mx-auto w-[80%] my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 justify-center ">
+            <div className=" mx-auto w-full max-w-7xl px-6 lg:px-12 xl:px-20  my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-center ">
                 {productSale.length > 0 && productSale.map(item =>
 
                     <Link to={`/products/${item.id}`}>
