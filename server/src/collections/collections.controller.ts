@@ -1,8 +1,11 @@
-import { Body, Controller, Get, Param, Post,Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, UseGuards } from '@nestjs/common';
 
 import {CollectionsService} from "./collections.service";
 import {CollectionsDTO} from "./dto";
 import { ProductDTO } from '../products/dto';
+import { Roles } from '../auth/decorator/roles.decorator';
+import { UserType } from '@prisma/client';
+import { AuthorizationGuard } from '../auth/guard/authorization.guard';
 
 
 @Controller('collections')
@@ -23,11 +26,17 @@ export class CollectionsController {
         return await this.collectionsService.getCollectionsById(id)
     }
 
+
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthorizationGuard)
     @Post('/create')
     async createCollection(@Body() collectionDTO:CollectionsDTO){
       return await this.collectionsService.createCollection(collectionDTO)
     }
 
+
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthorizationGuard)
     @Delete('delete/:id')
     async deleteCollection(@Param('id') id: string){
       return await this.collectionsService.deteleCollection(id)
