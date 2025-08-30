@@ -50,7 +50,7 @@ export const routes = [
     },
 
     {
-        path: '/user/admin/dashboard',
+        path: '/user/admin',
         page: DashboardPage,
         isShowHeader: false
     },
