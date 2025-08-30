@@ -1,5 +1,6 @@
 import  {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
+import {BASE_URL} from "../../constant/appInfo.ts";
 
 function Detail() {
     // @ts-ignore
@@ -9,7 +10,7 @@ function Detail() {
         const getProductsDetail = async () => {
             const api = `/products/${id}`
 
-            fetch(`http://localhost:7000` + api)
+            fetch(BASE_URL+ api)
                 .then(response => {
                     response.json()
                         .then(data => setProductDetail(data))

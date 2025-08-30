@@ -3,6 +3,7 @@ import MenuCollection from "../../components/Product/MenuCollection";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ProductsCard from "../../components/Product/ProductsCard";
+import {BASE_URL} from "../../constant/appInfo.ts";
 
 
 export default function PageProduct(){
@@ -16,7 +17,7 @@ export default function PageProduct(){
         const getProductsDetail = async () => {
             const api = `/collections/${id}`
 
-            fetch(`http://localhost:7000` + api)
+            fetch(BASE_URL+ api)
                 .then(response => {
                     response.json()
                         .then(data => setProductPage(data))

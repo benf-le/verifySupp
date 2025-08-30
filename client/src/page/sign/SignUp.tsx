@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "../../components/Header";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import {BASE_URL} from "../../constant/appInfo.ts";
 
 const SignUp = () => {
     let navigate = useNavigate()
@@ -33,7 +34,7 @@ const SignUp = () => {
 
 
 
-                const response = await axios.post(`http://localhost:7000/register/USER`, user)
+                const response = await axios.post(BASE_URL+`/register/USER`, user)
 
 
                 if (response.status === 201) {

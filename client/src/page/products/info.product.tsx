@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {IoMdAdd, IoMdRemove} from "react-icons/io";
 import OptionNearYou from "../../components/Product/OptionNearYou";
+import {BASE_URL} from "../../constant/appInfo.ts";
 
 
 export default function ProductInforPage() {
@@ -21,7 +22,7 @@ export default function ProductInforPage() {
         const getProductsDetail = async () => {
             const api = `/products/${id}`
 
-            fetch(`http://localhost:7000` + api)
+            fetch(BASE_URL+ api)
                 .then(response => {
                     response.json()
                         .then(data => setProductDetail(data))
