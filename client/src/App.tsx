@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {routes} from "./routes";
 
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
+import ProtectedRoute from "./components/admin/ProtectedRoute.tsx";
 
 
  function App() {
@@ -13,9 +14,24 @@ import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
             <Router>
 
                 <Routes>
-                    {routes.map((route) => {
+                    {routes.map((route, index) => {
                         const Page = route.page
                         const Layout = route.isShowHeader ? DefaultComponent : Fragment
+
+                        // Nếu path bắt đầu bằng /admin thì bọc ProtectedRoute
+                        if (route.path.startsWith("/admin") || route.path.startsWith("/user/admin")) {
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={
+                                        <ProtectedRoute requireAdmin>
+                                            <Page />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                            );
+                        }
                         return (
                             <Route key={route.path} path={route.path} element={
                                 <Layout>
@@ -32,36 +48,3 @@ import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
     )
 }
 export default App
-//
-// import logo from './logo.svg';
-//
-// import {BrowserRouter, Routes, Route} from 'react-router-dom'
-// import Home from "./page/Home";
-// import Login from "./page/sign/Login";
-// import SignUp from "./page/sign/SignUp";
-// import PageProduct from "./page/products/page.product";
-// import ProductInforPage from "./page/products/info.product";
-// import Footer from "./components/Footer";
-// import Header from "./components/Header";
-// import Cart from "./components/Cart";
-// function App() {
-//     return (
-//         <BrowserRouter>
-//             <Header/>
-//             <Routes>
-//                 <Route path="/" element={<Home/>}/>
-//                 <Route path="/login" element={<Login/>}/>
-//                 <Route path="/sign-up" element={<SignUp/>}/>
-//                 <Route path="/products/:id" element={<ProductInforPage />} />
-//                 <Route path="/collections/:id" element={<PageProduct />} />
-//                 <Route path="/cart" element={<Cart />} />
-//
-//             </Routes>
-//
-//             <Footer/>
-//
-//         </BrowserRouter>
-//     );
-// }
-//
-// export default App;
