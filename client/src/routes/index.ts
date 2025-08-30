@@ -44,24 +44,24 @@ export const routes = [
         isShowHeader: true
     },
     {
-        path: '/user/admin/products',
+        path: '/admin/products',
         page: ProductsPage,
         isShowHeader: false
     },
 
     {
-        path: '/user/admin',
+        path: '/admin',
         page: DashboardPage,
         isShowHeader: false
     },
     {
-        path: '/user/admin/collections',
+        path: '/admin/collections',
         page: CollectionsPage,
         isShowHeader: false
     },
 
     {
-        path: '/user/admin/users',
+        path: '/admin/users',
         page: UsersPage,
         isShowHeader: false
     },
