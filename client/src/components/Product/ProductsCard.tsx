@@ -1,21 +1,18 @@
-"use client";
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {Products} from "../../models/Products";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Products } from "../../models/Products";
 import HandleProducts from "../../api/HandleProducts";
 
-
 export default function ProductsCard() {
-
-    const [product, setProduct] = useState<Products[]>([]) //Products co dang array
+    const [products, setProducts] = useState<Products[]>([]);
     const [cursor, setCursor] = useState<string | null>(null);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const limit = 12;
+    const limit = 8;
 
     useEffect(() => {
-        getProducts(null, 1)
-    }, [])
+        getProducts(null, 1);
+    }, []);
 
     const getProducts = async (cursorValue: string | null, page: number) => {
         const api = cursorValue
@@ -23,47 +20,44 @@ export default function ProductsCard() {
             : `/products?limit=${limit}`;
 
         try {
-            const res: any = await HandleProducts.getProducts(api)
+            const res: any = await HandleProducts.getProducts(api);
             if (res) {
-                setProduct(res.data)
-                setCursor(res.nextCursor)
-                setTotalPages(res.totalPage)
-                setCurrentPage(page)
+                setProducts(res.data);
+                setCursor(res.nextCursor);
+                setTotalPages(res.totalPages);
+                setCurrentPage(page);
             }
-        } catch (e) {
-            // @ts-ignore
-            console.log(`Product not found: ${e.message}`)
+        } catch (e: any) {
+            console.log(`Product not found: ${e.message}`);
         }
-    }
+    };
 
+    // Hàm tính range page hiển thị
     const getPaginationRange = (current: number, total: number, delta: number = 2) => {
-        const range: (number | string)[] = []
-        const left = current - delta
-        const right = current + delta
-
+        const range: (number | string)[] = [];
+        const left = current - delta;
+        const right = current + delta;
 
         for (let i = 1; i <= total; i++) {
             if (i === 1 || i === total || (i >= left && i <= right)) {
-                range.push(i)
+                range.push(i);
             } else if (range[range.length - 1] !== "...") {
-                range.push("...")
+                range.push("...");
             }
         }
+        return range;
+    };
 
-        return range
-    }
-
-    const paginationRange = getPaginationRange(currentPage, totalPages)
-
+    const paginationRange = getPaginationRange(currentPage, totalPages);
 
     return (
         <div>
             <div className="pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-                {product.map((item) => (
+                {products.map((item) => (
                     <Link key={item.id} to={`/products/${item.id}`}>
                         <div className="card w-52 bg-base-100 shadow-xl mb-10">
                             <figure className="relative w-full h-full bg-white rounded-xl p-6 border-gray-100">
-                                <img src={item.imageUrl} alt={item.name}/>
+                                <img src={item.imageUrl} alt={item.name} />
                             </figure>
                             <div className="card-body">
                                 <h2 className="card-title text-base line-clamp-2">{item.name}</h2>
