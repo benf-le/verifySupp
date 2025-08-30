@@ -112,8 +112,9 @@ function ProductsPage() {
             try {
                 const response = await fetch(BASE_URL+`/products`);
                 if (response.ok) {
-                    const data = await response.json();
-                    setProductsAdmin(data);
+                    const result = await response.json();
+
+                    setProductsAdmin(result.data);
                 } else {
                     console.error('Failed to fetch products');
                 }
