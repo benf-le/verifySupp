@@ -48,8 +48,8 @@ function AdminSidebar({ isCollapsed = false, onToggle }: AdminSidebarProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z" />
                 </svg>
             ),
-            path: '/user/admin/dashboard',
-            active: location.pathname === '/user/admin/dashboard'
+            path: '/admin',
+            active: location.pathname === '/admin'
         },
         {
             title: 'Products',
@@ -58,8 +58,8 @@ function AdminSidebar({ isCollapsed = false, onToggle }: AdminSidebarProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
             ),
-            path: '/user/admin/products',
-            active: location.pathname === '/user/admin/products'
+            path: '/admin/products',
+            active: location.pathname === '/admin/products'
         },
         {
             title: 'Collections',
@@ -68,8 +68,8 @@ function AdminSidebar({ isCollapsed = false, onToggle }: AdminSidebarProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
             ),
-            path: '/user/admin/collections',
-            active: location.pathname === '/user/admin/collections'
+            path: '/admin/collections',
+            active: location.pathname === '/admin/collections'
         },
         {
             title: 'Users',
@@ -78,8 +78,8 @@ function AdminSidebar({ isCollapsed = false, onToggle }: AdminSidebarProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                 </svg>
             ),
-            path: '/user/admin/users',
-            active: location.pathname === '/user/admin/users'
+            path: '/admin/users',
+            active: location.pathname === '/admin/users'
         },
         {
             title: 'Analytics',
@@ -88,8 +88,8 @@ function AdminSidebar({ isCollapsed = false, onToggle }: AdminSidebarProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
             ),
-            path: '/user/admin/analytics',
-            active: location.pathname === '/user/admin/analytics'
+            path: '/admin/analytics',
+            active: location.pathname === '/admin/analytics'
         },
         {
             title: 'Settings',
@@ -99,8 +99,8 @@ function AdminSidebar({ isCollapsed = false, onToggle }: AdminSidebarProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
             ),
-            path: '/user/admin/settings',
-            active: location.pathname === '/user/admin/settings'
+            path: '/admin/settings',
+            active: location.pathname === '/admin/settings'
         }
     ];
 
@@ -110,7 +110,7 @@ function AdminSidebar({ isCollapsed = false, onToggle }: AdminSidebarProps) {
     };
 
     const handleProfileClick = () => {
-        navigate('/user/admin/profile');
+        navigate('/admin/profile');
         setShowProfileMenu(false);
     };
 
