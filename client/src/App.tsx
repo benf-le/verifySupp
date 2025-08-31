@@ -4,12 +4,16 @@ import {routes} from "./routes";
 
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
 import ProtectedRoute from "./components/admin/ProtectedRoute.tsx";
+import {Provider} from "react-redux";
+import {store} from "./redux/store.ts";
+
 
 
  function App() {
 
     return (
         <div>
+        <Provider store={store}>
 
             <Router>
 
@@ -44,6 +48,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute.tsx";
             </Router>
 
 
+        </Provider>
         </div>
     )
 }

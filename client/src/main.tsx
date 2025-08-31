@@ -6,18 +6,10 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      {/*<Provider store={store}>*/}
+
           <App />
-      {/*</Provider>*/}
+
   </React.StrictMode>,
 
 
-    // // <React.StrictMode>
-    //   <QueryClientProvider client={queryClient}>
-    //     <Provider store={store}>
-    //         <App />
-    //     </Provider>
-    //       <ReactQueryDevtools initialIsOpen={false} />
-    //   </QueryClientProvider>
-    // // </React.StrictMode>,
 )

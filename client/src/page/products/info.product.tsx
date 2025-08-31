@@ -4,6 +4,8 @@ import {useParams} from "react-router-dom";
 import {IoMdAdd, IoMdRemove} from "react-icons/io";
 import OptionNearYou from "../../components/Product/OptionNearYou";
 import {BASE_URL} from "../../constant/appInfo.ts";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/cartSlice.ts";
 
 
 export default function ProductInforPage() {
@@ -15,7 +17,7 @@ export default function ProductInforPage() {
     // const [cart, setCart] = useState(null)
 
     const id = useParams().id;
-
+    const dispatch = useDispatch();
     // console.log(id)
 
     useEffect(() => {
@@ -46,32 +48,17 @@ export default function ProductInforPage() {
 
 
     const addToCartHandler = () => {
-        const cart = JSON.parse(sessionStorage.getItem("shoppingCart") as string) || [];
-        const product = {
-            name: productDetail.name,
-            imageUrl: productDetail.imageUrl,
-            price: productDetail.price,
-            type: productDetail.type,
-            qty: qty,
-        };
-
-
-
-        if (cart.find(item => item.name === product.name)) {
-            cart[cart.findIndex(item => item.name === product.name)].qty += product.qty;
-        } else {
-            cart.push(product);
-        }
-
-        sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
+        if (!productDetail) return;
+        dispatch(
+            addToCart({
+                name: productDetail.name,
+                imageUrl: productDetail.imageUrl,
+                price: Number(productDetail.price),
+                type: productDetail.type,
+                qty,
+            })
+        );
     };
-
-
-
-
-
-
-
 
     return (
         <div>

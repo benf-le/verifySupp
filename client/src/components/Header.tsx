@@ -1,14 +1,16 @@
-import  {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Link} from "react-router-dom";
 import HandleProducts from "../api/HandleProducts";
 
-import { AiOutlineUser} from "react-icons/ai";
+import {AiOutlineUser} from "react-icons/ai";
 import {BsCart3} from "react-icons/bs";
 
 import ButtonInputSearch from "./ButtonInputSearch";
 import {useCookies} from "react-cookie";
 import jwt_decode from "jwt-decode"
 import {Collection} from "../models/Collections.ts";
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/store.ts";
 
 export default function Header() {
     const [collections, setCollections] = useState<Collection[]>([]) //Products co dang array
@@ -24,6 +26,8 @@ export default function Header() {
     const authToken = cookies.AuthToken
     console.log(authToken)
 
+    const cartItems = useSelector((state: RootState) => state.cart.items);
+    const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
     // const navigate = useNavigate()
     const getUser = async () => {
@@ -126,8 +130,13 @@ export default function Header() {
                                 </div>
                             }
                             <Link to="/cart">
-                                <button className="btn btn-ghost text-white">
+                                <button className="btn btn-ghost text-white relative">
                                     <BsCart3/>
+                                    {cartCount > 0 && (
+                                        <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2">
+                                {cartCount}
+                            </span>
+                                    )}
                                 </button>
                             </Link>
                         </div>
