@@ -4,15 +4,14 @@ function BannerHome() {
     return (
         <div>
             <div>
-                <div
-
-                    style={{
-                        backgroundImage:
-                            "url(https://images.ctfassets.net/t6oc7i14lt7g/GG5VlsFNkkEGn6lKUfTk7/c529a4b8581b64c13f4460975de88170/AUG-Hills-desktop-overlay-2.png)",
-                    }}
-                >
-                    <div className="h-80"></div>
+                <div className="w-full">
+                    <img
+                        src="https://pixboost.com/api/2/img/%2F%2Fwww.elitesupps.com.au%2Fcdn%2Fshop%2Ffiles%2FBanner-External_1905x905_08fa0550-189b-4390-9c4e-14eefdac09b3.png%3Fv%3D1755064642%26width%3D1780/optimise?auth=MjAzMTAxMTQ1MQ__"
+                        alt="Banner"
+                        className="w-[90%] h-[100%] mx-auto object-cover"
+                    />
                 </div>
+
             </div>
 
             <div>
