@@ -11,7 +11,7 @@ export default function CartPage() {
 
 
     const calculateTotal = () => {
-        return cart.reduce((sum, item) => sum + item.price * item.qty, 0).toFixed(2);
+        return cart.reduce((sum, item) => sum + (item.price/100) * item.qty, 0).toFixed(2);
     };
 
 
@@ -73,7 +73,7 @@ export default function CartPage() {
                                                     </button>
                                                 </div>
                                                 <p className="mt-2">
-                                                    Total: ${(item.price * item.qty).toFixed(2)}
+                                                    Total: ${((item.price/100) * item.qty).toFixed(2)}
                                                 </p>
                                                 <button
                                                     className="mt-2 text-red-600 underline"
