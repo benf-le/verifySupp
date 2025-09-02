@@ -6,6 +6,7 @@ import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
 import ProtectedRoute from "./components/admin/ProtectedRoute.tsx";
 import {Provider} from "react-redux";
 import {store} from "./redux/store.ts";
+import ChatwootWidget from "./components/ChatwootWidget.ts";
 
 
 
@@ -40,6 +41,7 @@ import {store} from "./redux/store.ts";
                             <Route key={route.path} path={route.path} element={
                                 <Layout>
                                     <Page />
+                                    <ChatwootWidget />
                                 </Layout>
                             } />
                         )
