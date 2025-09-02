@@ -77,10 +77,10 @@ function ProductsPage() {
     };
 
     const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('vi-VN', {
+        return new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'VND'
-        }).format(price);
+            currency: 'USD'
+        }).format(price/100);
     };
 
 
