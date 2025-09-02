@@ -1,4 +1,4 @@
-import React from 'react'
+
 function MenuCollection() {
   return (
     <ul className="w-62 menu rounded-box bg-base-200">
