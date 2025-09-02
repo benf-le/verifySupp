@@ -18,10 +18,12 @@ export class ProductsController{
     @Get(`/`)
     async getProducts(
       @Query('cursor') cursor?: string,
-      @Query('limit') limit: string = '12', // mặc định 8 sản phẩm
+      @Query('limit') limit: string = '12',
+      @Query('collectionId') collectionId?: string,   // 👈 nhận collectionId từ FE
     ) {
-      return await this.productsService.getProducts(cursor, +limit);
+      return await this.productsService.getProducts(cursor, +limit, collectionId);
     }
+
 
 
     @Get("/sale")

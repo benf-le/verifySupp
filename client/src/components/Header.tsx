@@ -49,7 +49,7 @@ export default function Header() {
                 setCollections(res)
             }
         } catch (error) {
-            console.log(`Product not found: ${error}`)
+            console.log(`Collections not found: ${error}`)
         }
     }
 
@@ -98,7 +98,8 @@ export default function Header() {
                             <button className="btn btn-ghost text-white relative">
                                 <BsCart3/>
                                 {cartCount > 0 && (
-                                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2">
+                                    <span
+                                        className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2">
                                       {cartCount}
                                     </span>
                                 )}
@@ -109,37 +110,37 @@ export default function Header() {
             </header>
 
             {/* MENU COLLECTIONS */}
-            <menu >
+            <menu>
                 <div className="navbar bg-white border-b">
                     <div className="hidden lg:flex mx-auto">
                         <ul className="flex space-x-5 px-1">
                             {collections.length > 0 && collections.slice(0, collections.length - 1).map(collec => {
-                                const active = location.pathname.includes(`/collections/${collec.name}`)
+                                const active = location.pathname.includes(`/collections/${collec.id}`)
                                 return (
-                                    <Link to={`/collections/${collec.name}`} key={collec.name}>
+                                    <Link to={`/collections/${collec.id}`} key={collec.id}>
                                         <div
                                             className={`px-4 py-2 text-lg cursor-pointer 
                                             ${active ? "text-sky-900 border-b-4" : "text-gray-700 hover:text-sky-900"}`}
-                                            style={active ? { borderBottomColor: "rgb(13, 145, 5)" } : {}}
+                                            style={active ? {borderBottomColor: "rgb(13, 145, 5)"} : {}}
                                         >
                                             {collec.name}
                                         </div>
-
                                     </Link>
                                 )
                             })}
 
                             {lastCollection && (
-                                <Link to={`/collections/${lastCollection.name}`}>
+                                <Link to={`/collections/${lastCollection.id}`}>
                                     <div
                                         className={`px-4 py-2 text-lg cursor-pointer 
-                                            ${location.pathname.includes(`/collections/${lastCollection.name}`)
+                                            ${location.pathname.includes(`/collections/${lastCollection.id}`)
                                             ? "text-sky-900 border-b-4 border-verify-supp-color"
                                             : "bg-red-600 text-white rounded-md"}`}>
                                         {lastCollection.name}
                                     </div>
                                 </Link>
                             )}
+
                         </ul>
                     </div>
                 </div>

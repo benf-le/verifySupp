@@ -10,33 +10,36 @@ export class ProductsService {
 
     }
 
-    async getProducts(cursor?: string, limit: number = 12) {
-        try {
-            const take = limit;
+  async getProducts(cursor?: string, limit: number = 12, collectionId?: string) {
+    try {
+      const take = limit;
 
-            const products = await this.prismaService.products.findMany({
-              take,
-              skip: cursor ? 1 : 0,
-              cursor: cursor ?{id:cursor} : undefined,
-              orderBy:{createdAt:'desc'}
-            })
-          
-          const total = await this.prismaService.products.count()
-          
-           return {
-             data: products,
-             nextCursor: products.length === take ? products[products.length - 1].id : null,
-             total,
-             limit,
-             totalPages: Math.ceil(total / limit),
-           };
-        } catch (error) {
+      const products = await this.prismaService.products.findMany({
+        take,
+        skip: cursor ? 1 : 0,
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: { createdAt: 'desc' },
+        where: collectionId ? { collectionId } : undefined, // lọc theo collection
+      });
 
-            return error
-        }
+      const total = await this.prismaService.products.count({
+        where: collectionId ? { collectionId } : undefined,
+      });
+
+      return {
+        data: products,
+        nextCursor: products.length === take ? products[products.length - 1].id : null,
+        total,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      };
+    } catch (error) {
+      return error;
     }
+  }
 
-    async getProductsById(id: string) {
+
+  async getProductsById(id: string) {
         try {
             const productsById = await this.prismaService.products.findUnique({
                 where: {
