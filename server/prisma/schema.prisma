@@ -31,7 +31,7 @@ model Products {
   description      String
   ingredient       String
   reviews          String?
-  collection       Collection @relation(fields: [collectionId], references: [id],onDelete: Cascade)
+  collection       Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   collectionId     String     @db.ObjectId
 
   //
