@@ -13,8 +13,8 @@ export default function CartPage() {
     };
 
     return (
-        <div className="px-20 h-screen">
-            <main className="flex flex-row h-60">
+        <div className="px-20 ">
+            <main className="flex flex-row ">
                 <div className="basis-2/3">
                     <p className="pet-stock-text-color py-10 text-2xl font-semibold">
                         Your shopping cart
@@ -42,11 +42,11 @@ export default function CartPage() {
 
                             <div className="border border-slate-200 rounded w-10/12 mt-4">
                                 <p className="py-4 font-medium pl-5">Products</p>
-                                <div className="pt-5 pl-7 flex flex-col overflow-y-scroll h-[200px]">
+                                <div className="pt-5 pl-7 flex flex-col space-y-5">
                                     {cart.map((item) => (
                                         <div
                                             key={item.id}
-                                            className="flex flex-row border border-slate-200 rounded w-full mr-8 mb-5"
+                                            className="flex flex-row border border-slate-200 rounded w-full mr-8"
                                         >
                                             <div className="basis-2/12">
                                                 <img src={item.imageUrl} alt={item.name} />
@@ -69,7 +69,9 @@ export default function CartPage() {
                                                         +
                                                     </button>
                                                 </div>
-                                                <p className="mt-2">Total: ${(item.price * item.qty).toFixed(2)}</p>
+                                                <p className="mt-2">
+                                                    Total: ${(item.price * item.qty).toFixed(2)}
+                                                </p>
                                                 <button
                                                     className="mt-2 text-red-600 underline"
                                                     onClick={() => dispatch(removeFromCart(item.id))}
@@ -81,12 +83,14 @@ export default function CartPage() {
                                     ))}
                                 </div>
                             </div>
+
+
                         </div>
                     )}
                 </div>
 
                 <div className="basis-1/3 pt-10">
-                    <div className="bg-zinc-50 p-8 border rounded">
+                    <div className="bg-zinc-50 p-8 border rounded sticky top-20">
                         <p className="pet-stock-text-color text-3xl font-semibold pb-4">Cart Summary</p>
                         <hr />
                         <div className="py-5">
