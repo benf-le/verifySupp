@@ -66,7 +66,7 @@ export default function ProductsCard() {
 
     return (
         <div>
-            <div className="pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div className="pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {products && products.length > 0 ? (
                     products.map((item) => (
                         <Link key={item.id} to={`/products/${item.id}`}>
