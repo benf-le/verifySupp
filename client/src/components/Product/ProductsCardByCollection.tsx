@@ -52,7 +52,8 @@ export function ProductsCardByCollection() {
             name: product.name,
             price: product.price,
             imageUrl: product.imageUrl,
-            qty: 1
+            qty: 1,
+            type: ""
         }));
     };
 
@@ -72,7 +73,9 @@ export function ProductsCardByCollection() {
                                         <h2 className="card-title text-base line-clamp-2">
                                             {item.name}
                                         </h2>
-                                        <p className="py-2 text-3xl font-semibold">${item.price}</p>
+                                        <p className="py-2 text-3xl font-semibold">
+                                            ${(item.price / 100).toFixed(2)}
+                                        </p>
                                         <button
                                             onClick={(e) => {
                                                 e.preventDefault();   // chặn link

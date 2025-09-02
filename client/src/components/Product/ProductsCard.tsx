@@ -42,7 +42,8 @@ export default function ProductsCard() {
             name: product.name,
             price: product.price,
             imageUrl: product.imageUrl,
-            qty: 1
+            qty: 1,
+            type: ""
         }));
     };
     // Hàm tính range page hiển thị
@@ -76,7 +77,9 @@ export default function ProductsCard() {
                                 <div className="card-body">
                                     <h2 className="card-title text-base line-clamp-2">{item.name}</h2>
                                     {/*<p className="text-sm">{item.descriptionShort}</p>*/}
-                                    <p className="py-2 text-3xl font-semibold">${item.price}</p>
+                                    <p className="py-2 text-3xl font-semibold">
+                                        ${(item.price / 100).toFixed(2)}
+                                    </p>
                                     <button
                                         onClick={(e) => {
                                             e.preventDefault();   // chặn link
