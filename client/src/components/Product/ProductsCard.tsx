@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import {Link, useParams} from "react-router-dom";
 import { Products } from "../../models/Products";
 import HandleProducts from "../../api/HandleProducts";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/cartSlice.ts";
 
 export default function ProductsCard() {
     const { id: collectionId } = useParams(); // lấy collectionId từ URL
@@ -10,6 +12,7 @@ export default function ProductsCard() {
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 8;
+    const dispatch = useDispatch();
 
     useEffect(() => {
         getProducts(null, 1);
@@ -33,6 +36,15 @@ export default function ProductsCard() {
         }
     };
 
+    const handleAddToCart = (product: Products) => {
+        dispatch(addToCart({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            imageUrl: product.imageUrl,
+            qty: 1
+        }));
+    };
     // Hàm tính range page hiển thị
     const getPaginationRange = (current: number, total: number, delta: number = 2) => {
         const range: (number | string)[] = [];
@@ -63,8 +75,18 @@ export default function ProductsCard() {
                                 </figure>
                                 <div className="card-body">
                                     <h2 className="card-title text-base line-clamp-2">{item.name}</h2>
-                                    <p className="text-sm">{item.descriptionShort}</p>
+                                    {/*<p className="text-sm">{item.descriptionShort}</p>*/}
                                     <p className="py-2 text-3xl font-semibold">${item.price}</p>
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();   // chặn link
+                                            e.stopPropagation();  // ngăn bubble
+                                            handleAddToCart(item);
+                                        }}
+                                        className="mt-2 px-3 py-2 verify-supp-color text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                    >
+                                        Add to Cart
+                                    </button>
                             </div>
                         </div>
                     </Link>
