@@ -70,12 +70,14 @@ export default function ProductsCard() {
                 {products && products.length > 0 ? (
                     products.map((item) => (
                         <Link key={item.id} to={`/products/${item.id}`}>
-                            <div className="card w-52 bg-base-100 shadow-xl mb-10">
+                            <div className="card w-64 bg-base-100 shadow-xl mb-10">
                                 <figure className="relative w-full h-full bg-white rounded-xl p-6 border-gray-100">
                                     <img src={item.imageUrl} alt={item.name}/>
                                 </figure>
                                 <div className="card-body">
-                                    <h2 className="card-title text-base line-clamp-2">{item.name}</h2>
+                                    <h2 className="card-title text-base line-clamp-2 min-h-[3rem]">
+                                        {item.name}
+                                    </h2>
                                     {/*<p className="text-sm">{item.descriptionShort}</p>*/}
                                     <p className="py-2 text-3xl font-semibold">
                                         ${(item.price / 100).toFixed(2)}

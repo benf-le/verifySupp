@@ -62,15 +62,15 @@ export function ProductsCardByCollection() {
             {collections.map(col => (
                 <div key={col.id} className="mb-10">
                     <h2 className="text-2xl font-bold mb-4">{col.name}</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {productsByCollection[col.id]?.map(item => (
                             <Link to={`/products/${item.id}`} key={item.id}>
-                                <div className="card mx-auto w-56 bg-base-400 shadow-xl mb-10">
+                                <div className="card mx-auto w-64 bg-base-400 shadow-xl mb-10">
                                     <figure className="relative w-full h-full bg-white rounded-xl p-6 border-gray-100">
                                         <img src={item.imageUrl} alt={item.name} />
                                     </figure>
                                     <div className="card-body">
-                                        <h2 className="card-title text-base line-clamp-2">
+                                        <h2 className="card-title text-base line-clamp-2 min-h-[3rem]">
                                             {item.name}
                                         </h2>
                                         <p className="py-2 text-3xl font-semibold">
