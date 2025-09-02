@@ -49,6 +49,23 @@ const cartSlice = createSlice({
             state.items = state.items.filter((item) => item.name !== action.payload);
             saveCartToStorage(state.items);
         },
+        increaseQty: (state, action: PayloadAction<string>) => {
+            const item = state.items.find((i) => i.id === action.payload);
+            if (item) {
+                item.qty += 1;
+            }
+            saveCartToStorage(state.items);
+        },
+        decreaseQty: (state, action: PayloadAction<string>) => {
+            const item = state.items.find((i) => i.id === action.payload);
+            if (item && item.qty > 1) {
+                item.qty -= 1;
+            } else {
+                // nếu qty = 1 thì xóa luôn sp
+                state.items = state.items.filter((i) => i.id !== action.payload);
+            }
+            saveCartToStorage(state.items);
+        },
         clearCart: (state) => {
             state.items = [];
             saveCartToStorage([]);
@@ -56,5 +73,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart,increaseQty,decreaseQty } = cartSlice.actions;
 export default cartSlice.reducer;
