@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type CartItem = {
+    id: string;
     name: string;
     imageUrl: string;
     price: number;
@@ -46,7 +47,7 @@ const cartSlice = createSlice({
             saveCartToStorage(state.items);
         },
         removeFromCart: (state, action: PayloadAction<string>) => {
-            state.items = state.items.filter((item) => item.name !== action.payload);
+            state.items = state.items.filter((item) => item.id !== action.payload);
             saveCartToStorage(state.items);
         },
         increaseQty: (state, action: PayloadAction<string>) => {
@@ -70,6 +71,7 @@ const cartSlice = createSlice({
             state.items = [];
             saveCartToStorage([]);
         },
+
     },
 });
 
