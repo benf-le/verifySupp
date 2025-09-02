@@ -7,10 +7,13 @@ import {decreaseQty, increaseQty, removeFromCart} from "../redux/cartSlice.ts";
 export default function CartPage() {
     const cart = useSelector((state: RootState) => state.cart.items);
     const dispatch = useDispatch();
+    window.scrollTo(0, 0);
+
 
     const calculateTotal = () => {
         return cart.reduce((sum, item) => sum + item.price * item.qty, 0).toFixed(2);
     };
+
 
     return (
         <div className="px-20 ">
