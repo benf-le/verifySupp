@@ -8,36 +8,29 @@ import {BASE_URL} from "../../constant/appInfo.ts";
 
 export default function PageProduct(){
 
-    const [productPage, setProductPage] = useState(null)
-    const id = useParams().id;
-
-    // console.log(id)
+    const [collection, setCollection] = useState<Collection | null>(null);
+    const { id } = useParams();
 
     useEffect(() => {
-        const getProductsDetail = async () => {
-            const api = `/collections/${id}`
-
-            fetch(BASE_URL+ api)
-                .then(response => {
-                    response.json()
-                        .then(data => setProductPage(data))
-                        .catch(error => console.log(error))
-                })
-
-
-        }
-        getProductsDetail()
-    }, [])
-
-
-    console.log(productPage)
+        const getCollectionDetail = async () => {
+            try {
+                const api = `/collections/${id}`;
+                const res = await fetch(BASE_URL + api);
+                const data = await res.json();
+                setCollection(data); // lưu full object collection
+            } catch (error) {
+                console.log("Error fetching collection:", error);
+            }
+        };
+        getCollectionDetail();
+    }, [id]); // chạy lại khi đổi collectionId
 
     return (
         <div>
 
              <div className="px-20">
                 <div className="pet-stock-text-color py-10 text-5xl font-semibold uppercase ">
-                    {id}
+                    {collection ? collection.name : "Loading..."}
                 </div>
 
 
