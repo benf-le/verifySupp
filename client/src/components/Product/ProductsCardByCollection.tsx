@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import {Collection} from "../../models/Collections.ts";
 import {Products} from "../../models/Products.ts";
 import HandleProducts from "../../api/HandleProducts.ts";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/cartSlice.ts";
 
 
 export function ProductsCardByCollection() {
     const [collections, setCollections] = useState<Collection[]>([]);
     const [productsByCollection, setProductsByCollection] = useState<Record<string, Products[]>>({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
         getCollections();
@@ -43,6 +46,16 @@ export function ProductsCardByCollection() {
         }
     };
 
+    const handleAddToCart = (product: Products) => {
+        dispatch(addToCart({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            imageUrl: product.imageUrl,
+            qty: 1
+        }));
+    };
+
     return (
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-12 xl:px-20 my-8">
             {collections.map(col => (
@@ -60,6 +73,16 @@ export function ProductsCardByCollection() {
                                             {item.name}
                                         </h2>
                                         <p className="py-2 text-3xl font-semibold">${item.price}</p>
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();   // chặn link
+                                                e.stopPropagation();  // ngăn bubble
+                                                handleAddToCart(item);
+                                            }}
+                                            className="mt-2 px-3 py-2 verify-supp-color text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                        >
+                                            Add to Cart
+                                        </button>
                                     </div>
                                 </div>
                             </Link>
