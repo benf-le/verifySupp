@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import { Collection } from '../types/common';
 import { apiGet } from '../utils/apiUtils';
+import {Collection} from "../models/Collections.ts";
 
 export const useCollections = (fetchOnMount: boolean = true) => {
     const [cookies] = useCookies(['AuthToken']);

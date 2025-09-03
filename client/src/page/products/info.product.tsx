@@ -6,11 +6,12 @@ import OptionNearYou from "../../components/Product/OptionNearYou";
 import {BASE_URL} from "../../constant/appInfo.ts";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/cartSlice.ts";
+import {Products} from "../../models/Products.ts";
 
 
 export default function ProductInforPage() {
 
-    const [productDetail, setProductDetail] = useState(null)
+    const [productDetail, setProductDetail] = useState<Products | null>(null);
     const [deliverOne, setDeliverOne] = useState(false)
     const [autoShip, setAutoShip] = useState(false)
     let [qty, setQty] = useState(1)
@@ -56,6 +57,7 @@ export default function ProductInforPage() {
                 price: Number(productDetail.price),
                 type: productDetail.type,
                 qty,
+                id: ""
             })
         );
     };

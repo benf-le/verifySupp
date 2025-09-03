@@ -121,8 +121,11 @@ export default function ProductsCard() {
                             onClick={() => {
                                 if (page === 1) {
                                     getProducts(null, 1);
-                                } else if (page > currentPage && cursor) {
-                                    getProducts(cursor, page);
+                                } else { // @ts-ignore
+                                    if (page > currentPage && cursor) {
+                                                                        // @ts-ignore
+                                        getProducts(cursor, page);
+                                                                    }
                                 }
                             }}
                             className={`px-4 py-2 rounded-md border ${

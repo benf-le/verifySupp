@@ -15,7 +15,7 @@ import {RootState} from "../redux/store.ts";
 export default function Header() {
     const [collections, setCollections] = useState<Collection[]>([])
     const [user, setUser] = useState('')
-    const [type, setType] = useState('')
+    const [_type, setType] = useState('')
     const [cookies, , removeCookie] = useCookies(['AuthToken'])
     const authToken = cookies.AuthToken
 

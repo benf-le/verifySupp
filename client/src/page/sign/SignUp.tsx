@@ -1,10 +1,11 @@
 
-import React, {useState} from "react";
+import {useState} from "react";
 import axios from "axios";
-import Header from "../../components/Header";
+
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {BASE_URL} from "../../constant/appInfo.ts";
+import {ApiError} from "../../utils/apiUtils.ts";
 
 const SignUp = () => {
     let navigate = useNavigate()
@@ -17,11 +18,11 @@ const SignUp = () => {
 
     })
 
-    const [confirmPassword, setConfirmPassword] = useState<string>(null) //Sử dụng <string> là cách để cho TypeScript biết rằng confirmPassword là một biến có kiểu dữ liệu là chuỗi.
+    const [confirmPassword, setConfirmPassword] = useState<string>() //Sử dụng <string> là cách để cho TypeScript biết rằng confirmPassword là một biến có kiểu dữ liệu là chuỗi.
     // const [password, setPassword] = React.useState({ })
-    const [error, setError] = useState<string>(null)
+    const [error, setError] = useState<string>()
 
-    const onSignUp = async (e) => {
+    const onSignUp = async (e:any) => {
 
         e.preventDefault() //chặn reload trang
         try {
@@ -51,12 +52,13 @@ const SignUp = () => {
 
 
             }
-        } catch (error) {
-            // Xử lý lỗi từ API NestJS
-            if (error.response) {
-                setError(error.response.data.message); // Lấy thông báo lỗi từ phản hồi API
+        } catch (error: unknown) {
+            if (error instanceof ApiError) {
+                // Nếu lỗi là ApiError, lấy message trực tiếp
+                setError(error.message);
             } else {
-                setError('Something went wrong. Please try again later.'); // Lỗi không rõ ràng không có phản hồi từ API
+                // Lỗi khác, không phải ApiError
+                setError('Something went wrong. Please try again later.');
             }
         }
     }

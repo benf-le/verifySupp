@@ -1,18 +1,17 @@
 import  {useEffect, useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import jwt_decode from "jwt-decode";
 
 function HeaderAdmin() {
     // @ts-ignore
     const [cookies, setCookie, removeCookie] = useCookies(['AuthToken'])
-    const [user, setUser] = useState('')
+    const [_user, setUser] = useState('')
 
 
     const authToken = cookies.AuthToken
 
 
-    const navigate = useNavigate()
     const getUser = async () => {
         try {
 
@@ -38,15 +37,7 @@ function HeaderAdmin() {
 
     }, [])
 
-    function Logout() {
 
-        removeCookie('AuthToken', cookies.AuthToken)
-        if (!removeCookie) {
-        } else {
-            navigate('/')
-        }
-        window.location.reload() //nen sua cho nay de load lai trang chu
-    }
 
     return (
         <div>

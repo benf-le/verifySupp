@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ProductsCard from "../../components/Product/ProductsCard";
 import {BASE_URL} from "../../constant/appInfo.ts";
+import {Collection} from "../../models/Collections.ts";
 
 
 export default function PageProduct(){

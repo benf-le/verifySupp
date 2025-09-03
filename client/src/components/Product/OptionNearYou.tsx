@@ -1,4 +1,3 @@
-import React from 'react'
 import {FiMapPin} from "react-icons/fi";
 import {Link} from "react-router-dom";
 import {BiShoppingBag, BiStoreAlt} from "react-icons/bi";

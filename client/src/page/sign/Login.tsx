@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import jwt_decode from "jwt-decode";
 import {BASE_URL} from "../../constant/appInfo.ts";
+import {ApiError} from "../../utils/apiUtils.ts";
 
 
 
@@ -33,7 +34,7 @@ const Login = () => {
     }, [typee, navigate]);
 
 
-    const onLogin = async (e) =>  {
+    const onLogin = async (e: { preventDefault: () => void; }) =>  {
         e.preventDefault() //chặn reload trang
         try {
             const response = await axios.post(BASE_URL+`/login`, user)
@@ -67,12 +68,13 @@ const Login = () => {
             }
 
 
-        } catch (error) {
-            // Xử lý lỗi từ API NestJS
-            if (error.response) {
-                setError(error.response.data.message); // Lấy thông báo lỗi từ phản hồi API
+        } catch (error: unknown) {
+            if (error instanceof ApiError) {
+                // Nếu lỗi là ApiError, lấy message trực tiếp
+                setError(error.message);
             } else {
-                setError('Something went wrong. Please try again later.'); // Lỗi không rõ ràng không có phản hồi từ API
+                // Lỗi khác, không phải ApiError
+                setError('Something went wrong. Please try again later.');
             }
         }
     }
