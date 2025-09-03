@@ -8,6 +8,6 @@ async function bootstrap() {
 
   // add middleware HERE!
   app.useGlobalPipes(new ValidationPipe()); //request gửi đến controller thì đi qua ValidationPipe
-  await app.listen(7000);
+  await app.listen(process.env.PORT || 7000);
 }
 bootstrap();
