@@ -56,7 +56,7 @@ export default function CartPage() {
                                             </div>
                                             <div className="basis-10/12 bg-yellow-50 p-2">
                                                 <p className="font-medium">{item.name}</p>
-                                                <p>${item.price}</p>
+                                                <p>${(item.price/100).toFixed(2)}</p>
                                                 <div className="flex items-center space-x-2 mt-2">
                                                     <button
                                                         className="px-2 py-1 bg-gray-200 rounded"
