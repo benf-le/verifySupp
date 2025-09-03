@@ -36,7 +36,7 @@ steps:
     - '--port=7000'
     - '--allow-unauthenticated'
     - '--set-env-vars=NON_SECRET_VAR=some_value'
-    - '--set-secrets=DATABASE_URL=db-connection-string:latest,JWT_SECRET=jwt-secret:latest'
+    - '--set-secrets=DATABASE_URL=db-connection-string:latest,JSON_TOKEN_KEY=jwt-secret:latest'
 
 # ==============================================================================
 # FRONTEND DEPLOYMENT (ReactJS on GCS)
