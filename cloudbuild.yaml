@@ -3,6 +3,11 @@ steps:
 # BACKEND DEPLOYMENT (NestJS on Cloud Run)
 # ==============================================================================
 
+# 0. Generate Prisma Client
+- name: 'node:22'
+  entrypoint: 'npx'
+  args: ['prisma', 'generate']
+  dir: 'server' # Thư mục chứa code backend
 # 1. Build backend Docker image
 - name: 'gcr.io/cloud-builders/docker'
   args:
@@ -47,13 +52,7 @@ steps:
   args: ['build']
   dir: 'client'
 
-# 6. Generate Prisma Client
-- name: 'node:22'
-  entrypoint: 'npx'
-  args: ['prisma', 'generate']
-  dir: 'server' # Thư mục chứa code backend
-
-# 7. Deploy frontend to GCS
+# 5. Deploy frontend to GCS
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gsutil'
   args:
