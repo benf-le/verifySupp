@@ -47,7 +47,13 @@ steps:
   args: ['build']
   dir: 'client'
 
-# 5. Deploy frontend to GCS
+# 6. Generate Prisma Client
+- name: 'node:22'
+  entrypoint: 'npx'
+  args: ['prisma', 'generate']
+  dir: 'server' # Thư mục chứa code backend
+
+# 7. Deploy frontend to GCS
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gsutil'
   args:
