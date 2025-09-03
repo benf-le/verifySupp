@@ -61,3 +61,9 @@ steps:
 # This is required to tell Cloud Build which images to push to the registry.
 images:
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/verifysupp-nest-app-repo/verifysupp-nest-app:$SHORT_SHA'
+
+# ==============================================================================
+# ADD LOGGING OPTIONS TO FIX ERROR
+# ==============================================================================
+options:
+  logging: CLOUD_LOGGING_ONLY
