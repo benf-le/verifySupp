@@ -1,0 +1,63 @@
+steps:
+# ==============================================================================
+# BACKEND DEPLOYMENT (NestJS on Cloud Run)
+# ==============================================================================
+
+# 1. Build backend Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'build'
+    - '-t'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/verifysupp-nest-app-repo/verifysupp-nest-app:$SHORT_SHA'
+    - '.'
+  dir: 'server' # Thư mục chứa code NestJS
+
+# 2. Push backend image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'push'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/verifysupp-nest-app-repo/verifysupp-nest-app:$SHORT_SHA'
+
+# 3. Deploy backend to Cloud Run with Secrets
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+    - 'run'
+    - 'deploy'
+    - 'verifysupp-nest-app-service'
+    - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/verifysupp-nest-app-repo/verifysupp-nest-app:$SHORT_SHA'
+    - '--region=us-central1'
+    - '--platform=managed'
+    - '--port=7000'
+    - '--allow-unauthenticated'
+    - '--set-env-vars=NON_SECRET_VAR=some_value'
+    - '--set-secrets=DATABASE_URL=db-connection-string:latest,JWT_SECRET=jwt-secret:latest'
+
+# ==============================================================================
+# FRONTEND DEPLOYMENT (ReactJS on GCS)
+# ==============================================================================
+
+# 4. Build frontend
+- name: 'node:22' # Sử dụng phiên bản Node.js hiện đại
+  entrypoint: 'yarn'
+  args: ['install']
+  dir: 'client' # Thư mục chứa code ReactJS
+- name: 'node:22'
+  entrypoint: 'yarn'
+  args: ['build']
+  dir: 'client'
+
+# 5. Deploy frontend to GCS
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gsutil'
+  args:
+    - '-m'
+    - 'rsync'
+    - '-r'
+    - './dist' # Thư mục build của Vite là 'dist'
+    - 'gs://verifysupp-reactjs-bucket-name'
+  dir: 'client'
+
+# This is required to tell Cloud Build which images to push to the registry.
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/verifysupp-nest-app-repo/verifysupp-nest-app:$SHORT_SHA'
