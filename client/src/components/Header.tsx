@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import HandleProducts from "../api/HandleProducts";
 
 import {AiOutlineUser} from "react-icons/ai";
@@ -18,6 +18,7 @@ export default function Header() {
     const [_type, setType] = useState('')
     const [cookies, , removeCookie] = useCookies(['AuthToken'])
     const authToken = cookies.AuthToken
+    const navigate = useNavigate();
 
     const cartItems = useSelector((state: RootState) => state.cart.items);
     const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
@@ -53,6 +54,10 @@ export default function Header() {
         }
     }
 
+    const handleSearch = (keyword: string) => {
+        navigate(`/search?query=${encodeURIComponent(keyword)}`);
+    };
+
     const lastCollection = collections.length > 0 ? collections[collections.length - 1] : null;
 
     function Logout() {
@@ -70,7 +75,7 @@ export default function Header() {
                     </div>
 
                     <div className="basis-1/2 ">
-                        <ButtonInputSearch placeholder="Search"/>
+                        <ButtonInputSearch placeholder="Search" onSearch={handleSearch}/>
                     </div>
 
                     <div className="basis-1/4 justify-center">
