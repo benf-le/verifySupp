@@ -19,8 +19,13 @@ export class ProductsController{
     async getProducts(
       @Query('cursor') cursor?: string,
       @Query('limit') limit: string = '12',
-      @Query('collectionId') collectionId?: string,   // 👈 nhận collectionId từ FE
+      @Query('collectionId') collectionId?: string,
+      @Query('search') search?: string// 👈 nhận collectionId từ FE
     ) {
+      if(search){
+        return this.productsService.searchProducts(search);
+      }
+
       return await this.productsService.getProducts(cursor, +limit, collectionId);
     }
 
@@ -36,10 +41,7 @@ export class ProductsController{
         return await this.productsService.getProductsById(id)
     }
 
-    // @Post("/create-product")
-    // async creatProducts(productsDTO:ProductDTO){
-    //     return this.productsService.creatProducts(productsDTO)
-    // }
+
     @Roles(UserType.ADMIN)
     @UseGuards(AuthorizationGuard)
     @Post("/create-product")

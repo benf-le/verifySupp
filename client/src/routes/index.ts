@@ -11,6 +11,7 @@ import DashboardPage from "../page/admin/DashboardPage.tsx";
 
 import UsersPage from "../page/admin/UsersPage.tsx";
 import CollectionsPage from "../page/admin/CollectionsPage.tsx";
+import SearchPage from "../components/SearchPage.tsx";
 
 export const routes = [
     {
@@ -41,6 +42,11 @@ export const routes = [
     {
         path: '/cart',
         page: CartPage,
+        isShowHeader: true
+    },
+    {
+        path: '/search',
+        page: SearchPage,
         isShowHeader: true
     },
     {

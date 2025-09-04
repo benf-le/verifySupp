@@ -67,6 +67,24 @@ export class ProductsService {
         }
     }
 
+    async searchProducts(keyword: string) {
+      try {
+        return await this.prismaService.products.findMany({
+          where: {
+
+              name:{
+                contains: keyword,
+                mode: 'insensitive'
+              }
+
+          }
+        })
+      }
+      catch (error) {
+        return error
+      }
+    }
+
     async creatProducts(productsDTO: ProductDTO, userId: string) {
         try {
             const productss = await this.prismaService.products.create({
