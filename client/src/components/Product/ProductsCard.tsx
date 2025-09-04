@@ -9,6 +9,7 @@ export default function ProductsCard() {
     const { id: collectionId } = useParams(); // lấy collectionId từ URL
     const [products, setProducts] = useState<Products[]>([]);
     const [cursor, setCursor] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 8;
@@ -19,6 +20,7 @@ export default function ProductsCard() {
     }, [collectionId]); // load lại khi đổi collectionId
 
     const getProducts = async (cursorValue: string | null, page: number) => {
+        setLoading(true);
         const api = cursorValue
             ? `/products?collectionId=${collectionId}&cursor=${cursorValue}&limit=${limit}`
             : `/products?collectionId=${collectionId}&limit=${limit}`;
@@ -33,6 +35,8 @@ export default function ProductsCard() {
             }
         } catch (e: any) {
             console.log(`Product not found: ${e.message}`);
+        }finally {
+            setLoading(false);
         }
     };
 
@@ -67,37 +71,47 @@ export default function ProductsCard() {
     return (
         <div>
             <div className="pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {products && products.length > 0 ? (
+                {loading ? (
+                    <p>Loading...</p>
+                ) : products.length > 0 ? (
                     products.map((item) => (
-                        <Link key={item.id} to={`/products/${item.id}`}>
-                            <div className="card w-64 bg-base-100 shadow-xl mb-10">
-                                <figure className="relative w-full h-full bg-white rounded-xl p-6 border-gray-100">
-                                    <img src={item.imageUrl} alt={item.name}/>
-                                </figure>
-                                <div className="card-body">
-                                    <h2 className="card-title text-base line-clamp-2 min-h-[3rem]">
+                        <div className="card w-64 bg-base-100 shadow-xl mb-10">
+                            <figure className="relative w-full h-full bg-white rounded-t-xl p-6 border-gray-100">
+                                <Link to={`/products/${item.id}`} className="block w-full h-full">
+                                    <img
+                                        src={item.imageUrl}
+                                        alt={item.name}
+                                        className="object-contain w-full h-full"
+                                    />
+                                </Link>
+                            </figure>
+
+                            <div className="card-body">
+                                <Link to={`/products/${item.id}`}>
+                                    <h2 className="card-title text-base line-clamp-2 min-h-[3rem] hover:underline">
                                         {item.name}
                                     </h2>
-                                    {/*<p className="text-sm">{item.descriptionShort}</p>*/}
                                     <p className="py-2 text-3xl font-semibold">
                                         ${(item.price / 100).toFixed(2)}
                                     </p>
-                                    <button
-                                        onClick={(e) => {
-                                            e.preventDefault();   // chặn link
-                                            e.stopPropagation();  // ngăn bubble
-                                            handleAddToCart(item);
-                                        }}
-                                        className="mt-2 px-3 py-2 verify-supp-color text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                    >
-                                        Add to Cart
-                                    </button>
+                                </Link>
+
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        handleAddToCart(item);
+                                    }}
+                                    className="mt-2 px-3 py-2 verify-supp-color text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                >
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
-                    </Link>
-                ))
+
+                    ))
                 ) : (
-                    <p>No products found</p>
+                    <p>No products found.</p>
                 )}
             </div>
 
