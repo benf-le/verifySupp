@@ -12,7 +12,7 @@ export default function ProductsCard() {
     const [loading, setLoading] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const limit = 8;
+    const limit = 9;
     const dispatch = useDispatch();
 
     useEffect(() => {
