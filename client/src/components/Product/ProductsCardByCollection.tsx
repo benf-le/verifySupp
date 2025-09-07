@@ -11,6 +11,7 @@ import {addToCart} from "../../redux/cartSlice.ts";
 export function ProductsCardByCollection() {
     const [collections, setCollections] = useState<Collection[]>([]);
     const [productsByCollection, setProductsByCollection] = useState<Record<string, Products[]>>({});
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,6 +20,7 @@ export function ProductsCardByCollection() {
 
     const getCollections = async () => {
         try {
+            setLoading(true);
             const res: any = await HandleProducts.getProducts(`/collections`);
             if (res) {
                 setCollections(res);
@@ -29,12 +31,14 @@ export function ProductsCardByCollection() {
             }
         } catch (e) {
             console.log("Collections not found:", e);
+        } finally {
+            setLoading(false);
         }
     };
 
     const getProductsByCollection = async (collectionId: string) => {
         try {
-            const res: any = await HandleProducts.getProducts(`/products?collectionId=${collectionId}&limit=5`);
+            const res: any = await HandleProducts.getProducts(`/products?collectionId=${collectionId}&limit=4`);
             if (res && res.data) {
                 setProductsByCollection(prev => ({
                     ...prev,
@@ -59,7 +63,9 @@ export function ProductsCardByCollection() {
 
     return (
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-12 xl:px-20 my-8">
-            {collections.map(col => (
+            {loading ? (<p>Loading...</p>)
+                : collections.length > 0 ? (
+                collections.map(col => (
                 <div key={col.id} className="mb-10">
                     <h2 className="text-2xl font-bold mb-4">{col.name}</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -92,7 +98,11 @@ export function ProductsCardByCollection() {
                         ))}
                     </div>
                 </div>
-            ))}
+
+                ))
+                ) : (
+                <p>No products found.</p>
+                )}
         </div>
     );
 }
