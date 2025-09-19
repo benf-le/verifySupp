@@ -9,13 +9,6 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
-  // Ghi đè header X-Frame-Options
-  app.use((req, res, next) => {
-    res.removeHeader('X-Frame-Options');
-    // hoặc nếu bạn chỉ muốn allow frontend domain:
-    // res.setHeader('X-Frame-Options', 'ALLOW-FROM https://verifysupp.lecambang.id.vn');
-    next();
-  });
 
   // add middleware HERE!
   app.useGlobalPipes(new ValidationPipe()); //request gửi đến controller thì đi qua ValidationPipe

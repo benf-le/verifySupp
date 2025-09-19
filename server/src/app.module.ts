@@ -9,7 +9,6 @@ import {APP_GUARD, APP_INTERCEPTOR} from "@nestjs/core";
 import {UserInterceptors} from "./auth/interceptors/user.interceptors";
 import {AuthorizationGuard} from "./auth/guard/authorization.guard";
 import {UserModule} from "./user/user.module";
-import { ChatwootModule } from './integrations/chatwoot/chatwoot.module';
 
 @Module({
     imports: [
@@ -21,7 +20,6 @@ import { ChatwootModule } from './integrations/chatwoot/chatwoot.module';
         PrismaModule,
         ProductsModule,
         CollectionsModule,
-        ChatwootModule
     ],
     providers:[{
         provide: APP_INTERCEPTOR,
