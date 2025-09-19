@@ -58,7 +58,7 @@ export default function Header() {
         navigate(`/search?query=${encodeURIComponent(keyword)}`);
     };
 
-    const lastCollection = collections.length > 0 ? collections[collections.length - 1] : null;
+    // const lastCollection = collections.length > 0 ? collections[collections.length - 1] : null;
 
     function Logout() {
         removeCookie('AuthToken', cookies.AuthToken)
@@ -134,17 +134,17 @@ export default function Header() {
                                 )
                             })}
 
-                            {lastCollection && (
-                                <Link to={`/collections/${lastCollection.id}`}>
-                                    <div
-                                        className={`px-4 py-2 text-lg cursor-pointer 
-                                            ${location.pathname.includes(`/collections/${lastCollection.id}`)
-                                            ? "text-sky-900 border-b-4 border-verify-supp-color"
-                                            : "bg-red-600 text-white rounded-md"}`}>
-                                        {lastCollection.name}
-                                    </div>
-                                </Link>
-                            )}
+                            {/*{lastCollection && (*/}
+                            {/*    <Link to={`/collections/${lastCollection.id}`}>*/}
+                            {/*        <div*/}
+                            {/*            className={`px-4 py-2 text-lg cursor-pointer */}
+                            {/*                ${location.pathname.includes(`/collections/${lastCollection.id}`)*/}
+                            {/*                ? "text-sky-900 border-b-4 border-verify-supp-color"*/}
+                            {/*                : "bg-red-600 text-white rounded-md"}`}>*/}
+                            {/*            {lastCollection.name}*/}
+                            {/*        </div>*/}
+                            {/*    </Link>*/}
+                            {/*)}*/}
 
                         </ul>
                     </div>
