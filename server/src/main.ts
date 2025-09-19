@@ -5,9 +5,16 @@ import {ValidationPipe} from "@nestjs/common";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'https://verifysupp.lecambang.id.vn', // Thay bằng domain frontend của bạn
+    origin: 'https://verifysupp.lecambang.id.vn',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
+  });
+  // Ghi đè header X-Frame-Options
+  app.use((req, res, next) => {
+    res.removeHeader('X-Frame-Options');
+    // hoặc nếu bạn chỉ muốn allow frontend domain:
+    // res.setHeader('X-Frame-Options', 'ALLOW-FROM https://verifysupp.lecambang.id.vn');
+    next();
   });
 
   // add middleware HERE!
