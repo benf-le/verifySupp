@@ -6,9 +6,9 @@ import {ConfigModule} from "@nestjs/config";
 import { ProductsModule } from './products/products.module';
 import {CollectionsModule} from "./collections/collections.module";
 import {APP_GUARD, APP_INTERCEPTOR} from "@nestjs/core";
-import {UserInterceptors} from "./auth/interceptors/user.interceptors";
 import {AuthorizationGuard} from "./auth/guard/authorization.guard";
 import {UserModule} from "./user/user.module";
+import { UserInterceptors } from './auth/interceptors/user.interceptors';
 
 @Module({
     imports: [

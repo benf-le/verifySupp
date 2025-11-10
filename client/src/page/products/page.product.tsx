@@ -22,6 +22,7 @@ export default function PageProduct(){
             } catch (error) {
                 console.log("Error fetching collection:", error);
             }
+            window.scrollTo(0, 0);
         };
         getCollectionDetail();
     }, [id]); // chạy lại khi đổi collectionId
