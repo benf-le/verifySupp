@@ -30,6 +30,12 @@ export class ProductsController{
     }
 
 
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthorizationGuard)
+    @Get("/get-all-product")
+    async getAllProducts(){
+      return await this.productsService.getAllProducts()
+    }
 
     @Get("/sale")
     async getProductsSale(productsDTO:ProductDTO){

@@ -67,6 +67,16 @@ export class ProductsService {
         }
     }
 
+  async getAllProducts() {
+    try {
+      const productsAll = await this.prismaService.products.findMany()
+      return productsAll
+    } catch (error) {
+
+      return error
+    }
+  }
+
     async searchProducts(keyword: string) {
       try {
         return await this.prismaService.products.findMany({
