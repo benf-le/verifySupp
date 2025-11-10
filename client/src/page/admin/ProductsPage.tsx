@@ -110,18 +110,35 @@ function ProductsPage() {
     useEffect(() => {
         const getProductsDetail = async () => {
             try {
-                const response = await fetch(BASE_URL+`/products`);
-                if (response.ok) {
-                    const result = await response.json();
+                const response = await fetch(BASE_URL + `/products/get-all-product`, {
+                    headers: {
+                        'Authorization': `Bearer ${cookies.AuthToken}`, // nếu endpoint cần auth
+                        'Content-Type': 'application/json',
+                    }
+                });
 
-                    setProductsAdmin(result.data);
-                } else {
+                if (!response.ok) {
                     console.error('Failed to fetch products');
+                    setProductsAdmin([]); // fallback
+                    return;
                 }
+
+                const result = await response.json();
+
+                // Chuẩn hóa đa dạng shape: {data: []} hoặc [] hoặc {items: []}
+                const list: Products[] =
+                    Array.isArray(result?.data) ? result.data :
+                        Array.isArray(result?.items) ? result.items :
+                            Array.isArray(result) ? result :
+                                [];
+
+                setProductsAdmin(list);
             } catch (error) {
                 console.error('Error fetching products:', error);
+                setProductsAdmin([]); // fallback
             }
         };
+
 
         getProductsDetail();
         fetchCollections();
