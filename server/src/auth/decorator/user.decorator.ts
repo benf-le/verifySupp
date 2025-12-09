@@ -1,12 +1,14 @@
 // Decorator để lấy thông tin user cho tuwfng request
 
 import {createParamDecorator, ExecutionContext} from "@nestjs/common";
+import { UserType } from '@prisma/client';
 
 export interface UserInfo {
     email: string;
     id: string;
     createdAt: number
     updatedAt: number
+    userType?: UserType;
 }
 export const Users = createParamDecorator((data, context: ExecutionContext)=>{
     const request = context.switchToHttp().getRequest()

@@ -9,6 +9,7 @@ import {APP_GUARD, APP_INTERCEPTOR} from "@nestjs/core";
 import {AuthorizationGuard} from "./auth/guard/authorization.guard";
 import {UserModule} from "./user/user.module";
 import { UserInterceptors } from './auth/interceptors/user.interceptors';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { UserInterceptors } from './auth/interceptors/user.interceptors';
         PrismaModule,
         ProductsModule,
         CollectionsModule,
+        OrdersModule,
     ],
     providers:[{
         provide: APP_INTERCEPTOR,
