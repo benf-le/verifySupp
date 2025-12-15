@@ -12,6 +12,12 @@ import DashboardPage from "../page/admin/DashboardPage.tsx";
 import UsersPage from "../page/admin/UsersPage.tsx";
 import CollectionsPage from "../page/admin/CollectionsPage.tsx";
 import SearchPage from "../components/SearchPage.tsx";
+import CheckoutPage from "../page/Checkout";
+import OrderSuccessPage from "../page/OrderSuccess";
+import ViewOrderPage from "../page/ViewOrder";
+import MyOrdersPage from "../page/MyOrders";
+import OrdersPage from "../page/admin/OrdersPage";
+import OrderDetailAdminPage from "../page/admin/OrderDetailAdmin";
 
 export const routes = [
     {
@@ -71,12 +77,39 @@ export const routes = [
         page: UsersPage,
         isShowHeader: false
     },
-
+    {
+        path: '/checkout',
+        page: CheckoutPage,
+        isShowHeader: true
+    },
+    {
+        path: '/order-success/:orderId',
+        page: OrderSuccessPage,
+        isShowHeader: true
+    },
+    {
+        path: '/orders/:orderId',
+        page: ViewOrderPage,
+        isShowHeader: true
+    },
+    {
+        path: '/orders', // Thêm route này - phải đặt TRƯỚC /orders/:orderId
+        page: MyOrdersPage,
+        isShowHeader: true
+    },
+    {
+        path: '/admin/orders',
+        page: OrdersPage,
+        isShowHeader: true
+      },
+      {
+        path: '/admin/orders/:orderId',
+        page: OrderDetailAdminPage,
+        isShowHeader: true
+      },
     {
         path: '*',
         page: NotFoundPage,
         isShowHeader: false
     },
-
-
 ]
