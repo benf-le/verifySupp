@@ -57,7 +57,7 @@ export default function ProductInforPage() {
                 price: Number(productDetail.price),
                 type: productDetail.type,
                 qty,
-                id: ""
+                id: productDetail.id
             })
         );
     };

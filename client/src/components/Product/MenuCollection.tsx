@@ -1,123 +1,96 @@
+type MenuCollectionProps = {
+  types: string[];
+  search: string;
+  onSearchChange: (v: string) => void;
+  typeFilter: string;
+  onTypeChange: (v: string) => void;
+  priceMax: number;
+  priceCeil: number;
+  onPriceChange: (v: number) => void;
+  onReset: () => void;
+};
 
-function MenuCollection() {
+export default function MenuCollection({
+  types,
+  search,
+  onSearchChange,
+  typeFilter,
+  onTypeChange,
+  priceMax,
+  priceCeil,
+  onPriceChange,
+  onReset,
+}: MenuCollectionProps) {
   return (
-    <ul className="w-62 menu rounded-box bg-base-200">
-      <li>
-        <details>
-          <summary>Brand</summary>
-          <div className="form-control px-3">
-            <label className="label cursor-pointer justify-start ">
-              <input type="checkbox" className="checkbox-info checkbox" />
-              <span className="pl-3">Acana</span>
-            </label>
-            <label className="label cursor-pointer justify-start">
-              <input type="checkbox" className="checkbox-info checkbox" />
-              <span className="pl-3">Adaptil</span>
-            </label>
-          </div>
-        </details>
-       {/* <details>
-          <summary>Animal Type</summary>
-          <div className="form-control px-3">
-            <label className="label cursor-pointer justify-start ">
-              <input type="checkbox" className="checkbox-info checkbox" />
-              <span className="pl-3">Canine</span>
-            </label>
-            <label className="label cursor-pointer justify-start">
-              <input type="checkbox" className="checkbox-info checkbox" />
-              <span className="pl-3">Feline</span>
-            </label>
-          </div>
-        </details>*/}
-        <details>
-          <summary>Price</summary>
-          <input
-            type="range"
-            min={0}
-            max="100"
-            className="range range-primary"
-          />{" "}
-        </details>
-        {/*<details>*/}
-        {/*  <summary>Life Stage</summary>*/}
-        {/*  <div className="form-control px-3">*/}
-        {/*    <label className="label cursor-pointer justify-start ">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">All</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Adult</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Puppy</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Senior</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Kitten</span>*/}
-        {/*    </label>*/}
-        {/*  </div>*/}
-        {/*</details>*/}
-        {/*<details>*/}
-        {/*  <summary>Food Type</summary>*/}
-        {/*  <div className="form-control px-3">*/}
-        {/*    <label className="label cursor-pointer justify-start ">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Dry Food</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Wet Food</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Seasonal</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">RAW</span>*/}
-        {/*    </label>*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="checkbox" className="checkbox-info checkbox" />*/}
-        {/*      <span className="pl-3">Canned Food</span>*/}
-        {/*    </label>*/}
-        {/*  </div>*/}
-        {/*</details>*/}
-        <details>
-          <summary>Type</summary>
-          {/*<div className="form-control px-3">*/}
-          {/*  <label className="label cursor-pointer justify-start">*/}
-          {/*    <input type="checkbox" className="checkbox-info checkbox" />*/}
-          {/*    <span className="pl-3">Seasonal</span>*/}
-          {/*  </label>*/}
+    <div className="bg-base-200 rounded-xl p-4 space-y-4 border shadow-sm">
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text font-semibold">Search</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Search products..."
+          className="input input-bordered input-sm"
+          value={search}
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
+      </div>
 
-          {/*  <label className="label cursor-pointer justify-start">*/}
-          {/*    <input type="checkbox" className="checkbox-info checkbox" />*/}
-          {/*    <span className="pl-3">Wet Food</span>*/}
-          {/*  </label>*/}
-          {/*  <label className="label cursor-pointer justify-start">*/}
-          {/*    <input type="checkbox" className="checkbox-info checkbox" />*/}
-          {/*    <span className="pl-3">Canned Food</span>*/}
-          {/*  </label>*/}
-          {/*  <label className="label cursor-pointer justify-start">*/}
-          {/*    <input type="checkbox" className="checkbox-info checkbox" />*/}
-          {/*    <span className="pl-3">N/A</span>*/}
-          {/*  </label>*/}
+      <div className="divider my-2" />
 
-          {/*  <label className="label cursor-pointer justify-start ">*/}
-          {/*    <input type="checkbox" className="checkbox-info checkbox" />*/}
-          {/*    <span className="pl-3">Dry Food</span>*/}
-          {/*  </label>*/}
-          {/*</div>*/}
-        </details>
-      </li>
-    </ul>
+      <div>
+        <p className="font-semibold mb-2">Type</p>
+        <div className="space-y-2 max-h-52 overflow-auto pr-1">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="type-filter"
+              className="radio radio-sm radio-primary"
+              checked={typeFilter === "all"}
+              onChange={() => onTypeChange("all")}
+            />
+            <span className="text-sm">All</span>
+          </label>
+          {types.map((t) => (
+            <label key={t} className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="type-filter"
+                className="radio radio-sm radio-primary"
+                checked={typeFilter === t}
+                onChange={() => onTypeChange(t)}
+              />
+              <span className="text-sm">{t}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className="divider my-2" />
+
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="font-semibold">Price (max)</p>
+          <span className="text-sm text-gray-600">${priceMax.toFixed(2)}</span>
+        </div>
+        <input
+          type="range"
+          min={0}
+          max={Math.max(priceCeil, 0)}
+          value={priceMax}
+          step={1}
+          className="range range-primary"
+          onChange={(e) => onPriceChange(Number(e.target.value))}
+        />
+        <div className="flex justify-between text-xs text-gray-500">
+          <span>$0</span>
+          <span>${Math.max(priceCeil, 0).toFixed(2)}</span>
+        </div>
+      </div>
+
+      <button className="btn btn-outline btn-sm w-full" onClick={onReset}>
+        Reset filters
+      </button>
+    </div>
   );
 }
-
-export default MenuCollection;
