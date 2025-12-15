@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import {CHATWOOT_URL} from "../constant/appInfo.ts";
+import {CHATWOOT_URL, CHATWOOT_WEBSITE_TOKEN} from "../constant/appInfo.ts";
 
 
 declare global {
@@ -22,7 +22,8 @@ const ChatwootWidget = () => {
         script.onload = () => {
             if (window.chatwootSDK) {
                 window.chatwootSDK.run({
-                    websiteToken: "hc9K6rPXJJm6CQbeKtnsadeo",
+                    // websiteToken: 'ujffpSvAmgGaaBBhs1qA45a1',
+                    websiteToken: CHATWOOT_WEBSITE_TOKEN,
                     baseUrl: CHATWOOT_URL,
                 });
             }

@@ -36,6 +36,11 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action: PayloadAction<CartItem>) => {
+                // Validate id trước khi thêm vào cart
+            if (!action.payload.id || action.payload.id.trim() === '') {
+                console.error('Cannot add item to cart: product id is required', action.payload);
+                return; // Không thêm vào cart nếu không có id
+            }
             const existingItem = state.items.find(
                 (item) => item.name === action.payload.name
             );
