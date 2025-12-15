@@ -11,7 +11,8 @@ export interface Products {
     description: string
     ingredient: string
     reviews: string,
-    collectionId: string
+    collectionId: string,
+    createdAt?:string,
 }
 
 export type ProductType = 'box' | 'package' | 'carton';

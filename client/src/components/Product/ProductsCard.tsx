@@ -70,7 +70,7 @@ export default function ProductsCard() {
 
     return (
         <div>
-            <div className="pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="pl-24 my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                 {loading ? (
                     <p>Loading...</p>
                 ) : products.length > 0 ? (
