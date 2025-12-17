@@ -89,7 +89,7 @@ export default function OrdersPage() {
                     <span className="badge badge-ghost">Processing</span>
                   )}
                 </td>
-                <td className="font-semibold">${(o.totalPrice / 100).toFixed(2)}</td>
+                <td className="font-semibold">${o.totalPrice }</td>
                 <td>
                   <Link to={`/admin/orders/${o.id}`} className="btn btn-sm btn-primary">
                     Xem
