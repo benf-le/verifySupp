@@ -4,12 +4,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Collection {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(cuid()) @map("_id")
   name        String
   description String?
   products    Products[]
@@ -17,15 +17,15 @@ model Collection {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("collection") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
+  @@map("collection")
 }
 
 model Products {
-  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  id               String     @id @default(cuid()) @map("_id")
   descriptionShort String?
   imageUrl         String
   name             String
-  price            Int
+  price            Decimal    @db.Decimal(10, 2) // giá USD 2 chữ số thập phân
   forSale          Boolean    @default(false)
   type             String
   countInStock     Int
@@ -33,19 +33,18 @@ model Products {
   ingredient       String
   reviews          String?
   collection       Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
-  collectionId     String     @db.ObjectId
+  collectionId     String
 
-  //
   OrderItem OrderItem[]
-  //
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
 
-  @@map("products") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(cuid()) @map("_id")
   email     String   @unique
   password  String
   firstName String
@@ -59,9 +58,8 @@ model User {
   @@map("users")
 }
 
-// =================
 model Order {
-  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  id              String      @id @map("_id")
   orderItems      OrderItem[]
   shippingAddress String
   paymentMethod   String
@@ -69,7 +67,7 @@ model Order {
   shippingPrice   Int
   totalPrice      Int
   user            User        @relation(fields: [userId], references: [id])
-  userId          String      @db.ObjectId
+  userId          String
   isPaid          Boolean     @default(false)
   paidAt          DateTime?
   isDelivered     Boolean     @default(false)
@@ -78,11 +76,11 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("order") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
+  @@map("order")
 }
 
 model ShippingAddress {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String @id @default(cuid()) @map("_id")
   fullName String
   address  String
   city     String
@@ -91,21 +89,21 @@ model ShippingAddress {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("shippingaddress") //làm cách này để có thể đổi tên model tuỳ ý, mà có thể truy xuất data từ collection users của database
+  @@map("shippingaddress")
 }
 
 model OrderItem {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(cuid()) @map("_id")
   name      String
   amount    Int
   image     String
   price     Int
   discount  Int?
   product   Products @relation(fields: [productId], references: [id])
-  productId String   @db.ObjectId
+  productId String
 
   Order   Order?  @relation(fields: [orderId], references: [id])
-  orderId String? @db.ObjectId
+  orderId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
