@@ -40,7 +40,7 @@ export default function CheckoutPage() {
     }, [authToken, cart.length, navigate, isOrderSuccess]);
 
     const calculateItemsPrice = () => {
-        return cart.reduce((sum, item) => sum + (item.price / 100) * item.qty, 0);
+        return cart.reduce((sum, item) => sum + (item.price ) * item.qty, 0);
     };
 
     const calculateShippingPrice = () => {
@@ -113,9 +113,9 @@ export default function CheckoutPage() {
                 orderItems,
                 shippingAddress,
                 paymentMethod: formData.paymentMethod,
-                itemsPrice: Math.round(calculateItemsPrice() * 100), // Chuyển sang cents
-                shippingPrice: Math.round(calculateShippingPrice() * 100), // Chuyển sang cents
-                totalPrice: Math.round(calculateTotalPrice() * 100) // Chuyển sang cents
+                itemsPrice: calculateItemsPrice(), // Chuyển sang cents
+                shippingPrice: calculateShippingPrice(), // Chuyển sang cents
+                totalPrice: calculateTotalPrice() // Chuyển sang cents
             };
 
             console.log('Creating order with data:', orderData); // Debug log
@@ -264,11 +264,11 @@ export default function CheckoutPage() {
                                     <div className="flex-1">
                                         <p className="font-medium text-sm">{item.name}</p>
                                         <p className="text-sm text-gray-600">
-                                            ${(item.price / 100).toFixed(2)} x {item.qty}
+                                            ${item.price} | {item.qty}
                                         </p>
                                     </div>
                                     <p className="font-semibold">
-                                        ${((item.price / 100) * item.qty).toFixed(2)}
+                                        ${item.price * item.qty}
                                     </p>
                                 </div>
                             ))}
@@ -279,14 +279,14 @@ export default function CheckoutPage() {
                         <div className="space-y-2 mb-4">
                             <div className="flex justify-between">
                                 <span>Items Price</span>
-                                <span>${calculateItemsPrice().toFixed(2)}</span>
+                                <span>${calculateItemsPrice()}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span>Shipping</span>
                                 <span>
                                     {calculateShippingPrice() === 0 
                                         ? 'Free' 
-                                        : `$${calculateShippingPrice().toFixed(2)}`}
+                                        : `$${calculateShippingPrice()}`}
                                 </span>
                             </div>
                         </div>
@@ -295,7 +295,7 @@ export default function CheckoutPage() {
                         
                         <div className="flex justify-between pet-stock-text-color text-xl font-semibold mb-6">
                             <span>Total</span>
-                            <span>${calculateTotalPrice().toFixed(2)}</span>
+                            <span>${calculateTotalPrice()}</span>
                         </div>
 
                         <button

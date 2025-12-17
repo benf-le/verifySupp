@@ -9,7 +9,7 @@ export default function CartPage() {
   window.scrollTo(0, 0);
 
   const calculateTotal = () =>
-    cart.reduce((sum, item) => sum + (item.price / 100) * item.qty, 0).toFixed(2);
+    cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
   if (cart.length === 0) {
     return (
@@ -55,7 +55,7 @@ export default function CartPage() {
                   <div className="flex justify-between gap-2">
                     <div className="min-w-0">
                       <p className="font-semibold text-lg line-clamp-2">{item.name}</p>
-                      <p className="text-gray-600 mt-1">${(item.price / 100).toFixed(2)}</p>
+                      <p className="text-gray-600 mt-1">${item.price }</p>
                     </div>
                     <button
                       className="text-sm text-red-500 hover:underline"
@@ -86,7 +86,7 @@ export default function CartPage() {
                     <div className="text-sm text-gray-600">
                       Total:{" "}
                       <span className="font-semibold">
-                        ${((item.price / 100) * item.qty).toFixed(2)}
+                        ${(item.price  * item.qty)}
                       </span>
                     </div>
                   </div>

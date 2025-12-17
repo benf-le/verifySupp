@@ -159,7 +159,7 @@ export default function MyOrdersPage() {
                                     </div>
                                     <div className="text-right">
                                         <p className="text-2xl font-bold pet-stock-text-color mb-1">
-                                            ${(order.totalPrice / 100).toFixed(2)}
+                                            ${order.totalPrice }
                                         </p>
                                         <p className="text-sm text-gray-600">
                                             {order.orderItems.length} item{order.orderItems.length > 1 ? 's' : ''}
@@ -185,7 +185,7 @@ export default function MyOrdersPage() {
                                                         {item.name}
                                                     </p>
                                                     <p className="text-xs text-gray-600">
-                                                        Qty: {item.amount} × ${(item.price / 100).toFixed(2)}
+                                                        Qty: {item.amount} × ${item.price }
                                                     </p>
                                                 </div>
                                             </div>

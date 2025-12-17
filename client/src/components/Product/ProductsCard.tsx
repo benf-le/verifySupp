@@ -92,7 +92,7 @@ export default function ProductsCard() {
                                         {item.name}
                                     </h2>
                                     <p className="py-2 text-3xl font-semibold">
-                                        ${(item.price / 100).toFixed(2)}
+                                        ${item.price }
                                     </p>
                                 </Link>
 

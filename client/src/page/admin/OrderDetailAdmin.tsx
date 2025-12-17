@@ -100,7 +100,7 @@ export default function OrderDetailAdminPage() {
                       </Link>
                       <p className="text-sm text-gray-600">Số lượng: {item.amount}</p>
                       <p className="text-sm text-gray-600">
-                        Đơn giá: ${(item.price / 100).toFixed(2)} | Thành tiền: ${((item.price / 100) * item.amount).toFixed(2)}
+                        Đơn giá: ${item.price } | Thành tiền: ${((item.price) * item.amount)}
                       </p>
                     </div>
                   </div>
@@ -124,18 +124,18 @@ export default function OrderDetailAdminPage() {
               <h2 className="card-title">Tóm tắt</h2>
               <div className="flex justify-between">
                 <span>Tiền hàng</span>
-                <span className="font-semibold">${(order.itemsPrice / 100).toFixed(2)}</span>
+                <span className="font-semibold">${order.itemsPrice }</span>
               </div>
               <div className="flex justify-between">
                 <span>Phí ship</span>
                 <span className="font-semibold">
-                  {order.shippingPrice === 0 ? "Free" : `$${(order.shippingPrice / 100).toFixed(2)}`}
+                  {order.shippingPrice === 0 ? "Free" : `$${order.shippingPrice }`}
                 </span>
               </div>
               <div className="divider"></div>
               <div className="flex justify-between text-lg font-bold">
                 <span>Tổng</span>
-                <span>${(order.totalPrice / 100).toFixed(2)}</span>
+                <span>${order.totalPrice }</span>
               </div>
             </div>
           </div>

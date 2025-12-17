@@ -177,16 +177,16 @@ export default function ViewOrderPage() {
                                             </p>
                                             {item.discount && item.discount > 0 && (
                                                 <p className="text-sm text-red-600 mt-1">
-                                                    Discount: ${(item.discount / 100).toFixed(2)}
+                                                    Discount: ${item.discount}
                                                 </p>
                                             )}
                                         </div>
                                         <div className="text-right">
                                             <p className="font-semibold text-lg">
-                                                ${((item.price / 100) * item.amount).toFixed(2)}
+                                                ${(item.price * item.amount)}
                                             </p>
                                             <p className="text-sm text-gray-600">
-                                                ${(item.price / 100).toFixed(2)} each
+                                                ${item.price} each
                                             </p>
                                         </div>
                                     </div>
@@ -211,7 +211,7 @@ export default function ViewOrderPage() {
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Items Price</span>
                                     <span className="font-semibold">
-                                        ${(order.itemsPrice / 100).toFixed(2)}
+                                        ${order.itemsPrice }
                                     </span>
                                 </div>
                                 <div className="flex justify-between">
@@ -219,13 +219,13 @@ export default function ViewOrderPage() {
                                     <span className="font-semibold">
                                         {order.shippingPrice === 0
                                             ? 'Free'
-                                            : `$${(order.shippingPrice / 100).toFixed(2)}`}
+                                            : `$${order.shippingPrice }`}
                                     </span>
                                 </div>
                                 <hr />
                                 <div className="flex justify-between text-xl font-bold pet-stock-text-color">
                                     <span>Total</span>
-                                    <span>${(order.totalPrice / 100).toFixed(2)}</span>
+                                    <span>${order.totalPrice }</span>
                                 </div>
                             </div>
 

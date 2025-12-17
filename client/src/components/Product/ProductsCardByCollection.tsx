@@ -143,7 +143,7 @@ export function ProductsCardByCollection() {
                           <div className="card-body">
                             <h3 className="card-title text-base line-clamp-2 min-h-[3rem]">{item.name}</h3>
                             <p className="py-2 text-2xl font-semibold">
-                              ${(item.price / 100).toFixed(2)}
+                              ${item.price}
                             </p>
                             <button
                               onClick={(e) => {

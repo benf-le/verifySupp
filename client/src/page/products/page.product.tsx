@@ -35,13 +35,14 @@ export default function PageProduct() {
         const colData = await colRes.json();
         setCollection(colData);
 
-        // products in collection (fetch nhiều hơn một trang để lọc client-side)
+        // products in collection
         const prodRes = await fetch(`${BASE_URL}/products?collectionId=${id}&limit=100`);
         const prodData = await prodRes.json();
 
         if (prodData?.data) {
           setProducts(prodData.data);
-          const maxPrice = Math.max(...prodData.data.map((p: Products) => p.price / 100));
+          // --- FIX 1: Lấy giá gốc, không chia 100 ---
+          const maxPrice = Math.max(...prodData.data.map((p: Products) => p.price));
           setPriceCeil(maxPrice || 0);
           setPriceMax(maxPrice || 0);
         } else {
@@ -81,7 +82,8 @@ export default function PageProduct() {
     }
 
     if (priceMax > 0) {
-      list = list.filter((p) => p.price / 100 <= priceMax);
+      // --- FIX 2: So sánh giá gốc, không chia 100 ---
+      list = list.filter((p) => p.price <= priceMax);
     }
 
     if (sortBy === "price-asc") {
@@ -208,7 +210,7 @@ export default function PageProduct() {
                         {item.name}
                       </h2>
                       <p className="py-2 text-2xl font-semibold">
-                        ${(item.price / 100).toFixed(2)}
+                        ${item.price}
                       </p>
                       {item.type && <p className="badge badge-ghost">{item.type}</p>}
                     </Link>
@@ -218,7 +220,7 @@ export default function PageProduct() {
                         e.stopPropagation();
                         handleAddToCart(item);
                       }}
-                      className="btn btn-primary btn-sm mt-2"
+                      className="btn mt-2 verify-supp-color text-white"
                     >
                       Add to Cart
                     </button>
