@@ -38,6 +38,7 @@
     "http-proxy-middleware": "^3.0.5",
     "jsonwebtoken": "^9.0.1",
     "mapped-types": "^0.0.1",
+    "nanoid": "^3.3.4",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "prisma": "^5.0.0",

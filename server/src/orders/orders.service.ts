@@ -8,7 +8,10 @@ import {
   import { CreateOrderDTO, UpdateOrderDTO, OrderItemDTO } from './dto';
   import { UserInfo } from '../auth/decorator';
   import { UserType } from '@prisma/client';
-  
+  import { customAlphabet } from 'nanoid';
+
+  const generateOrderId = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 12);
+
   @Injectable()
   export class OrdersService {
     constructor(private readonly prismaService: PrismaService) {}
@@ -33,10 +36,13 @@ import {
             );
           }
         }
+
+        const newOrderId = generateOrderId();
   
         // Create order with order items
         const order = await this.prismaService.order.create({
           data: {
+            id: newOrderId,
             shippingAddress: createOrderDTO.shippingAddress,
             paymentMethod: createOrderDTO.paymentMethod,
             itemsPrice: createOrderDTO.itemsPrice,
