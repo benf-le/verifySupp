@@ -76,7 +76,7 @@ export default function OrdersPage() {
           <tbody>
             {filtered.map((o) => (
               <tr key={o.id}>
-                <td className="font-mono text-sm">{o.id.slice(-8).toUpperCase()}</td>
+                <td className="font-mono text-sm">{o.id.toUpperCase()}</td>
                 <td>{o.user?.email || o.userId}</td>
                 <td>{formatDate(o.createdAt)}</td>
                 <td>

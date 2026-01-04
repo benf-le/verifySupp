@@ -149,7 +149,7 @@ export default function MyOrdersPage() {
                                     <div className="mb-4 md:mb-0">
                                         <div className="flex items-center space-x-4 mb-2">
                                             <h3 className="text-xl font-semibold">
-                                                Order #{order.id.slice(-8).toUpperCase()}
+                                                Order #{order.id.toUpperCase()}
                                             </h3>
                                             {getStatusBadge(order)}
                                         </div>

@@ -93,6 +93,9 @@ export default function Header() {
                                 <ul tabIndex={0}
                                     className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                                     <li>
+                                        <Link to='/orders'>Orders</Link>
+                                    </li>
+                                    <li>
                                         <Link to='/user/profile'>Profile</Link>
                                     </li>
                                     <li onClick={Logout}><a>Logout</a></li>
