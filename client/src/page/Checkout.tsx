@@ -70,7 +70,7 @@ export default function CheckoutPage() {
                 validCart.forEach(item => {
                     dispatch(addToCart(item));
                 });
-                setError('Một số sản phẩm không hợp lệ đã được xóa khỏi giỏ hàng. Vui lòng kiểm tra lại.');
+                setError('Some invalid products have been removed from your cart. Please check again.');
             }
         }, []); // Chỉ chạy một lần khi mount
     const handleSubmit = async (e: React.FormEvent) => {
@@ -80,14 +80,14 @@ export default function CheckoutPage() {
 
         try {
             if (!authToken) {
-                throw new Error('Vui lòng đăng nhập để đặt hàng');
+                throw new Error('Please login to place an order');
             }
                     // Validate cart items có productId hợp lệ
             const invalidItems = cart.filter((item: CartItem) => !item.id || item.id.trim() === '');
             
             if (invalidItems.length > 0) {
                 throw new Error(
-                    `Một số sản phẩm trong giỏ hàng không hợp lệ. Vui lòng xóa và thêm lại sản phẩm: ${invalidItems.map(i => i.name).join(', ')}`
+                    `Some products in your cart are invalid. Please remove and add them again: ${invalidItems.map(i => i.name).join(', ')}`
                 );
             }
         // Chuyển đổi cart items thành order items - chỉ lấy items có id hợp lệ
@@ -103,7 +103,7 @@ export default function CheckoutPage() {
 
             // Kiểm tra lại nếu không có items hợp lệ
             if (orderItems.length === 0) {
-                throw new Error('Không có sản phẩm hợp lệ trong giỏ hàng. Vui lòng thêm sản phẩm vào giỏ hàng.');
+                throw new Error('No valid products in cart. Please add products to your cart.');
             }
 
             // Tạo shipping address string
@@ -124,7 +124,7 @@ export default function CheckoutPage() {
 
             if (!newOrder || !newOrder.id) {
                 console.error('Order response missing id:', newOrder);
-                throw new Error('Đơn hàng đã được tạo nhưng không nhận được ID. Vui lòng kiểm tra lại.');
+                throw new Error('Order was created but ID was not received. Please check again.');
             }
             
 
@@ -137,7 +137,7 @@ export default function CheckoutPage() {
                 dispatch(clearCart());
             }, 100);
         } catch (err: any) {
-            setError(err.message || 'Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.');
+            setError(err.message || 'An error occurred while placing the order. Please try again.');
             console.error('Order error:', err);
         } finally {
             setIsLoading(false);

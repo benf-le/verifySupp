@@ -15,10 +15,10 @@ const Home = () => {
             Get more for less with VerifySupp
           </h1>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Chọn lọc sản phẩm theo bộ sưu tập, giá tốt và chất lượng đảm bảo. Mua nhanh, giao nhanh.
+              Curated products by collection, great prices and guaranteed quality. Fast shopping, fast delivery.
           </p>
           <div className="flex flex-wrap gap-3 justify-center pt-2">
-            <a href="#collections" className="btn verify-supp-color text-white btn">Xem bộ sưu tập</a>
+            <a href="#collections" className="btn verify-supp-color text-white btn">View Collections</a>
             {/* <a href="/search" className="btn btn-outline btn-sm">Tìm kiếm</a> */}
           </div>
         </div>
@@ -29,20 +29,20 @@ const Home = () => {
         <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="card bg-base-200 text-primary-content shadow-sm">
             <div className="card-body">
-              <h3 className="card-title">Giá tốt</h3>
-              <p>Ưu đãi thường xuyên, nhiều sản phẩm sale.</p>
+            <h3 className="card-title">Fast Delivery</h3>
+            <p>Order today, receive as soon as possible.</p>
             </div>
           </div>
           <div className="card bg-base-200 shadow-sm">
             <div className="card-body">
-              <h3 className="card-title">Giao nhanh</h3>
-              <p>Đặt hôm nay, nhận sớm nhất có thể.</p>
+            <h3 className="card-title">Authentic</h3>
+            <p>Verified products with clear origin.</p>
             </div>
           </div>
           <div className="card bg-base-200 shadow-sm">
             <div className="card-body">
-              <h3 className="card-title">Chính hãng</h3>
-              <p>Sản phẩm được kiểm chứng, nguồn gốc rõ ràng.</p>
+            <h3 className="card-title">Authentic</h3>
+            <p>Verified products with clear origin.</p>
             </div>
           </div>
         </div>
@@ -53,10 +53,10 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold pet-stock-text-color">
-              Bộ sưu tập & sản phẩm
+            Collections & Products
             </h2>
             <a href="/search" className="text-sm text-primary hover:underline">
-              Xem tất cả
+            View All
             </a>
           </div>
           <ProductsCardByCollection />
