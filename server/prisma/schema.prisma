@@ -97,8 +97,8 @@ model OrderItem {
   name      String
   amount    Int
   image     String
-  price     Int
-  discount  Int?
+  price     Decimal  @db.Decimal(10, 2) // giá USD 2 chữ số thập phân, nhất quán với Products
+  discount  Decimal? @db.Decimal(10, 2)
   product   Products @relation(fields: [productId], references: [id])
   productId String
 

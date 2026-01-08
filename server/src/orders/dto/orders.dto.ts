@@ -7,7 +7,7 @@ import {
     ValidateNested,
     IsBoolean,
   } from 'class-validator';
-  import { Type } from 'class-transformer';
+  import { Type, Transform } from 'class-transformer';
   
   export class OrderItemDTO {
     @IsString()
@@ -24,10 +24,12 @@ import {
   
     @IsNumber()
     @IsNotEmpty()
-    price: number;
+    @Transform(({ value }) => parseFloat(value))
+    price: number; // Decimal - giá USD
   
     @IsNumber()
     @IsOptional()
+    @Transform(({ value }) => value ? parseFloat(value) : undefined)
     discount?: number;
   
     @IsString()
@@ -52,6 +54,7 @@ import {
   
     @IsNumber()
     @IsNotEmpty()
+    @Transform(({ value }) => parseInt(value, 10))
     itemsPrice: number;
   
     @IsNumber()
@@ -60,6 +63,7 @@ import {
   
     @IsNumber()
     @IsNotEmpty()
+    @Transform(({ value }) => parseInt(value, 10))
     totalPrice: number;
   }
   
