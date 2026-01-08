@@ -44,29 +44,31 @@ const ChatwootWidget = () => {
                 let decoded: any;
                 try {
                     decoded = jwt_decode(authToken);
+                    console.log('Decoded token:', decoded);
                 } catch (decodeError) {
                     console.error('Error decoding token:', decodeError);
                     return false;
                 }
 
-                // Lấy user ID - đảm bảo là string
-                const appUserId = decoded.sub || decoded.id || decoded.userId;
+                // Backend tạo token với field 'id' (không phải 'sub')
+                const appUserId = decoded.id;
                 
                 // Validate user ID
                 if (!appUserId) {
-                    console.error('No user ID found in token:', decoded);
+                    console.error('No user ID found in token. Decoded token:', decoded);
                     return false;
                 }
 
-                // Convert sang string nếu cần
+                // Convert sang string
                 const userIdString = String(appUserId).trim();
                 if (!userIdString) {
                     console.error('Invalid user ID format:', appUserId);
                     return false;
                 }
 
+                // Backend token có: firstName, email, id, userType
                 const appUserEmail = decoded.email || '';
-                const userName = decoded.firstName || decoded.name || '';
+                const userName = decoded.firstName || '';
 
                 console.log('Setting Chatwoot user:', {
                     identifier: userIdString,
