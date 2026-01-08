@@ -30,29 +30,65 @@ const ChatwootWidget = () => {
         const setChatwootUser = () => {
             try {
                 const authToken = cookies.AuthToken;
-                if (authToken && window.$chatwoot) {
-                    const decoded = jwt_decode(authToken) as any;
-                    const appUserId = decoded.sub || decoded.id;
-                    const appUserEmail = decoded.email;
-                    const userName = decoded.firstName || decoded.name;
-
-                    if (appUserId) {
-                        console.log('Setting Chatwoot user:', appUserId);
-                        window.$chatwoot.setUser(appUserId, {
-                            identifier: appUserId,
-                            email: appUserEmail,
-                            name: userName,
-                            custom_attributes: {
-                                app_user_id: appUserId,
-                            },
-                        });
-                        return true;
-                    }
+                if (!authToken) {
+                    console.log('No auth token found');
+                    return false;
                 }
+
+                if (!window.$chatwoot) {
+                    console.log('Chatwoot widget not ready yet');
+                    return false;
+                }
+
+                // Decode token
+                let decoded: any;
+                try {
+                    decoded = jwt_decode(authToken);
+                } catch (decodeError) {
+                    console.error('Error decoding token:', decodeError);
+                    return false;
+                }
+
+                // Lấy user ID - đảm bảo là string
+                const appUserId = decoded.sub || decoded.id || decoded.userId;
+                
+                // Validate user ID
+                if (!appUserId) {
+                    console.error('No user ID found in token:', decoded);
+                    return false;
+                }
+
+                // Convert sang string nếu cần
+                const userIdString = String(appUserId).trim();
+                if (!userIdString) {
+                    console.error('Invalid user ID format:', appUserId);
+                    return false;
+                }
+
+                const appUserEmail = decoded.email || '';
+                const userName = decoded.firstName || decoded.name || '';
+
+                console.log('Setting Chatwoot user:', {
+                    identifier: userIdString,
+                    email: appUserEmail,
+                    name: userName
+                });
+
+                // Set user với identifier là string hợp lệ
+                window.$chatwoot.setUser(userIdString, {
+                    identifier: userIdString,
+                    email: appUserEmail,
+                    name: userName,
+                    custom_attributes: {
+                        app_user_id: userIdString,
+                    },
+                });
+                
+                return true;
             } catch (error) {
                 console.error('Error setting Chatwoot user:', error);
+                return false;
             }
-            return false;
         };
 
         script.onload = () => {
@@ -62,8 +98,10 @@ const ChatwootWidget = () => {
                     baseUrl: CHATWOOT_URL,
                     callbacks: {
                         onLoad: () => {
-                            // Thử set user ngay
-                            setTimeout(setChatwootUser, 1000);
+                            // Đợi widget sẵn sàng
+                            setTimeout(() => {
+                                setChatwootUser();
+                            }, 1500);
                         },
                         onOpen: () => {
                             // Set lại user khi widget mở
